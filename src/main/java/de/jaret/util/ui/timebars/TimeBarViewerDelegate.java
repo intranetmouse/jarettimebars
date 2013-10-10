@@ -29,7 +29,9 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import de.jaret.util.date.Interval;
@@ -75,7 +77,7 @@ import de.jaret.util.ui.timebars.strategy.OverlapInfo;
  * TimeBarViewerInterface.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerDelegate.java 1068 2010-08-18 20:07:49Z kliem $
+ * @version $Id: TimeBarViewerDelegate.java 1089 2011-09-14 22:10:45Z kliem $
  */
 public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelectionListener, TimeBarMarkerListener,
         PropertyChangeListener {
@@ -576,6 +578,10 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             // TODO might be necessary to do this synchronized against an ongoing paint
             _rowList = newRowList;
 
+            // maybe the first row idx no longer available
+            if (_firstRow >= newRowList.size())
+                setLastRow(Math.max(0, newRowList.size() - 1)); // updates _firstRow gracefully
+            
             if (getRowCount() != oldRowCount && _tbvi != null) {
                 updateRowScrollBar(); // method switches to the right bar
             }
@@ -1402,8 +1408,11 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      */
     private void updateRowScrollBar() {
         int first = getFirstRow();
-        // TODO still a minimal glitch with the scrollbar appearance
-        updateRowScrollBar(getTotalHeight(), getAbsPosForRow(first) + _firstRowPixelOffset, _diagramRect.height);
+        int firstRowAbs = (first >= _rowList.size()) ? 0: getAbsPosForRow(first);
+        updateRowScrollBar(getTotalHeight(), firstRowAbs + _firstRowPixelOffset, _diagramRect.height);
+            
+            // TODO still a minimal glitch with the scrollbar appearance
+        //updateRowScrollBar(getTotalHeight(), getAbsPosForRow(first) + _firstRowPixelOffset, _diagramRect.height);
     }
 
     /**
@@ -2032,13 +2041,13 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      * Calculate the y coordinate in the diagram pane for the given row. Works only on displayed rows!
      * 
      * @param row row
-     * @return y coordinate in the diagram pane
+     * @return y coordinate in the diagram pane or -1 if the row is not displayed
      */
     public int yForRow(TimeBarRow row) {
         if (!_timeBarViewState.getUseVariableRowHeights()) {
             int idx = _rowList.indexOf(row);
             if (idx == -1) {
-                throw new RuntimeException("row is not in the row list");
+                return -1;
             }
             idx = idx - _firstRow;
             if (_orientation == Orientation.HORIZONTAL) {
@@ -2060,6 +2069,9 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
 
         int y = -_firstRowPixelOffset;
         int idx = _firstRow;
+        // if no row is displayed at all -1 is the result
+        if (_rowList.size() == 0)
+            return -1;
         TimeBarRow r = getRow(idx);
 
         while (y <= height) {
@@ -2104,7 +2116,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         } else {
             if (_orientation == Orientation.HORIZONTAL) {
                 int y = yForRow(row);
-                return new Rectangle(0, y, _tbvi.getWidth(), y + _timeBarViewState.getRowHeight(row));
+                return new Rectangle(0, y, _tbvi.getWidth(), _timeBarViewState.getRowHeight(row));
             } else {
                 int x = yForRow(row);
                 return new Rectangle(x, 0, _timeBarViewState.getRowHeight(row), _tbvi.getHeight());
@@ -2564,11 +2576,17 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             if (_tbvi != null) {
                 // pixel difference of the old and the new position
                 int diff;
-                if (!_timeBarViewState.getUseVariableRowHeights()) {
-                    diff = (firstRow * _timeBarViewState.getDefaultRowHeight() + pixOffset)
-                            - (oldVal * _timeBarViewState.getDefaultRowHeight() + oldOffset);
+                
+                // if called after a change of the row list, the calculation of the difference is not possible
+                if (oldVal > _rowList.size()) {
+                    diff = Integer.MAX_VALUE;
                 } else {
-                    diff = (getAbsPosForRow(firstRow) + pixOffset) - (getAbsPosForRow(oldVal) + oldOffset);
+                    if (!_timeBarViewState.getUseVariableRowHeights()) {
+                        diff = (firstRow * _timeBarViewState.getDefaultRowHeight() + pixOffset)
+                                - (oldVal * _timeBarViewState.getDefaultRowHeight() + oldOffset);
+                    } else {
+                        diff = (getAbsPosForRow(firstRow) + pixOffset) - (getAbsPosForRow(oldVal) + oldOffset);
+                    }
                 }
                 // if not optimized scrolling or more than 2 thirds difference
                 // -> do a complete repaint
@@ -2648,6 +2666,11 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         // setFirstRow(0, 0);
         // }
 
+        // invalid index -> go for the first row
+        if (index >= _rowList.size()) {
+            setFirstRow(0, 0);
+            return;
+        }
         TimeBarRow row = getRow(index);
         int absY = getAbsPosForRow(index);
         int endY = absY + _timeBarViewState.getRowHeight(row);
@@ -4021,7 +4044,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      * @return <code>true</code> if a row line is hit
      */
     public boolean rowLineHit(int x, int y) {
-        if (_yAxisRect.contains(x, y) || _hierarchyRect.contains(x, y)) {
+        if (_rowList.size() > 0 && (_yAxisRect.contains(x, y) || _hierarchyRect.contains(x, y))) {
             int coord;
             int max;
             if (_orientation == Orientation.HORIZONTAL) {
@@ -4124,7 +4147,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      * 
      * @param curSelRect selction rectangle
      */
-    private void selectIntervals(Rectangle curSelRect) {
+    public void selectIntervals(Rectangle curSelRect) {
         // get the intervals in question
         List<Interval> intervals = getIntervals(curSelRect);
         // now ensure they are in the selection of intervals
@@ -4150,7 +4173,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      * @param curSelRect the marking rectangle.
      * @return a list of intervals inside the rectangle
      */
-    private List<Interval> getIntervals(Rectangle curSelRect) {
+    public List<Interval> getIntervals(Rectangle curSelRect) {
         List<Interval> result = new ArrayList<Interval>();
         boolean horizontal = _orientation == Orientation.HORIZONTAL;
         // first get the rows
@@ -4389,6 +4412,25 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                 // retrieve all intervals in the row for the x coordinate
                 String tooltip = null;
                 List<Interval> intervals = getIntervalsAt(row, x, y);
+                
+                
+                
+                // hack for Pierre-Jean (has to be done in a better way sometime) TODO
+//                int range = 10; // 10 pixel
+//                if (intervals.size()==0) {
+//                    Set<Interval> set = new HashSet<Interval>();
+//                    for (int xxx=x-range;xxx<=x+range;xxx++) {
+//                        set.addAll(getIntervalsAt(row, xxx, y));
+//                    }
+//                    intervals = new ArrayList<Interval>();
+//                    intervals.addAll(set);
+//                }
+                // END hack for Pierre-Jean
+                
+                
+                
+                // TODO diagram tooltip
+                
                 // no intervals? Tooltip of the diagram itself
                 if (intervals.size() == 0) {
                     // may be over a relation

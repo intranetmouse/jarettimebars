@@ -11,6 +11,58 @@
 			<subsection name="Keep updated: the timebars on Twitter">
 				If you want to know about new versions you can follow the timebars on twitter: <a href="http://twitter.com/jaret_timebars">http://twitter.com/jaret_timebars</a>.
 			</subsection>
+			<subsection name="2011-10-04 version 1.45">
+				<ul>
+					<li>
+						<b>IMPORTANT:</b> Since Eclipse 3.7 introduced getOrientation in the component I had to refactor the old set/getOrientation methods to set/get<b>TB</b>Orientation
+						This change has to be reflected in the timebars addon -> check the update if you need the addons.
+					</li>
+					<li>
+						Swing: improved scroll units (Thx Chris)
+					</li>
+					<li>
+						Swing: included a fix (Thx Chris) making the distribution of intervals better when using uniform height.
+					</li>
+					<li>
+						Fixed an issue that caused an incorrect behavior when applying a filter to a scrolled viewer using variable row heights (Exception) (Thx Chris)
+					</li>
+					<li>
+						Fixed exception when using dragging of row heights/lines and no rows present (Thx Chris)
+					</li>
+					<li>
+						Swing: Fixed a drawing bug that caused drawing of the last row on top of the first row (variable row heights only) (Thx Chris)
+					</li>
+					<li>
+						Swing: Fixed a rendering bug for the title renderer component when using other layout mangers than border layout or box layout (Thx Chris)
+					</li>
+					<li>
+						Fixed a quite obvious bug in delegate.getRowBounds that caused the height of the returned rectangle to be to large when using horizontal orientation (Thx Chris)
+					</li>
+					<li>
+						Fixed Delegate.yForRow to handle variableHeights+no rows displayed correctly (Thx Chris)
+					</li>
+					<li>
+						Swing: fixed Pop-Up handling on Linux (Thx Patrick!)
+					</li>
+					<li>
+						Swing: Fixed a clipping bug that caused huge intervals to be rendered outside the viewer (OSX, Linux)
+					</li>
+					<li>
+						Swing: Fixed a clipping bug that caused caused a minor glitch when scrolling "under" the header (Thx Chris)
+					</li>
+					<li>
+						SWT: New combining TimeScaleRenderer that allows the use of two time scale renderers. New simple DateStripRenderer that can be used to maintain 
+						a steady view of the starting date. TimeScaleRenderer interface has a new simple to implement method: supportsOptimizedScrolling - check the JavaDoc.
+					</li>
+					<li>
+						Swing: (Thx David): Fixed SWT import
+					</li>
+					<li>
+						Exposed scrollXXXtoVisible methods in the viewers (check the delegate if something is missing)
+					</li>
+					
+				</ul>
+			</subsection>
 			<subsection name="2010-08-18 version 1.44">
 				<ul>
 					<li>

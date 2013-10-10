@@ -138,7 +138,7 @@ import de.jaret.util.ui.timebars.swt.util.actions.JaretTimeBarsActionFactory;
  * </p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 894 2009-11-02 22:29:11Z kliem $
+ * @version $Id: TimeBarViewer.java 1086 2011-07-30 20:28:05Z kliem $
  */
 public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISelectionProvider {
     /** DEBUGGING OPTION: if set to true the actual paint times will be printed to stdout. */
@@ -2152,8 +2152,8 @@ public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISe
      * 
      * @param date date to be shown.
      */
-    public void scrollDateToVisible(JaretDate date) {
-        _delegate.scrollDateToVisible(date);
+    public int scrollDateToVisible(JaretDate date) {
+        return _delegate.scrollDateToVisible(date);
     }
 
     /**
@@ -2735,6 +2735,14 @@ public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISe
             diff = -diff;
             scroll(d.x + diff, d.y, d.x, d.y, d.width - diff, d.height, false);
         }
+        
+        // there might be timescale renderers not supporting optimized scrolling. In this case just
+        // initiate a redraw of the x axis area
+        if (_timeScaleRenderer != null && !_timeScaleRenderer.supportsOptimizedScrolling()) {
+            Rectangle r = convertRect(_delegate.getXAxisRect());
+            redraw(r.x, r.y, r.width, r.height, false);
+        }
+        
     }
 
     /**
@@ -2777,14 +2785,14 @@ public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISe
     /**
      * {@inheritDoc}
      */
-    public Orientation getOrientation() {
+    public Orientation getTBOrientation() {
         return _delegate.getOrientation();
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setOrientation(Orientation orientation) {
+    public void setTBOrientation(Orientation orientation) {
         _delegate.setOrientation(orientation);
     }
 

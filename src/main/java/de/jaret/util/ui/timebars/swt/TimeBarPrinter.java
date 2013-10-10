@@ -54,7 +54,7 @@ import de.jaret.util.ui.timebars.swt.renderer.TitleRenderer;
  * Utility class for printing a time bar chart. All renderers used have to support the creation of a print renderer.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarPrinter.java 1024 2010-06-14 21:16:24Z kliem $
+ * @version $Id: TimeBarPrinter.java 1083 2011-07-01 20:29:16Z kliem $
  */
 public class TimeBarPrinter {
     /** default margin in cm. */
@@ -261,8 +261,8 @@ public class TimeBarPrinter {
         }
 
         // orientation
-        boolean horizontal = tbv.getOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL);
-        _delegate.setOrientation(tbv.getOrientation());
+        boolean horizontal = tbv.getTBOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL);
+        _delegate.setOrientation(tbv.getTBOrientation());
 
         // markers
         _delegate.addMarkers(tbv.getMarkers());

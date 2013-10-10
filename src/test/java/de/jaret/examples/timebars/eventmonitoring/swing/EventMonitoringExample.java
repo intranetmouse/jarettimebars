@@ -32,8 +32,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -41,8 +39,6 @@ import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JPopupMenu;
 import javax.swing.Timer;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
 
 import de.jaret.examples.timebars.eventmonitoring.model.CollectingTimeBarNode;
 import de.jaret.examples.timebars.eventmonitoring.model.EventInterval;
@@ -73,7 +69,7 @@ import de.jaret.util.ui.timebars.swing.renderer.DefaultTitleRenderer;
  * Example showing events (non modificable).
  * 
  * @author Peter Kliem
- * @version $Id: EventMonitoringExample.java 974 2009-12-22 22:15:29Z kliem $
+ * @version $Id: EventMonitoringExample.java 1073 2010-11-22 21:25:33Z kliem $
  */
 public class EventMonitoringExample {
     TimeBarViewer _tbv;
@@ -458,7 +454,7 @@ public class EventMonitoringExample {
     /**
      * Simple zoom action.
      * @author kliem
-     * @version $Id: EventMonitoringExample.java 974 2009-12-22 22:15:29Z kliem $
+     * @version $Id: EventMonitoringExample.java 1073 2010-11-22 21:25:33Z kliem $
      */
     class ZoomAction extends AbstractAction implements ISelectionRectListener{
         TimeBarViewer _tbv;

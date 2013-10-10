@@ -44,7 +44,7 @@ import de.jaret.util.ui.timebars.swing.renderer.OldDefaultTimeScaleRenderer;
  * Swing: the swing version of the calendar example (without drag and drop).
  * 
  * @author Peter Kliem
- * @version $Id: SwingCalendarExample.java 841 2009-02-17 21:17:42Z kliem $
+ * @version $Id: SwingCalendarExample.java 1083 2011-07-01 20:29:16Z kliem $
  */
 public class SwingCalendarExample {
     static TimeBarViewer _tbv;
@@ -67,7 +67,7 @@ public class SwingCalendarExample {
         // this is the col width!
         _tbv.setRowHeight(150);
         
-        _tbv.setOrientation(TimeBarViewerInterface.Orientation.VERTICAL);
+        _tbv.setTBOrientation(TimeBarViewerInterface.Orientation.VERTICAL);
         // vertical: the y axiswidth is the height of the row headers!
         _tbv.setYAxisWidth(20);
         

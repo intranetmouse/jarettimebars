@@ -29,9 +29,9 @@ import org.eclipse.swt.widgets.Display;
 import de.jaret.util.date.DateUtils;
 import de.jaret.util.date.JaretDate;
 import de.jaret.util.ui.timebars.TickScaler;
+import de.jaret.util.ui.timebars.TickScaler.Range;
 import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
-import de.jaret.util.ui.timebars.TickScaler.Range;
 import de.jaret.util.ui.timebars.strategy.ITickProvider;
 import de.jaret.util.ui.timebars.swt.renderer.AbstractGridRenderer;
 import de.jaret.util.ui.timebars.swt.renderer.GridRenderer;
@@ -40,7 +40,7 @@ import de.jaret.util.ui.timebars.swt.renderer.GridRenderer;
  * Grid renderer for the calendar example, dividing the day in work and non work parts..
  * 
  * @author Peter Kliem
- * @version $Id: CalendarGridRenderer.java 856 2009-04-02 18:54:40Z kliem $
+ * @version $Id: CalendarGridRenderer.java 1073 2010-11-22 21:25:33Z kliem $
  */
 public class CalendarGridRenderer extends AbstractGridRenderer implements GridRenderer {
     /** default color for the major grid (r,g,b). */

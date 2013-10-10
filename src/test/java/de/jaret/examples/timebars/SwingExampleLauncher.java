@@ -26,10 +26,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.event.SwingPropertyChangeSupport;
 
+import de.jaret.examples.timebars.calendar.swing.SwingCalendarExample;
 import de.jaret.examples.timebars.eventmonitoring.swing.EventMonitoringExample;
 import de.jaret.examples.timebars.events.swing.SwingEventExample;
 import de.jaret.examples.timebars.hierarchy.swing.SwingHierarchy;
+import de.jaret.examples.timebars.pdi.swing.PdiExample;
 import de.jaret.examples.timebars.scheduling.swing.SwingSchedulingExample;
 import de.jaret.examples.timebars.simple.swing.SwingOverlapExample;
 
@@ -100,6 +103,26 @@ public class SwingExampleLauncher {
             
             public void actionPerformed(ActionEvent e) {
                 SwingSchedulingExample.main(new String[0]);
+            }
+        });
+        contentPane.add(b);
+
+        b = new JButton();
+        b.setText("PDI");
+        b.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                PdiExample.main(new String[0]);
+            }
+        });
+        contentPane.add(b);
+
+        b = new JButton();
+        b.setText("Calendar");
+        b.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                SwingCalendarExample.main(new String[0]);
             }
         });
         contentPane.add(b);

@@ -34,7 +34,7 @@ public class AppointmentRenderer implements TimeBarRenderer {
      * Component for the renderer.
      * 
      * @author kliem
-     * @version $Id: AppointmentRenderer.java 869 2009-07-07 19:32:45Z kliem $
+     * @version $Id: AppointmentRenderer.java 1083 2011-07-01 20:29:16Z kliem $
      */
     @SuppressWarnings("serial")
     class AppRendererComponent extends JComponent {
@@ -68,7 +68,7 @@ public class AppointmentRenderer implements TimeBarRenderer {
             // draw focus
             // drawFocus(gc, drawingArea, delegate, interval, selected, printing, overlap);
 
-            boolean horizontal = _tbv.getOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL;
+            boolean horizontal = _tbv.getTBOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL;
             Rectangle iRect = getIRect(horizontal, _overlapping);
 
             Color fg = g.getColor();

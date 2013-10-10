@@ -27,8 +27,8 @@ import javax.swing.JComponent;
 import de.jaret.util.date.DateUtils;
 import de.jaret.util.date.JaretDate;
 import de.jaret.util.ui.timebars.TickScaler;
-import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.TickScaler.Range;
+import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.strategy.ITickProvider;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
 import de.jaret.util.ui.timebars.swing.renderer.GridRenderer;
@@ -37,7 +37,7 @@ import de.jaret.util.ui.timebars.swing.renderer.GridRenderer;
  * Grid renderer for the calendar example.
  * 
  * @author Peter Kliem
- * @version $Id: CalendarGridRenderer.java 836 2009-02-14 21:24:39Z kliem $
+ * @version $Id: CalendarGridRenderer.java 1083 2011-07-01 20:29:16Z kliem $
  */
 public class CalendarGridRenderer implements GridRenderer {
     /** color for major grid lines. */
@@ -67,7 +67,7 @@ public class CalendarGridRenderer implements GridRenderer {
      * JComponent for drawin gthe grid.
      * 
      * @author kliem
-     * @version $Id: CalendarGridRenderer.java 836 2009-02-14 21:24:39Z kliem $
+     * @version $Id: CalendarGridRenderer.java 1083 2011-07-01 20:29:16Z kliem $
      */
     @SuppressWarnings("serial")
     class MyGridRenderer extends JComponent {
@@ -92,7 +92,7 @@ public class CalendarGridRenderer implements GridRenderer {
          */
         public void paintComponent(Graphics g) {
 
-            boolean horizontal = _tbv.getOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL;
+            boolean horizontal = _tbv.getTBOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL;
 
             // first date
             JaretDate date = _tbv.getStartDate().copy();

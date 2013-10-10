@@ -42,9 +42,9 @@ import de.jaret.util.date.iterator.SecondIterator;
 import de.jaret.util.date.iterator.WeekIterator;
 import de.jaret.util.date.iterator.YearIterator;
 import de.jaret.util.swt.SwtGraphicsHelper;
+import de.jaret.util.ui.timebars.TickScaler.Range;
 import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
-import de.jaret.util.ui.timebars.TickScaler.Range;
 import de.jaret.util.ui.timebars.model.PPSInterval;
 import de.jaret.util.ui.timebars.strategy.ITickProvider;
 import de.jaret.util.ui.timebars.swt.TimeBarViewer;
@@ -54,7 +54,7 @@ import de.jaret.util.ui.timebars.swt.TimeBarViewer;
  * is used to display special and holidays in the tooltip. Suports horizontal and vertical orientation.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultTimeScaleRenderer.java 883 2009-10-07 21:03:00Z kliem $
+ * @version $Id: DefaultTimeScaleRenderer.java 1086 2011-07-30 20:28:05Z kliem $
  */
 public class DefaultTimeScaleRenderer extends RendererBase implements TimeScaleRenderer, ITickProvider {
 
@@ -574,5 +574,13 @@ public class DefaultTimeScaleRenderer extends RendererBase implements TimeScaleR
             iterator.setCorrectDST(correctDST);
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public boolean supportsOptimizedScrolling() {
+        return true;
+    }
+
 
 }

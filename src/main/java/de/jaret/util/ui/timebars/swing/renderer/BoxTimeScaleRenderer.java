@@ -51,7 +51,7 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * A default renderer for a time scale to be used in a TimeBarViewer.
  * 
  * @author Peter Kliem
- * @version $Id: BoxTimeScaleRenderer.java 883 2009-10-07 21:03:00Z kliem $
+ * @version $Id: BoxTimeScaleRenderer.java 1083 2011-07-01 20:29:16Z kliem $
  */
 public class BoxTimeScaleRenderer implements TimeScaleRenderer, ITickProvider {
     /** rendering component. */
@@ -82,7 +82,7 @@ public class BoxTimeScaleRenderer implements TimeScaleRenderer, ITickProvider {
      * JComponent for rendering the timescale.
      * 
      * @author kliem
-     * @version $Id: BoxTimeScaleRenderer.java 883 2009-10-07 21:03:00Z kliem $
+     * @version $Id: BoxTimeScaleRenderer.java 1083 2011-07-01 20:29:16Z kliem $
      */
     @SuppressWarnings("serial")
     class MyTimeScaleRenderer extends JComponent {
@@ -492,7 +492,7 @@ public class BoxTimeScaleRenderer implements TimeScaleRenderer, ITickProvider {
          * {@inheritDoc}
          */
         public String getToolTipText(MouseEvent event) {
-            if (_tbv.getOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL) {
+            if (_tbv.getTBOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL) {
                 JaretDate date = dateForX(event.getX());
                 return date.toDisplayString();
             } else {

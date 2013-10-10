@@ -37,7 +37,7 @@ import de.jaret.util.ui.timebars.swt.renderer.TimeScaleRenderer;
 
 /**
  * @author Peter Kliem
- * @version $Id: PdiTimeScaleRenderer.java 260 2007-02-17 20:36:33Z olk $
+ * @version $Id: PdiTimeScaleRenderer.java 1086 2011-07-30 20:28:05Z kliem $
  */
 public class PdiTimeScaleRenderer implements TimeScaleRenderer {
     protected static int RHEIGHT = 50;
@@ -92,4 +92,12 @@ public class PdiTimeScaleRenderer implements TimeScaleRenderer {
     public TimeScaleRenderer createPrintRenderer(Printer printer) {
         return new BoxTimeScaleRenderer(printer);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean supportsOptimizedScrolling() {
+        return true;
+    }
+
 }

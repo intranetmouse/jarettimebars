@@ -21,9 +21,6 @@ package de.jaret.examples.timebars.millis.swt;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
@@ -38,40 +35,23 @@ import de.jaret.examples.timebars.millis.model.ModelCreator;
 import de.jaret.examples.timebars.millis.swt.renderer.GlobalBreakRenderer;
 import de.jaret.examples.timebars.millis.swt.renderer.MilliGrid;
 import de.jaret.examples.timebars.millis.swt.renderer.MilliScale;
-import de.jaret.util.date.IntervalImpl;
 import de.jaret.util.date.JaretDate;
-import de.jaret.util.date.iterator.DateIterator;
-import de.jaret.util.date.iterator.DayIterator;
-import de.jaret.util.date.iterator.HourIterator;
-import de.jaret.util.date.iterator.IIteratorFormatter;
-import de.jaret.util.date.iterator.MillisecondIterator;
-import de.jaret.util.date.iterator.MinuteIterator;
-import de.jaret.util.date.iterator.MonthIterator;
-import de.jaret.util.date.iterator.SecondIterator;
-import de.jaret.util.date.iterator.WeekIterator;
-import de.jaret.util.date.iterator.YearIterator;
-import de.jaret.util.date.iterator.DateIterator.Format;
 import de.jaret.util.ui.timebars.TimeBarMarker;
 import de.jaret.util.ui.timebars.TimeBarMarkerImpl;
 import de.jaret.util.ui.timebars.TimeBarMarkerListener;
 import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.mod.DefaultIntervalModificator;
-import de.jaret.util.ui.timebars.model.DefaultRowHeader;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarModel;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarNode;
-import de.jaret.util.ui.timebars.model.DefaultTimeBarRowModel;
-import de.jaret.util.ui.timebars.model.PPSInterval;
 import de.jaret.util.ui.timebars.model.TimeBarModel;
 import de.jaret.util.ui.timebars.swt.TimeBarViewer;
-import de.jaret.util.ui.timebars.swt.renderer.BoxTimeScaleRenderer;
-import de.jaret.util.ui.timebars.swt.renderer.DefaultTimeScaleRenderer;
 import de.jaret.util.ui.timebars.swt.renderer.DefaultTitleRenderer;
 
 /**
  * Example showing millisecond accuracy usage.
  * 
  * @author Peter Kliem
- * @version $Id: MilliExample.java 894 2009-11-02 22:29:11Z kliem $
+ * @version $Id: MilliExample.java 1073 2010-11-22 21:25:33Z kliem $
  */
 public class MilliExample extends ApplicationWindow {
     private TimeBarViewer _tbv;

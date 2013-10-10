@@ -28,9 +28,9 @@ import de.jaret.util.date.JaretDate;
 import de.jaret.util.date.holidayenumerator.HolidayEnumerator;
 import de.jaret.util.swt.SwtGraphicsHelper;
 import de.jaret.util.ui.timebars.TickScaler;
+import de.jaret.util.ui.timebars.TickScaler.Range;
 import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
-import de.jaret.util.ui.timebars.TickScaler.Range;
 import de.jaret.util.ui.timebars.swt.TimeBarViewer;
 
 /**
@@ -39,7 +39,7 @@ import de.jaret.util.ui.timebars.swt.TimeBarViewer;
  * the tooltip. Suports horizontal and ertical orientation.
  * 
  * @author Peter Kliem
- * @version $Id: OldDefaultTimeScaleRenderer.java 836 2009-02-14 21:24:39Z kliem $
+ * @version $Id: OldDefaultTimeScaleRenderer.java 1086 2011-07-30 20:28:05Z kliem $
  */
 public class OldDefaultTimeScaleRenderer extends RendererBase implements TimeScaleRenderer {
 
@@ -483,6 +483,13 @@ public class OldDefaultTimeScaleRenderer extends RendererBase implements TimeSca
         OldDefaultTimeScaleRenderer dtsr = new OldDefaultTimeScaleRenderer(printer);
         dtsr.setHolidayEnumerator(_holidayEnumerator);
         return dtsr;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean supportsOptimizedScrolling() {
+        return true;
     }
 
 }

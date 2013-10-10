@@ -37,7 +37,7 @@ import de.jaret.util.ui.timebars.swt.renderer.TimeScaleRenderer;
  * Scale for the milli second accuracy example. Regions with special scale will not painted.
  * 
  * @author Peter Kliem
- * @version $Id: MilliScale.java 826 2009-02-07 12:49:00Z kliem $
+ * @version $Id: MilliScale.java 1086 2011-07-30 20:28:05Z kliem $
  */
 public class MilliScale extends RendererBase implements TimeScaleRenderer {
     public static final boolean SUPPRESS_WHEN_SCALED = true;
@@ -216,6 +216,13 @@ public class MilliScale extends RendererBase implements TimeScaleRenderer {
      */
     public TimeScaleRenderer createPrintRenderer(Printer printer) {
         return new MilliScale(printer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean supportsOptimizedScrolling() {
+        return true;
     }
 
 }

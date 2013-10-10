@@ -28,15 +28,15 @@ import de.jaret.util.date.DateUtils;
 import de.jaret.util.date.JaretDate;
 import de.jaret.util.swing.GraphicsHelper;
 import de.jaret.util.ui.timebars.TickScaler;
-import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.TickScaler.Range;
+import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
 
 /**
  * A default renderer for a time scale to be used in a TimeBarViewer.
  * 
  * @author Peter Kliem
- * @version $Id: OldDefaultTimeScaleRenderer.java 835 2009-02-14 21:03:52Z kliem $
+ * @version $Id: OldDefaultTimeScaleRenderer.java 1083 2011-07-01 20:29:16Z kliem $
  */
 public class OldDefaultTimeScaleRenderer implements TimeScaleRenderer {
     /** rendering component. */
@@ -62,7 +62,7 @@ public class OldDefaultTimeScaleRenderer implements TimeScaleRenderer {
      * JComponent for renderuing the timescale.
      * 
      * @author kliem
-     * @version $Id: OldDefaultTimeScaleRenderer.java 835 2009-02-14 21:03:52Z kliem $
+     * @version $Id: OldDefaultTimeScaleRenderer.java 1083 2011-07-01 20:29:16Z kliem $
      */
     @SuppressWarnings("serial")
     class MyTimeScaleRenderer extends JComponent {
@@ -103,7 +103,7 @@ public class OldDefaultTimeScaleRenderer implements TimeScaleRenderer {
          * {@inheritDoc}
          */
         public void paintComponent(Graphics g) {
-            if (_tbv.getOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL) {
+            if (_tbv.getTBOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL) {
                 paintHorizontal(g);
             } else {
                 paintVertical(g);
@@ -373,7 +373,7 @@ public class OldDefaultTimeScaleRenderer implements TimeScaleRenderer {
          * {@inheritDoc}
          */
         public String getToolTipText(MouseEvent event) {
-            if (_tbv.getOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL) {
+            if (_tbv.getTBOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL) {
                 JaretDate date = dateForX(event.getX());
                 return date.toDisplayString();
             } else {

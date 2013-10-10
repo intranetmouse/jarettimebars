@@ -35,7 +35,7 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * Default gap renderer showing the time between intervals and an double headed arrow.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultGapRenderer.java 800 2008-12-27 22:27:33Z kliem $
+ * @version $Id: DefaultGapRenderer.java 1083 2011-07-01 20:29:16Z kliem $
  */
 public class DefaultGapRenderer implements TimeBarGapRenderer {
     /** the rendering component. */
@@ -46,7 +46,7 @@ public class DefaultGapRenderer implements TimeBarGapRenderer {
      */
     public JComponent getTimeBarGapRendererComponent(TimeBarViewer tbv, TimeBarRow row, Interval interval1,
             Interval interval2) {
-        boolean horizontal = tbv.getOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL;
+        boolean horizontal = tbv.getTBOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL;
         _component.setUp(horizontal, interval1, interval2);
 
         return _component;
@@ -63,7 +63,7 @@ public class DefaultGapRenderer implements TimeBarGapRenderer {
      * Gap renderer component.
      * 
      * @author kliem
-     * @version $Id: DefaultGapRenderer.java 800 2008-12-27 22:27:33Z kliem $
+     * @version $Id: DefaultGapRenderer.java 1083 2011-07-01 20:29:16Z kliem $
      * @SuppressWarnings("serial")
      */
      

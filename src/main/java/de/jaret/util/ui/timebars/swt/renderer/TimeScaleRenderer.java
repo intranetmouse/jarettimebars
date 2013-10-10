@@ -30,7 +30,7 @@ import de.jaret.util.ui.timebars.swt.TimeBarViewer;
  * Interface for a renderer rending the timescale (x axis). The renderer can (should) support printing.
  * 
  * @author Peter Kliem
- * @version $Id: TimeScaleRenderer.java 800 2008-12-27 22:27:33Z kliem $
+ * @version $Id: TimeScaleRenderer.java 1086 2011-07-30 20:28:05Z kliem $
  */
 public interface TimeScaleRenderer {
     /**
@@ -61,6 +61,14 @@ public interface TimeScaleRenderer {
      * @return preferred height
      */
     int getHeight();
+    
+    /**
+     * Report whether this renderer can be used with optimized scrolling. This will usually be the case if all elements drawn are 
+     * positioned by the date.
+     *  
+     * @return true if optimzed drawing can be used.
+     */
+    boolean supportsOptimizedScrolling();
 
     /**
      * Dispose resources.

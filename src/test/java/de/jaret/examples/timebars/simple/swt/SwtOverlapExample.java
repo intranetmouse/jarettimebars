@@ -53,7 +53,6 @@ import org.eclipse.swt.widgets.Shell;
 import de.jaret.examples.timebars.pdi.swt.SwtControlPanel;
 import de.jaret.examples.timebars.simple.OtherIntervalImpl;
 import de.jaret.examples.timebars.simple.model.ModelCreator;
-import de.jaret.examples.timebars.simple.swt.renderer.OtherIntervalRenderer;
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.IntervalImpl;
 import de.jaret.util.date.JaretDate;
@@ -61,7 +60,6 @@ import de.jaret.util.ui.timebars.TimeBarMarker;
 import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.mod.DefaultIntervalModificator;
-import de.jaret.util.ui.timebars.mod.IIntervalModificator;
 import de.jaret.util.ui.timebars.model.DefaultRowHeader;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarModel;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarRowModel;
@@ -75,16 +73,16 @@ import de.jaret.util.ui.timebars.model.TimeBarSelectionModel;
 import de.jaret.util.ui.timebars.strategy.DefaultOverlapStrategy;
 import de.jaret.util.ui.timebars.swt.TimeBarViewer;
 import de.jaret.util.ui.timebars.swt.renderer.BoxTimeScaleRenderer;
-import de.jaret.util.ui.timebars.swt.renderer.DefaultGridRenderer;
+import de.jaret.util.ui.timebars.swt.renderer.CombiningTimeScaleRenderer;
+import de.jaret.util.ui.timebars.swt.renderer.DateStripRenderer;
 import de.jaret.util.ui.timebars.swt.renderer.DefaultTitleRenderer;
-import de.jaret.util.ui.timebars.swt.renderer.TimeBarRenderer;
 
 /**
  * SWT: example demonstrating the overlap detection and adapted painting of intervals. Also contains an example of using
  * Drag&Drop with the TimeBarViewer.
  * 
  * @author Peter Kliem
- * @version $Id: SwtOverlapExample.java 1066 2010-08-18 20:01:40Z kliem $
+ * @version $Id: SwtOverlapExample.java 1093 2011-10-04 20:53:06Z kliem $
  */
 public class SwtOverlapExample extends ApplicationWindow {
     /** if set to true an ITimeBarChangeListener will be registered for monitoring changes. */
@@ -110,6 +108,7 @@ public class SwtOverlapExample extends ApplicationWindow {
 
         _tbv.setTimeScalePosition(TimeBarViewer.TIMESCALE_POSITION_TOP);
         _tbv.setModel(model);
+    //    _tbv.setModel(new DefaultTimeBarModel());
 
         // add a context menu on intervals
         // commented to not introduce a jface dependencay in this example
@@ -180,7 +179,12 @@ public class SwtOverlapExample extends ApplicationWindow {
         BoxTimeScaleRenderer btsr = new BoxTimeScaleRenderer();
         // enable DST correction
         //btsr.setCorrectDST(true);
-        _tbv.setTimeScaleRenderer(btsr);
+        
+        DateStripRenderer dsr = new DateStripRenderer();
+        CombiningTimeScaleRenderer ctsr = new CombiningTimeScaleRenderer(dsr, btsr);
+        
+        _tbv.setTimeScaleRenderer(ctsr);
+//        _tbv.setTimeScaleRenderer(btsr);
         
         
         SwtControlPanel ctrl = new SwtControlPanel(parent, SWT.NULL, _tbv, null);
@@ -560,7 +564,7 @@ public class SwtOverlapExample extends ApplicationWindow {
                                 _origIntervals.add(i);
                                 TimeBarRow row = _tbv.getModel().getRowForInterval(i);
                                 int yOffset;
-                                if (_tbv.getOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
+                                if (_tbv.getTBOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
                                     yOffset = _tbv.getYForRow(row) - _dragStart.y;
                                 } else {
                                     yOffset = _tbv.getYForRow(row) - _dragStart.x;
@@ -778,7 +782,7 @@ public class SwtOverlapExample extends ApplicationWindow {
                             int destX = Display.getCurrent().map(null, tbv, event.x, event.y).x;
                             int offY = _yOffsets.get(i);
                             TimeBarRow overRow = null;
-                            if (_tbv.getOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
+                            if (_tbv.getTBOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
                                 overRow = tbv.rowForY(destY + offY + _startOffsetY);
                             } else {
                                 overRow = tbv.rowForY(destX + offY + _startOffsetX);

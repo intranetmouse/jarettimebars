@@ -27,8 +27,8 @@ import javax.swing.JComponent;
 import de.jaret.util.date.DateUtils;
 import de.jaret.util.date.JaretDate;
 import de.jaret.util.ui.timebars.TickScaler;
-import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.TickScaler.Range;
+import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.strategy.ITickProvider;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
 
@@ -36,7 +36,7 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * Simple default implementation of a GridRenderer rendering the major and minor ticks using two different colors.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultGridRenderer.java 881 2009-09-22 21:25:47Z kliem $
+ * @version $Id: DefaultGridRenderer.java 1083 2011-07-01 20:29:16Z kliem $
  */
 public class DefaultGridRenderer implements GridRenderer {
     /** default color for major grid lines. */
@@ -114,7 +114,7 @@ public class DefaultGridRenderer implements GridRenderer {
      * JComponent for drawing the grid.
      * 
      * @author kliem
-     * @version $Id: DefaultGridRenderer.java 881 2009-09-22 21:25:47Z kliem $
+     * @version $Id: DefaultGridRenderer.java 1083 2011-07-01 20:29:16Z kliem $
      */
     @SuppressWarnings("serial")
     class MyGridRenderer extends JComponent {
@@ -147,7 +147,7 @@ public class DefaultGridRenderer implements GridRenderer {
          */
         public void paintComponent(Graphics g) {
 
-            boolean horizontal = _tbv.getOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL;
+            boolean horizontal = _tbv.getTBOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL;
 
             if (_tickProvider == null) {
                 paint(g, horizontal);

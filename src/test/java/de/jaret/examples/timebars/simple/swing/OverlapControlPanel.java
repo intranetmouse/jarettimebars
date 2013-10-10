@@ -41,7 +41,7 @@ import de.jaret.util.ui.timebars.swing.renderer.DefaultTimeScaleRenderer;
  * Control panel for the overlap example.
  * 
  * @author Peter Kliem
- * @version $Id: OverlapControlPanel.java 795 2008-12-26 23:23:30Z kliem $
+ * @version $Id: OverlapControlPanel.java 1088 2011-09-13 21:39:19Z kliem $
  */
 @SuppressWarnings("serial")
 public class OverlapControlPanel extends JPanel {
@@ -133,9 +133,9 @@ public class OverlapControlPanel extends JPanel {
 
             public void actionPerformed(ActionEvent e) {
                 if (orientationCombo.getSelectedItem().equals("horizontal")) {
-                    _viewer.setOrientation(TimeBarViewerInterface.Orientation.HORIZONTAL);
+                    _viewer.setTBOrientation(TimeBarViewerInterface.Orientation.HORIZONTAL);
                 } else if (orientationCombo.getSelectedItem().equals("vertical")) {
-                    _viewer.setOrientation(TimeBarViewerInterface.Orientation.VERTICAL);
+                    _viewer.setTBOrientation(TimeBarViewerInterface.Orientation.VERTICAL);
                 }
             }
         });
@@ -149,6 +149,17 @@ public class OverlapControlPanel extends JPanel {
             }
         });
         add(boxTSRCheck);
+
+        final JCheckBox boxVRHCheck = new JCheckBox("Variable row height + dragging");
+        boxVRHCheck.setSelected(_viewer.getTimeBarViewState().getUseVariableRowHeights());
+        boxVRHCheck.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                _viewer.getTimeBarViewState().setUseVariableRowHeights(boxVRHCheck.isSelected());
+                _viewer.setRowHeightDraggingAllowed(boxVRHCheck.isSelected());
+            }
+        });
+        add(boxVRHCheck);
+
 
     }
 

@@ -31,16 +31,16 @@ import de.jaret.util.date.DateUtils;
 import de.jaret.util.date.JaretDate;
 import de.jaret.util.date.holidayenumerator.HolidayEnumerator;
 import de.jaret.util.ui.timebars.TickScaler;
+import de.jaret.util.ui.timebars.TickScaler.Range;
 import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
-import de.jaret.util.ui.timebars.TickScaler.Range;
 import de.jaret.util.ui.timebars.strategy.ITickProvider;
 
 /**
  * Simple default grid renderer for the timebar viewer. Uses a holiday enumerator (jaretutils) to color the days.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultGridRenderer.java 837 2009-02-14 21:44:39Z kliem $
+ * @version $Id: DefaultGridRenderer.java 1073 2010-11-22 21:25:33Z kliem $
  */
 public class DefaultGridRenderer extends AbstractGridRenderer {
     /** default value (pps) for coloring days. */

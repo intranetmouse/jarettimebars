@@ -21,8 +21,6 @@ package de.jaret.util.ui.timebars.swing.renderer;
 
 import java.awt.Color;
 import java.awt.Rectangle;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -36,7 +34,7 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * timebar renderers for special classes.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultTimeBarRenderer.java 881 2009-09-22 21:25:47Z kliem $
+ * @version $Id: DefaultTimeBarRenderer.java 1073 2010-11-22 21:25:33Z kliem $
  */
 public class DefaultTimeBarRenderer implements TimeBarRenderer {
     /** component used for rendering. */

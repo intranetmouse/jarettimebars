@@ -47,7 +47,7 @@ import de.jaret.util.ui.timebars.strategy.IOverlapStrategy;
  * TimeBarViewer (Swing or SWT) directly.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerInterface.java 884 2009-10-08 20:25:15Z kliem $
+ * @version $Id: TimeBarViewerInterface.java 1083 2011-07-01 20:29:16Z kliem $
  */
 public interface TimeBarViewerInterface {
     /**
@@ -922,14 +922,14 @@ public interface TimeBarViewerInterface {
      * 
      * @return the orientation of the viewer
      */
-    Orientation getOrientation();
+    Orientation getTBOrientation();
 
     /**
      * Set the orientation of the viewer.
      * 
      * @param orientation the new orientation for the viewer
      */
-    void setOrientation(Orientation orientation);
+    void setTBOrientation(Orientation orientation);
 
     /**
      * Get the number of rows (columns) that the viewer scales itself to.
@@ -1235,5 +1235,29 @@ public interface TimeBarViewerInterface {
      * recorded.
      */
     Pair<TimeBarRow, JaretDate> getPopUpInformation();
+
+    /**
+     * Scroll a date into the visible area of the viewer.
+     * 
+     * @param date date to be shown.
+     * @return the number of seconds the start date have been modified
+     */
+    int scrollDateToVisible(JaretDate date);
+
+    /**
+     * Make sure the specified row is visible.
+     * 
+     * @param row TimeBarRow to be in the visible area.
+     */
+    void scrollRowToVisible(TimeBarRow row);
+
+    /**
+     * Make sure the specified interval is in the visibe area of the viewer. If the interval does not fit in the visible
+     * area, the beginning of the interval will be displayed.
+     * 
+     * @param row TimeBarRow of the interval
+     * @param interval inteval.
+     */
+    void scrollIntervalToVisible(TimeBarRow row, Interval interval);
 
 }

@@ -33,16 +33,16 @@ import org.eclipse.swt.printing.Printer;
 import de.jaret.util.date.Interval;
 import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.model.IIntervalRelation;
+import de.jaret.util.ui.timebars.model.IIntervalRelation.Type;
 import de.jaret.util.ui.timebars.model.IRelationalInterval;
 import de.jaret.util.ui.timebars.model.TimeBarRow;
-import de.jaret.util.ui.timebars.model.IIntervalRelation.Type;
 
 /**
  * Renderer rendering relations between intervals that implement the
  * IRelationalInterval interface. Does not support vertical orientation.
  * 
  * @author kliem
- * @version $Id: RelationRenderer.java 865 2009-06-23 19:39:14Z kliem $
+ * @version $Id: RelationRenderer.java 1073 2010-11-22 21:25:33Z kliem $
  */
 public class RelationRenderer extends RendererBase implements IRelationRenderer {
 	/** default cache size. */
@@ -546,7 +546,7 @@ public class RelationRenderer extends RendererBase implements IRelationRenderer 
 	 * Internal line represenation for caching.
 	 * 
 	 * @author kliem
-	 * @version $Id: RelationRenderer.java 865 2009-06-23 19:39:14Z kliem $
+	 * @version $Id: RelationRenderer.java 1073 2010-11-22 21:25:33Z kliem $
 	 */
 	public class Line {
 		/** relation the line belongs to. */

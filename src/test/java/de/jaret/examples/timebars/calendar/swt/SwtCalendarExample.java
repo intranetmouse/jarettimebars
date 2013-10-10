@@ -70,7 +70,7 @@ import de.jaret.util.ui.timebars.swt.TimeBarViewer;
  * SWT: example demonstrating the vertical orientation showing a calendar view.
  * 
  * @author Peter Kliem
- * @version $Id: SwtCalendarExample.java 733 2008-03-22 15:41:28Z kliem $
+ * @version $Id: SwtCalendarExample.java 1083 2011-07-01 20:29:16Z kliem $
  */
 public class SwtCalendarExample extends ApplicationWindow {
     private static TimeBarViewer _tbv;
@@ -101,7 +101,7 @@ public class SwtCalendarExample extends ApplicationWindow {
         // this is the col width!
         _tbv.setRowHeight(150);
 
-        _tbv.setOrientation(TimeBarViewerInterface.Orientation.VERTICAL);
+        _tbv.setTBOrientation(TimeBarViewerInterface.Orientation.VERTICAL);
         // vertical: the y axiswidth is the height of the row headers!
         _tbv.setYAxisWidth(20);
 
@@ -184,7 +184,7 @@ public class SwtCalendarExample extends ApplicationWindow {
 
         source.addDragListener(new DragSourceListener() {
             public void dragStart(DragSourceEvent event) {
-                boolean horizontal = _tbv.getOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL);
+                boolean horizontal = _tbv.getTBOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL);
                 TimeBarViewerDelegate delegate = (TimeBarViewerDelegate) _tbv.getData("delegate");
 
                 // check whether drag occured on the drag marker in the interval
@@ -222,7 +222,7 @@ public class SwtCalendarExample extends ApplicationWindow {
                                 _origRows.add(row);
 
                                 int yOffset;
-                                if (_tbv.getOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
+                                if (_tbv.getTBOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
                                     yOffset = _tbv.getYForRow(row) - _dragStart.y;
                                 } else {
                                     yOffset = _tbv.getYForRow(row) - _dragStart.x;
@@ -368,7 +368,7 @@ public class SwtCalendarExample extends ApplicationWindow {
                             int destX = Display.getCurrent().map(null, tbv, event.x, event.y).x;
                             int offY = _yOffsets.get(i);
                             TimeBarRow overRow = null;
-                            if (_tbv.getOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
+                            if (_tbv.getTBOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
                                 overRow = tbv.rowForY(destY + offY + _startOffsetY);
                             } else {
                                 overRow = tbv.rowForY(destX + offY + _startOffsetX);

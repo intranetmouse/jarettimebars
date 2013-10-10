@@ -94,7 +94,7 @@ import de.jaret.util.ui.timebars.swt.util.actions.JaretTimeBarsActionFactory;
  * </p>
  * 
  * @author Peter Kliem
- * @version $Id: SwtHierachy.java 1024 2010-06-14 21:16:24Z kliem $
+ * @version $Id: SwtHierachy.java 1083 2011-07-01 20:29:16Z kliem $
  */
 public class SwtHierachy extends ApplicationWindow {
     // if set to true a variable xaxis scaling will be used
@@ -337,7 +337,7 @@ public class SwtHierachy extends ApplicationWindow {
      * determine its enablement.
      * 
      * @author kliem
-     * @version $Id: SwtHierachy.java 1024 2010-06-14 21:16:24Z kliem $
+     * @version $Id: SwtHierachy.java 1083 2011-07-01 20:29:16Z kliem $
      */
     public class ZoomAction extends Action implements ISelectionRectListener {
         private TimeBarViewer _tbv;
@@ -395,7 +395,7 @@ public class SwtHierachy extends ApplicationWindow {
      * Action that clears the region rect.
      * 
      * @author kliem
-     * @version $Id: SwtHierachy.java 1024 2010-06-14 21:16:24Z kliem $
+     * @version $Id: SwtHierachy.java 1083 2011-07-01 20:29:16Z kliem $
      */
     public class ClearRegionAction extends Action {
         private TimeBarViewer _tbv;
@@ -424,7 +424,7 @@ public class SwtHierachy extends ApplicationWindow {
      * Simpled dummy action.
      * 
      * @author kliem
-     * @version $Id: SwtHierachy.java 1024 2010-06-14 21:16:24Z kliem $
+     * @version $Id: SwtHierachy.java 1083 2011-07-01 20:29:16Z kliem $
      */
     public class DummyAction extends Action {
         private TimeBarViewer _tbv;
@@ -619,7 +619,7 @@ public class SwtHierachy extends ApplicationWindow {
                                 _origIntervals.add(i);
                                 TimeBarRow row = _tbv.getModel().getRowForInterval(i);
                                 int yOffset;
-                                if (_tbv.getOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
+                                if (_tbv.getTBOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
                                     yOffset = _tbv.getYForRow(row) - _dragStart.y;
                                 } else {
                                     yOffset = _tbv.getYForRow(row) - _dragStart.x;
@@ -792,7 +792,7 @@ public class SwtHierachy extends ApplicationWindow {
                             int destX = Display.getCurrent().map(null, tbv, event.x, event.y).x;
                             int offY = _yOffsets.get(i);
                             TimeBarRow overRow = null;
-                            if (_tbv.getOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
+                            if (_tbv.getTBOrientation().equals(TimeBarViewerInterface.Orientation.HORIZONTAL)) {
                                 overRow = tbv.rowForY(destY + offY + _startOffsetY);
                             } else {
                                 overRow = tbv.rowForY(destX + offY + _startOffsetX);

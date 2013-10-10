@@ -50,7 +50,7 @@ import de.jaret.util.ui.timebars.swt.renderer.DefaultTimeScaleRenderer;
  * Common settings for a timebar viewer for demonstrating.
  * 
  * @author Peter Kliem
- * @version $Id: SwtControlPanel.java 801 2008-12-27 22:44:54Z kliem $
+ * @version $Id: SwtControlPanel.java 1083 2011-07-01 20:29:16Z kliem $
  */
 public class SwtControlPanel extends Composite {
 
@@ -238,16 +238,16 @@ public class SwtControlPanel extends Composite {
         orientationCombo.setItems(new String[] {TimeBarViewerInterface.Orientation.HORIZONTAL.toString(),
                 TimeBarViewerInterface.Orientation.VERTICAL.toString()});
         index = 0; // horizontal
-        if (_tbv.getOrientation() == TimeBarViewerInterface.Orientation.VERTICAL) {
+        if (_tbv.getTBOrientation() == TimeBarViewerInterface.Orientation.VERTICAL) {
             index = 1;
         }
         orientationCombo.select(index);
         orientationCombo.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent arg0) {
                 if (orientationCombo.getSelectionIndex() == 0) {
-                    _tbv.setOrientation(TimeBarViewerInterface.Orientation.HORIZONTAL);
+                    _tbv.setTBOrientation(TimeBarViewerInterface.Orientation.HORIZONTAL);
                 } else if (orientationCombo.getSelectionIndex() == 1) {
-                    _tbv.setOrientation(TimeBarViewerInterface.Orientation.VERTICAL);
+                    _tbv.setTBOrientation(TimeBarViewerInterface.Orientation.VERTICAL);
                 } else {
                     throw new RuntimeException("illegal");
                 }
