@@ -1,7 +1,7 @@
 <document>
   <properties>
     <author email="peter.kliem@jaret.de">Peter Kliem</author>
-    <title>jaret timebars (gantt chart for SWT and Swing)</title>
+    <title>jaret timebars (gantt chart and timeline widget/control for SWT and Swing)</title>
   </properties>
  <head>
     <meta name="keywords" content="java, component, widget, Swing, SWT, Gantt chart" />
@@ -79,7 +79,7 @@
 			<table>
 				<tr>
 					<td>
-						<a href="data/timebars-1.39-src.zip">timebars-1.39-src.zip</a>
+						<a href="data/timebars-1.40-src.zip">timebars-1.40-src.zip</a>
 					</td>
 					<td>
 						Recommended download: Contains the complete project for Swing and SWT, including example code. Depends on 
@@ -88,7 +88,7 @@
 				</tr>
 				<tr>
 					<td>
-						<a href="data/timebars-1.39-bin.zip">timebars-1.39-bin.zip</a>
+						<a href="data/timebars-1.40-bin.zip">timebars-1.40-bin.zip</a>
 					</td>
 					<td>
 						Contains jar including Swing and SWT version. Depends on 
@@ -124,7 +124,7 @@
 		</subsection>
 		<subsection name="Status and platforms">
 		<p>
-			We think the TimeBarViewer is production quality - as long as the supported features serve the purposes
+			The TimeBarViewer is production quality - as long as the supported features serve the purposes
 			of the application (In fact it is in production use since Q1/2005). With the 1.0 version the SWT version 
 			is stable.
 			<b>However: This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;

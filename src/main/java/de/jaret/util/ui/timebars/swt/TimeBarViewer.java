@@ -138,7 +138,7 @@ import de.jaret.util.ui.timebars.swt.util.actions.JaretTimeBarsActionFactory;
  * </p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 884 2009-10-08 20:25:15Z kliem $
+ * @version $Id: TimeBarViewer.java 892 2009-10-31 22:35:44Z kliem $
  */
 public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISelectionProvider {
     /** DEBUGGING OPTION: if set to true the actual paint times will be printed to stdout. */
@@ -323,7 +323,8 @@ public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISe
             public void handleEvent(Event event) {
                 switch (event.type) {
                 case SWT.Resize:
-                    _delegate.updateScrollBars();
+                    //_delegate.updateScrollBars();
+                    _delegate.componentResized();
                     break;
                 default:
                     // do nothing
@@ -1248,7 +1249,12 @@ public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISe
             // get and set the height the renderer needs
             _delegate.setXAxisHeight(_timeScaleRenderer.getHeight());
         }
-        if (_timeScaleRenderer != null && _gridRenderer != null && _timeScaleRenderer instanceof ITickProvider) {
+        // maybe the new time scale renderer is not a TickProvider ... tell the grid rederer
+        if (_gridRenderer != null) {
+            _gridRenderer.setTickProvider(null);
+        }
+        if (_timeScaleRenderer != null && _gridRenderer != null && _timeScaleRenderer instanceof ITickProvider
+                && _delegate.getTimeScalePosition() != TimeBarViewerInterface.TIMESCALE_POSITION_NONE) {
             _gridRenderer.setTickProvider((ITickProvider) _timeScaleRenderer);
         }
         repaint();
@@ -1618,6 +1624,15 @@ public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISe
      * {@inheritDoc}
      */
     public void setTimeScalePosition(int timeScalePosition) {
+        if (timeScalePosition == TimeBarViewerInterface.TIMESCALE_POSITION_NONE) {
+            if (_gridRenderer != null) {
+                _gridRenderer.setTickProvider(null);
+            }
+        } else {
+            if (_gridRenderer != null && _timeScaleRenderer instanceof ITickProvider) {
+                _gridRenderer.setTickProvider((ITickProvider) _timeScaleRenderer);
+            }
+        }
         _delegate.setTimeScalePosition(timeScalePosition);
     }
 

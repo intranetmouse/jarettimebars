@@ -26,7 +26,7 @@ import java.util.List;
  * A default implementation of the TimeBarModel interface. Extends the AbstractTimeBarModel.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultTimeBarModel.java 884 2009-10-08 20:25:15Z kliem $
+ * @version $Id: DefaultTimeBarModel.java 886 2009-10-08 22:08:27Z kliem $
  */
 public class DefaultTimeBarModel extends AbstractTimeBarModel {
     /** list of the rows. */

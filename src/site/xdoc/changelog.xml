@@ -11,6 +11,27 @@
 			<subsection name="Keep updated: the timebars on Twitter">
 				If you want to know about new versions you can follow the timebars on twitter: <a href="http://twitter.com/jaret_timebars">http://twitter.com/jaret_timebars</a>.
 			</subsection>
+			<subsection name="2009-11-02 version 1.40">
+				<ul>
+					<li>
+						Fixed resizing behavior when the component exposes space below the last row the space will be used rendering more rows from above 
+					</li>
+					<li>
+						Did another small fix correcting setLastRow 
+					</li>
+					<li>
+						Fixed a bug that sets the minimum gridsnap for dragging and moving intervals to 1 second preventing clean operation at millisecond accuracy.
+						This fix may surprise you if you have not setup an IIntervalModificator and you are using the DefaultIntervalModificator. You may need to set the gridsnap
+						to 1 second explicitly.  
+					</li>
+					<li>
+						Fixed some problems that may arise if non default TimeScaleRenderers are used without non default GridRenderers (Swing and SWT): Since the DefaultGridRenderers 
+						will use the the ticks of the TimeScaleRenderes if the the TimeScaleRenderer implements the ITickProvider interface to synchronize the ticks, it had to be informed
+						properly when another TimeScaleRenderer has been set that does not supply ticks or when the time scale should not be shown.  
+					</li>
+					
+				</ul>
+			</subsection>
 			<subsection name="2009-10-08 version 1.39">
 				<ul>
 					<li>

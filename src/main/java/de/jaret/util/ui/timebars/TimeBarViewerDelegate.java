@@ -75,7 +75,7 @@ import de.jaret.util.ui.timebars.strategy.OverlapInfo;
  * TimeBarViewerInterface.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerDelegate.java 884 2009-10-08 20:25:15Z kliem $
+ * @version $Id: TimeBarViewerDelegate.java 892 2009-10-31 22:35:44Z kliem $
  */
 public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelectionListener, TimeBarMarkerListener,
         PropertyChangeListener {
@@ -594,13 +594,14 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
 
     /**
      * Retrieve the index of a given row.
+     * 
      * @param row row in question
      * @return the index or -1 if the row could not be found
      */
     public int getRowIndex(TimeBarRow row) {
-    	return _rowList.indexOf(row);
+        return _rowList.indexOf(row);
     }
-    
+
     /**
      * Return the size of the row list.
      * 
@@ -792,7 +793,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         // interested
         if ((oldVal == null || !oldVal.equals(_startDate)) && _tbvi != null) {
             if (_diagramRect != null) {
-                _endDate = dateForCoord(_diagramRect.x+_diagramRect.width);
+                _endDate = dateForCoord(_diagramRect.x + _diagramRect.width);
             }
             updateTimeScrollBar();
             _tbvi.repaint();
@@ -844,7 +845,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                 // interested
                 if ((oldVal == null || !oldVal.equals(_startDate)) && _tbvi != null) {
                     if (_diagramRect != null) {
-                        _endDate = dateForCoord(_diagramRect.x+_diagramRect.width);
+                        _endDate = dateForCoord(_diagramRect.x + _diagramRect.width);
                     }
                     updateTimeScrollBar();
                     _tbvi.firePropertyChangeX(TimeBarViewerInterface.PROPERTYNAME_STARTDATE, oldVal, _startDate);
@@ -997,49 +998,51 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     }
 
     /**
-     * Set the scaling of the x axis by specifying the number of seconds that should be displayed. If the viewer has not been drawn yet,
-     * the method delegates to setInitialDiaplyRange. The center parameter will not be taken into account (since it is impossible to do the calculations).
+     * Set the scaling of the x axis by specifying the number of seconds that should be displayed. If the viewer has not
+     * been drawn yet, the method delegates to setInitialDiaplyRange. The center parameter will not be taken into
+     * account (since it is impossible to do the calculations).
      * 
      * @param seconds number of seconds that will be displayed on the x axis
      * @param center if set to <code>true</code> the center date will be fixed while scaling
      */
     public void setSecondsDisplayed(int seconds, boolean center) {
         if (_orientation.equals(Orientation.HORIZONTAL)) {
-	    	if (_diagramRect != null && _diagramRect.width > 1) {
-	            double pps = (double) _diagramRect.width / (double) seconds;
-	            if (!center) {
-	                setPixelPerSecond(pps);
-	            } else {
-	                int oldSeconds = getSecondsDisplayed();
-	                setPixelPerSecond(pps, false);
-	                int newSeconds = getSecondsDisplayed();
-	                setStartDate(getStartDate().copy().advanceSeconds((oldSeconds - newSeconds) / 2.0)); // will repaint
-	            }
-	        } else {
-	        	// calculation not possible since has not been drawn yet
-	        	setInitialDisplayRange(getStartDate(), seconds);
-	        }
-	    } else {
-	    	if (_diagramRect != null && _diagramRect.height > 1) {
-	            double pps = (double) _diagramRect.height / (double) seconds;
-	            if (!center) {
-	                setPixelPerSecond(pps);
-	            } else {
-	                int oldSeconds = getSecondsDisplayed();
-	                setPixelPerSecond(pps, false);
-	                int newSeconds = getSecondsDisplayed();
-	                setStartDate(getStartDate().copy().advanceSeconds((oldSeconds - newSeconds) / 2.0)); // will repaint
-	            }
-	        } else {
-	        	// calculation not possible since has not been drawn yet
-	        	setInitialDisplayRange(getStartDate(), seconds);
-	        }
-	    }
+            if (_diagramRect != null && _diagramRect.width > 1) {
+                double pps = (double) _diagramRect.width / (double) seconds;
+                if (!center) {
+                    setPixelPerSecond(pps);
+                } else {
+                    int oldSeconds = getSecondsDisplayed();
+                    setPixelPerSecond(pps, false);
+                    int newSeconds = getSecondsDisplayed();
+                    setStartDate(getStartDate().copy().advanceSeconds((oldSeconds - newSeconds) / 2.0)); // will repaint
+                }
+            } else {
+                // calculation not possible since has not been drawn yet
+                setInitialDisplayRange(getStartDate(), seconds);
+            }
+        } else {
+            if (_diagramRect != null && _diagramRect.height > 1) {
+                double pps = (double) _diagramRect.height / (double) seconds;
+                if (!center) {
+                    setPixelPerSecond(pps);
+                } else {
+                    int oldSeconds = getSecondsDisplayed();
+                    setPixelPerSecond(pps, false);
+                    int newSeconds = getSecondsDisplayed();
+                    setStartDate(getStartDate().copy().advanceSeconds((oldSeconds - newSeconds) / 2.0)); // will repaint
+                }
+            } else {
+                // calculation not possible since has not been drawn yet
+                setInitialDisplayRange(getStartDate(), seconds);
+            }
+        }
     }
 
     /**
-     * Set the scaling of the x axis by specifying the number of seconds that should be displayed. If the viewer has not been drawn yet,
-     * the method delegates to setInitialDiaplyRange. The centerDate parameter will not be taken into account (since this is impossible to calculate).
+     * Set the scaling of the x axis by specifying the number of seconds that should be displayed. If the viewer has not
+     * been drawn yet, the method delegates to setInitialDiaplyRange. The centerDate parameter will not be taken into
+     * account (since this is impossible to calculate).
      * 
      * @param seconds number of seconds that will be displayed on the x axis
      * @param centerDate date that will be fixed while scaling
@@ -1049,51 +1052,51 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             setSecondsDisplayed(seconds, true);
         } else {
             if (_orientation.equals(Orientation.HORIZONTAL)) {
-	        	if (_diagramRect != null && _diagramRect.width > 1) {
-	                double pps = (double) _diagramRect.width / (double) seconds;
-	                if (centerDate == null) {
-	                    setPixelPerSecond(pps);
-	                } else {
-	                    // disable optimized scrolling for the operation
-	                    boolean optimizeScrolling = _optimizeScrolling;
-	                    _optimizeScrolling = false;
-	
-	                    int oldx = xForDate(centerDate);
-	                    // set the new scaling
-	                    setPixelPerSecond(pps, false);
-	                    JaretDate dateAtOldPos = dateForCoord(oldx);
-	                    long diffmsec = centerDate.diffMilliSeconds(dateAtOldPos);
-	
-	                    setStartDate(getStartDate().copy().advanceMillis(diffmsec)); // will repaint
-	                    _optimizeScrolling = optimizeScrolling;
-	                }
-	            } else {
-	            	// calculation not possible since has not been drawn yet
-	            	setInitialDisplayRange(getStartDate(), seconds);
-	            }
+                if (_diagramRect != null && _diagramRect.width > 1) {
+                    double pps = (double) _diagramRect.width / (double) seconds;
+                    if (centerDate == null) {
+                        setPixelPerSecond(pps);
+                    } else {
+                        // disable optimized scrolling for the operation
+                        boolean optimizeScrolling = _optimizeScrolling;
+                        _optimizeScrolling = false;
+
+                        int oldx = xForDate(centerDate);
+                        // set the new scaling
+                        setPixelPerSecond(pps, false);
+                        JaretDate dateAtOldPos = dateForCoord(oldx);
+                        long diffmsec = centerDate.diffMilliSeconds(dateAtOldPos);
+
+                        setStartDate(getStartDate().copy().advanceMillis(diffmsec)); // will repaint
+                        _optimizeScrolling = optimizeScrolling;
+                    }
+                } else {
+                    // calculation not possible since has not been drawn yet
+                    setInitialDisplayRange(getStartDate(), seconds);
+                }
             } else {
-	        	if (_diagramRect != null && _diagramRect.height > 1) {
-	                double pps = (double) _diagramRect.height / (double) seconds;
-	                if (centerDate == null) {
-	                    setPixelPerSecond(pps);
-	                } else {
-	                    // disable optimized scrolling for the operation
-	                    boolean optimizeScrolling = _optimizeScrolling;
-	                    _optimizeScrolling = false;
-	
-	                    int oldx = xForDate(centerDate);
-	                    // set the new scaling
-	                    setPixelPerSecond(pps, false);
-	                    JaretDate dateAtOldPos = dateForCoord(oldx);
-	                    long diffmsec = centerDate.diffMilliSeconds(dateAtOldPos);
-	
-	                    setStartDate(getStartDate().copy().advanceMillis(diffmsec)); // will repaint
-	                    _optimizeScrolling = optimizeScrolling;
-	                }
-	            } else {
-	            	// calculation not possible since has not been drawn yet
-	            	setInitialDisplayRange(getStartDate(), seconds);
-	            }
+                if (_diagramRect != null && _diagramRect.height > 1) {
+                    double pps = (double) _diagramRect.height / (double) seconds;
+                    if (centerDate == null) {
+                        setPixelPerSecond(pps);
+                    } else {
+                        // disable optimized scrolling for the operation
+                        boolean optimizeScrolling = _optimizeScrolling;
+                        _optimizeScrolling = false;
+
+                        int oldx = xForDate(centerDate);
+                        // set the new scaling
+                        setPixelPerSecond(pps, false);
+                        JaretDate dateAtOldPos = dateForCoord(oldx);
+                        long diffmsec = centerDate.diffMilliSeconds(dateAtOldPos);
+
+                        setStartDate(getStartDate().copy().advanceMillis(diffmsec)); // will repaint
+                        _optimizeScrolling = optimizeScrolling;
+                    }
+                } else {
+                    // calculation not possible since has not been drawn yet
+                    setInitialDisplayRange(getStartDate(), seconds);
+                }
             }
         }
     }
@@ -1118,19 +1121,18 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
 
     protected JaretDate _initialStartDate;
     protected int _initialSecondsDisplayed;
-    
+
     /**
      * Set a date range and scaling that will be set as the initial display right after the viewer is displayed.
      * 
      * @param startDate start date
      * @param secondsDisplayed seconds to be displayed in the viewer
      */
-    public void setInitialDisplayRange(JaretDate startDate, int secondsDisplayed){
-    	_initialStartDate = startDate;
-    	_initialSecondsDisplayed = secondsDisplayed;
+    public void setInitialDisplayRange(JaretDate startDate, int secondsDisplayed) {
+        _initialStartDate = startDate;
+        _initialSecondsDisplayed = secondsDisplayed;
     }
 
-    
     /**
      * Set the height for the rows in pixel. This property is bound. If the orientation is vertical this sets the width
      * of the columns. If the viewstate is configured to use individual row heights, this will set the default row
@@ -2534,7 +2536,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      */
     public void setFirstRow(int firstRow) {
         setFirstRow(firstRow, 0);
-    }    
+    }
 
     /**
      * Set the first row to be displayed.
@@ -2619,37 +2621,37 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     }
 
     /**
-     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be displayed as far down as possible by setting
-     * the first row to 0.
+     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be
+     * displayed as far down as possible by setting the first row to 0.
      * 
      * @param index index of the row to be displayed at the bottom of the viewer.
      */
     public void setLastRow(int index) {
-    	TimeBarRow row = getRow(index);    		
-    	int absY = getAbsPosForRow(index);
-    	int endY = absY+_timeBarViewState.getRowHeight(row);
-    	
-    	int height = _diagramRect.height;
-    	
-    	int upperBound = endY-height;
-    	int y = endY;
-    	int idx = index;
-    	while(idx>=0 && y>upperBound) {
-    		row = getRow(idx);    		
-    		y -= _timeBarViewState.getRowHeight(row);
-    		idx--;
-    	}
-    	if (idx >= 0) {
-	    	int offset = Math.abs(y-upperBound);
-	    	setFirstRow(idx+1, offset);
-    	} else {
-    		setFirstRow(0,0);
-    	}
+        TimeBarRow row = getRow(index);
+        int absY = getAbsPosForRow(index);
+        int endY = absY + _timeBarViewState.getRowHeight(row);
+
+        int height = _diagramRect.height;
+
+        int upperBound = endY - height;
+        int y = endY;
+        int idx = index;
+        while (idx > 0 && y > upperBound) {
+            row = getRow(idx);
+            y -= _timeBarViewState.getRowHeight(row);
+            idx--;
+        }
+        if (idx >= 0) {
+            int offset = Math.abs(y - upperBound);
+            setFirstRow(idx + 1, offset);
+        } else {
+            setFirstRow(0, 0);
+        }
     }
-    
+
     /**
-     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be displayed as far down as possible by setting
-     * the first row to 0.
+     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be
+     * displayed as far down as possible by setting the first row to 0.
      * 
      * @param row the row to be displayed at the bottom of the viewer.
      */
@@ -2659,8 +2661,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             setLastRow(index);
         }
     }
-    
-    
+
     /**
      * @return Returns the timeScalePosition.
      */
@@ -2690,13 +2691,13 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      */
     public void setYAxisWidth(int axisWidth) {
         int oldval = _yAxisWidth;
-    	_yAxisWidth = axisWidth;
-    	if (oldval != _yAxisWidth) {
-	        if (_tbvi != null) {
-	            _tbvi.repaint();
-	            _tbvi.firePropertyChange(TimeBarViewerInterface.PROPERTYNAME_YAXISWIDTH, oldval, _yAxisWidth);
-	        }
-    	}
+        _yAxisWidth = axisWidth;
+        if (oldval != _yAxisWidth) {
+            if (_tbvi != null) {
+                _tbvi.repaint();
+                _tbvi.firePropertyChange(TimeBarViewerInterface.PROPERTYNAME_YAXISWIDTH, oldval, _yAxisWidth);
+            }
+        }
     }
 
     /**
@@ -2755,15 +2756,15 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         } else {
             preparePaintVertical(cwidth, cheight);
         }
-        
+
         // handle a possible set initial display range
         if (_initialStartDate != null) {
-        	JaretDate startDate = _initialStartDate;
-        	_initialStartDate = null;
-        	setSecondsDisplayed(_initialSecondsDisplayed, false);       	
-        	setStartDate(startDate);
+            JaretDate startDate = _initialStartDate;
+            _initialStartDate = null;
+            setSecondsDisplayed(_initialSecondsDisplayed, false);
+            setStartDate(startDate);
         }
-        
+
     }
 
     /**
@@ -3319,8 +3320,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     protected TimeBarRow _ctxRow;
     /** date for the ctx coordinate. */
     protected JaretDate _ctxDate;
-    
-    
+
     /**
      * Retrieve the location of a context menu popup request.
      * 
@@ -3350,7 +3350,6 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         return result;
     }
 
-    
     // *** End of MouseListener
 
     // *** MouseMotionListener
@@ -3414,7 +3413,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             dragInterval(_originalInterval, _draggedInterval, _lastDragDate, xdate, x, y, _dragAllSelectedIntervals);
         } else if (_changingInterval != null && !_draggedInterval) {
             // dragging an interval edge
-            double diffSeconds = -1.0 * _startIntervalDragDate.diffSeconds(xdate);
+            double diffSeconds = -1.0 * _startIntervalDragDate.diffMilliSeconds(xdate) / 1000.0;
             // gridding
             diffSeconds = calcGridSnap(diffSeconds, 0, _intervalDraggedRow, _changingInterval, -1);
             if (_draggedIntervalEdgeLeft) {
@@ -3612,8 +3611,10 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         boolean horizontal = _orientation == Orientation.HORIZONTAL;
 
         // normal case: drag the delta between the two positions
-        double deltaSeconds = currentDragDate.diffSeconds(lastDragDate);
+        double deltaSeconds = currentDragDate.diffMilliSeconds(lastDragDate) / 1000.0;
+        System.out.println("deltaseconds " + deltaSeconds);
         deltaSeconds += _scrolledlastDrag;
+        System.out.println("deltaseconds2 " + deltaSeconds);
 
         // if the cursor is outside the diagram rect, use the autoscroll delta to determine the new
         // position
@@ -3653,8 +3654,9 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         }
 
         if (allowed) {
-            // always do the setting of the interval bounds in the right order to ensure interval consistency with end>begin
-        	if (deltaSecondsSnap > 0) {
+            // always do the setting of the interval bounds in the right order to ensure interval consistency with
+            // end>begin
+            if (deltaSecondsSnap > 0) {
                 _changingInterval.setEnd(newEnd);
                 _changingInterval.setBegin(newBegin);
             } else {
@@ -3763,11 +3765,11 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                 double gridsnap = -1;
                 // if the extended interface is available: try
                 if (modificator instanceof IIntervalModificator) {
-                	gridsnap = ((IIntervalModificator)modificator).getSecondGridSnap(row, interval);
+                    gridsnap = ((IIntervalModificator) modificator).getSecondGridSnap(row, interval);
                 }
                 // if no gridsnap available try the generic interface
                 if (gridsnap < 0) {
-                	gridsnap = modificator.getSecondGridSnap();
+                    gridsnap = modificator.getSecondGridSnap();
                 }
                 if (gridsnap < 0) {
                     return diffSeconds;
@@ -4462,7 +4464,6 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         return _name;
     }
 
-
     /**
      * Set the autoscroll behaviour. If autoscroll is anabled, drag and select by selection rect will autoscroll the
      * viewer.
@@ -4527,7 +4528,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                 setFirstRow(ridx);
             } else if (ridx >= _firstRow + getRowsDisplayed()) {
                 setLastRow(ridx);
-            } else if (getTimeBarViewState().getUseVariableRowHeights() && ridx >= _firstRow + getRowsDisplayed()-1) {
+            } else if (getTimeBarViewState().getUseVariableRowHeights() && ridx >= _firstRow + getRowsDisplayed() - 1) {
                 setLastRow(ridx);
             }
         }
@@ -5948,7 +5949,20 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     public boolean getUseUniformHeight() {
         return _useUniformHeight;
     }
-    
-    
-    
+
+    /**
+     * Handle a component resize and scroll down if an empty space would be shown in the newly exposed screen estate.
+     */
+    public void componentResized() {
+        if (_diagramRect.width != 0) { // do not do any scrolling if the component has not been painted before
+            preparePaint(_tbvi.getWidth(), _tbvi.getHeight());
+            TimeBarRow row = _rowList.get(_rowList.size() - 1);
+            int lasty = yForRow(row) + _timeBarViewState.getRowHeight(row);
+            if (lasty < _diagramRect.y + _diagramRect.height) {
+                setLastRow(row);
+            }
+        }
+        updateScrollBars();
+    }
+
 }

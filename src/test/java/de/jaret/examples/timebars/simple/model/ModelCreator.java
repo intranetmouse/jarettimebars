@@ -116,10 +116,8 @@ public class ModelCreator {
 //        interval.setBegin(new JaretDate(25, 10, 2009, 3, 0, 0));
 //        interval.setEnd(interval.getBegin().copy().advanceMinutes(120));
 //        tbr.addInterval(interval);
-
-
-        
-        model.addRow(tbr);
+//        
+//        model.addRow(tbr);
 
         // add some empty rows for drag&drop fun
         for(int rowNumber=4;rowNumber<=20;rowNumber++) {

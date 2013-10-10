@@ -95,6 +95,9 @@ public class MilliExample extends ApplicationWindow {
         GridData gd = new GridData(GridData.FILL_BOTH);
         _tbv.setLayoutData(gd);
 
+        
+        _tbv.addIntervalModificator(new DefaultIntervalModificator());
+        
         // turn on milli mode
         _tbv.setMilliAccuracy(true);
 

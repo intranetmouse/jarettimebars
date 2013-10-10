@@ -176,14 +176,12 @@ public class SwtOverlapExample extends ApplicationWindow {
         titleRenderer.setBackgroundRscName("/de/jaret/examples/timebars/hierarchy/swt/titlebg.png");
         _tbv.setTitleRenderer(titleRenderer);
         _tbv.setTitle("SwtOverlap");
-        BoxTimeScaleRenderer btsr = new BoxTimeScaleRenderer();
         
+        BoxTimeScaleRenderer btsr = new BoxTimeScaleRenderer();
         // enable DST correction
         //btsr.setCorrectDST(true);
-        
-        
         _tbv.setTimeScaleRenderer(btsr);
-        ((DefaultGridRenderer)_tbv.getGridRenderer()).setTickProvider(btsr);
+        
         
         SwtControlPanel ctrl = new SwtControlPanel(parent, SWT.NULL, _tbv, null);
         gd = new GridData(GridData.FILL_HORIZONTAL);

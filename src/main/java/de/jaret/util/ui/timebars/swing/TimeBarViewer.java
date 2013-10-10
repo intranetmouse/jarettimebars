@@ -106,7 +106,7 @@ import de.jaret.util.ui.timebars.swing.renderer.TimeScaleRenderer;
  * <p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 884 2009-10-08 20:25:15Z kliem $
+ * @version $Id: TimeBarViewer.java 892 2009-10-31 22:35:44Z kliem $
  */
 @SuppressWarnings("serial")
 public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, ChangeListener, ComponentListener {
@@ -176,13 +176,12 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
 
     /** flag indicating we are running on a mac. */
     protected boolean _macOS;
-    
+
     /** panel the horizontal scrollbar is placed on. */
     protected JPanel _horizontalScrollPanel;
-	/** panel the vertical scrollbar is placed on. */
+    /** panel the vertical scrollbar is placed on. */
     protected JPanel _verticalScrollPanel;
-    
-    
+
     /**
      * Constructs a timebar viewer.
      * 
@@ -203,8 +202,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         _xScrollBar.setUnitIncrement(1);
         if (!suppressXScroll) {
             _horizontalScrollPanel = new JPanel(new BorderLayout());
-        	add(_horizontalScrollPanel, BorderLayout.SOUTH);
-        	_horizontalScrollPanel.add(_xScrollBar, BorderLayout.CENTER);
+            add(_horizontalScrollPanel, BorderLayout.SOUTH);
+            _horizontalScrollPanel.add(_xScrollBar, BorderLayout.CENTER);
         }
         // vertical scrollbar
         _yScrollBar = new JScrollBar(JScrollBar.VERTICAL);
@@ -213,8 +212,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         _yScrollBar.setUnitIncrement(1);
         if (!suppressYScroll) {
             _verticalScrollPanel = new JPanel(new BorderLayout());
-        	add(_verticalScrollPanel, BorderLayout.EAST);
-        	_verticalScrollPanel.add(_yScrollBar, BorderLayout.CENTER);
+            add(_verticalScrollPanel, BorderLayout.EAST);
+            _verticalScrollPanel.add(_yScrollBar, BorderLayout.CENTER);
         }
 
         // diagram
@@ -237,14 +236,12 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         // heavy knowledge of the default setup here ...
         _gridRenderer.setTickProvider((DefaultTimeScaleRenderer) _timeScaleRenderer);
 
-        
         // check macos
         String osname = System.getProperty("os.name");
         if (osname != null) {
-        	_macOS = osname.startsWith("Mac");
+            _macOS = osname.startsWith("Mac");
         }
-        
-        
+
     }
 
     /**
@@ -557,7 +554,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * {@inheritDoc}
      */
     public void componentResized(ComponentEvent e) {
-        _delegate.updateScrollBars();
+        // _delegate.updateScrollBars();
+        _delegate.componentResized();
     }
 
     /**
@@ -624,7 +622,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * The component drawing the viewer itself.
      * 
      * @author Peter Kliem
-     * @version $Id: TimeBarViewer.java 884 2009-10-08 20:25:15Z kliem $
+     * @version $Id: TimeBarViewer.java 892 2009-10-31 22:35:44Z kliem $
      */
     private class Diagram extends JComponent implements MouseListener, MouseMotionListener, MouseWheelListener {
         /** surrounding timebar viewer. */
@@ -789,13 +787,16 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
          * @param g Graphics context to use
          */
         private void drawXAxis(Graphics g) {
-            _timeScaleRendererComponent = _timeScaleRenderer.getRendererComponent(_timeBarViewer, _delegate
-                    .getTimeScalePosition() == TimeBarViewerInterface.TIMESCALE_POSITION_TOP);
-            _timeScaleRendererComponent.setBounds(_delegate.getXAxisRect());
-            Graphics gg = g.create(_delegate.getXAxisRect().x, _delegate.getXAxisRect().y,
-                    _delegate.getXAxisRect().width, _delegate.getXAxisRect().height);
-            _timeScaleRendererComponent.paint(gg);
-            gg.dispose();
+            if (_timeScaleRenderer != null) {
+                _timeScaleRendererComponent = _timeScaleRenderer.getRendererComponent(_timeBarViewer, _delegate
+
+                .getTimeScalePosition() == TimeBarViewerInterface.TIMESCALE_POSITION_TOP);
+                _timeScaleRendererComponent.setBounds(_delegate.getXAxisRect());
+                Graphics gg = g.create(_delegate.getXAxisRect().x, _delegate.getXAxisRect().y,
+                        _delegate.getXAxisRect().width, _delegate.getXAxisRect().height);
+                _timeScaleRendererComponent.paint(gg);
+                gg.dispose();
+            }
         }
 
         /**
@@ -1230,7 +1231,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                 TimeBarRow row) {
             TimeBarRenderer renderer = getRenderer(i.getClass());
             if (renderer == null) {
-                throw new RuntimeException("no suitable renderer registered for "+i.getClass().getName());
+                throw new RuntimeException("no suitable renderer registered for " + i.getClass().getName());
             }
 
             boolean overlapping = oiInfo != null && oiInfo.maxOverlapping > 0;
@@ -1246,19 +1247,19 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                 y = y + oiInfo.pos * height;
             }
 
-            
             Component component = renderer.getTimeBarRendererComponent(_timeBarViewer, i, selected, overlapping);
             int x = _delegate.xForDate(i.getBegin());
             int width = _delegate.xForDate(i.getEnd()) - x;
 
             // check preferred drawing bounds
             Rectangle intervalDrawingArea = new Rectangle(x, y, width, height);
-          	Rectangle drawingArea = renderer.getPreferredDrawingBounds(intervalDrawingArea, _delegate, i, selected, overlapping);
+            Rectangle drawingArea = renderer.getPreferredDrawingBounds(intervalDrawingArea, _delegate, i, selected,
+                    overlapping);
             x = drawingArea.x;
             width = drawingArea.width;
-            y= drawingArea.y;
+            y = drawingArea.y;
             height = drawingArea.height;
-            
+
             component.setBounds(x, y, width, height);
             Graphics gg = g.create(x, y, width, height);
             // calculate height for clipping
@@ -1277,9 +1278,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             }
             // calc x clipping and set clipping rect
             gg.setClip(x < diagramRect.x ? diagramRect.x - x : 0, upperClipBound, width, height);
-         
-            
-            
+
             component.paint(gg);
             gg.dispose();
         }
@@ -1321,12 +1320,13 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
 
             // check preferred drawing bounds
             Rectangle intervalDrawingArea = new Rectangle(x, y, width, height);
-          	Rectangle drawingArea = renderer.getPreferredDrawingBounds(intervalDrawingArea, _delegate, i, selected, overlapping);
+            Rectangle drawingArea = renderer.getPreferredDrawingBounds(intervalDrawingArea, _delegate, i, selected,
+                    overlapping);
             x = drawingArea.x;
             width = drawingArea.width;
-            y= drawingArea.y;
+            y = drawingArea.y;
             height = drawingArea.height;
-            
+
             component.setBounds(x, y, width, height);
             Graphics gg = g.create(x, y, width, height);
             // calculate height for clipping
@@ -1662,7 +1662,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
          * {@inheritDoc}
          */
         public void mousePressed(MouseEvent e) {
-        	_delegate.mousePressed(e.getX(), e.getY(), e.isPopupTrigger(), e.getModifiersEx());
+            _delegate.mousePressed(e.getX(), e.getY(), e.isPopupTrigger(), e.getModifiersEx());
         }
 
         /**
@@ -1677,10 +1677,10 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         public void mouseReleased(MouseEvent e) {
             boolean popupTrigger = e.isPopupTrigger();
             if (!popupTrigger && _macOS) {
-            	popupTrigger = e.getButton() == MouseEvent.BUTTON3;
+                popupTrigger = e.getButton() == MouseEvent.BUTTON3;
             }
 
-        	_delegate.mouseReleased(e.getX(), e.getY(), popupTrigger, e.getModifiersEx());
+            _delegate.mouseReleased(e.getX(), e.getY(), popupTrigger, e.getModifiersEx());
         }
 
         // *** End of MouseListener
@@ -1740,7 +1740,12 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             // if the renderer announces a preferred height, get it and set it
             _delegate.setXAxisHeight(_timeScaleRenderer.getHeight());
         }
-        if (_timeScaleRenderer != null && _gridRenderer != null && _timeScaleRenderer instanceof ITickProvider) {
+        // maybe the new time scale renderer is not a TickProvider ... tell the grid rederer
+        if (_gridRenderer != null) {
+            _gridRenderer.setTickProvider(null);
+        }
+        if (_timeScaleRenderer != null && _gridRenderer != null && _timeScaleRenderer instanceof ITickProvider
+                && _delegate.getTimeScalePosition() != TimeBarViewerInterface.TIMESCALE_POSITION_NONE) {
             _gridRenderer.setTickProvider((ITickProvider) _timeScaleRenderer);
         }
         _diagram.safeRepaint();
@@ -1874,7 +1879,6 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         _gapRenderer = gapRenderer;
         _diagram.safeRepaint();
     }
-
 
     /**
      * Register a popup menu for a given interval class.
@@ -2068,18 +2072,16 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * {@inheritDoc}
      */
     public void setLastRow(int index) {
-    	_delegate.setLastRow(index);
+        _delegate.setLastRow(index);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void setLastRow(TimeBarRow row) {
-    	_delegate.setLastRow(row);
+        _delegate.setLastRow(row);
     }
 
-    
-    
     /**
      * {@inheritDoc}
      */
@@ -2106,13 +2108,13 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      */
     public void setTimeScalePosition(int timeScalePosition) {
         if (timeScalePosition == TimeBarViewerInterface.TIMESCALE_POSITION_NONE) {
-        	if (_gridRenderer != null) {
-        		_gridRenderer.setTickProvider(null);
-        	}
+            if (_gridRenderer != null) {
+                _gridRenderer.setTickProvider(null);
+            }
         } else {
-        	if (_gridRenderer != null && _timeScaleRenderer instanceof ITickProvider) {
-        		_gridRenderer.setTickProvider((ITickProvider) _timeScaleRenderer);
-        	}
+            if (_gridRenderer != null && _timeScaleRenderer instanceof ITickProvider) {
+                _gridRenderer.setTickProvider((ITickProvider) _timeScaleRenderer);
+            }
         }
         _delegate.setTimeScalePosition(timeScalePosition);
     }
@@ -2437,7 +2439,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * {@inheritDoc}
      */
     public void displayBodyContextMenu(int x, int y) {
-    	if (_bodyContextMenu != null) {
+        if (_bodyContextMenu != null) {
             _bodyContextMenu.show(_diagram, x, y);
         }
     }
@@ -2457,7 +2459,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
     public void displayIntervalContextMenu(Interval interval, int x, int y) {
         JPopupMenu menu = getPopupMenu(interval.getClass());
         if (menu != null) {
-        	menu.show(_diagram, x, y);
+            menu.show(_diagram, x, y);
         }
     }
 
@@ -2906,10 +2908,10 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      */
     public String getName() {
         // null check becuase of the gtk plaf that calls getName before the component is fully initialized
-    	if (_delegate != null) {
-        	return _delegate.getName();
+        if (_delegate != null) {
+            return _delegate.getName();
         } else {
-        	return null;
+            return null;
         }
     }
 
@@ -3102,40 +3104,38 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         return _delegate.isDisplayed(date);
     }
 
-    
     /**
      * {@inheritDoc}
      */
-    public void setInitialDisplayRange(JaretDate startDate, int secondsDisplayed){
-    	_delegate.setInitialDisplayRange(startDate, secondsDisplayed);
+    public void setInitialDisplayRange(JaretDate startDate, int secondsDisplayed) {
+        _delegate.setInitialDisplayRange(startDate, secondsDisplayed);
     }
 
     /**
-     * Retrieve the panel that the horizontal scroll bar is plcaed on (BorderLayout, CENETER). This can be used to add 
+     * Retrieve the panel that the horizontal scroll bar is plcaed on (BorderLayout, CENETER). This can be used to add
      * special extensions in the scroll bar area.
+     * 
      * @return th panel or <code>null</code> if the scroll bar has been suppressed
      */
     public JPanel getHorizontalScrollPanel() {
-		return _horizontalScrollPanel;
-	}
+        return _horizontalScrollPanel;
+    }
 
     /**
-     * Retrieve the panel that the vertical scroll bar is plcaed on (BorderLayout, CENETER). This can be used to add 
+     * Retrieve the panel that the vertical scroll bar is plcaed on (BorderLayout, CENETER). This can be used to add
      * special extensions in the scroll bar area.
+     * 
      * @return th panel or <code>null</code> if the scroll bar has been suppressed
      */
-	public JPanel getVerticalScrollPanel() {
-		return _verticalScrollPanel;
-	}
+    public JPanel getVerticalScrollPanel() {
+        return _verticalScrollPanel;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
+    /**
+     * {@inheritDoc}
+     */
     public Pair<TimeBarRow, JaretDate> getPopUpInformation() {
         return _delegate.getPopUpInformation();
     }
 
-
-
-    
 }
