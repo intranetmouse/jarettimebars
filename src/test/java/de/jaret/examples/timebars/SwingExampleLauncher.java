@@ -30,6 +30,7 @@ import javax.swing.JFrame;
 import de.jaret.examples.timebars.eventmonitoring.swing.EventMonitoringExample;
 import de.jaret.examples.timebars.events.swing.SwingEventExample;
 import de.jaret.examples.timebars.hierarchy.swing.SwingHierarchy;
+import de.jaret.examples.timebars.scheduling.swing.SwingSchedulingExample;
 import de.jaret.examples.timebars.simple.swing.SwingOverlapExample;
 
 /**
@@ -83,15 +84,25 @@ public class SwingExampleLauncher {
 		});
 		contentPane.add(b);
 
-		b = new JButton();
-		b.setText("EventMonitoring");
-		b.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				EventMonitoringExample.main(new String[0]);
-			}
-		});
-		contentPane.add(b);
+        b = new JButton();
+        b.setText("EventMonitoring");
+        b.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                EventMonitoringExample.main(new String[0]);
+            }
+        });
+        contentPane.add(b);
+
+        b = new JButton();
+        b.setText("Schedule");
+        b.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                SwingSchedulingExample.main(new String[0]);
+            }
+        });
+        contentPane.add(b);
 
 	}
 }

@@ -19,12 +19,14 @@
  */
 package de.jaret.util.ui.timebars.swing;
 
+import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -47,6 +49,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
+
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.JaretDate;
 import de.jaret.util.misc.Pair;
@@ -56,6 +61,7 @@ import de.jaret.util.ui.timebars.TimeBarRowFilter;
 import de.jaret.util.ui.timebars.TimeBarRowSorter;
 import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
+import de.jaret.util.ui.timebars.TimeBarViewerInterface.Orientation;
 import de.jaret.util.ui.timebars.mod.IntervalModificator;
 import de.jaret.util.ui.timebars.model.FocussedIntervalListener;
 import de.jaret.util.ui.timebars.model.HierarchicalTimeBarModel;
@@ -106,7 +112,7 @@ import de.jaret.util.ui.timebars.swing.renderer.TimeScaleRenderer;
  * <p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 906 2009-11-13 21:15:27Z kliem $
+ * @version $Id: TimeBarViewer.java 969 2009-12-15 21:58:55Z kliem $
  */
 @SuppressWarnings("serial")
 public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, ChangeListener, ComponentListener {
@@ -622,7 +628,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * The component drawing the viewer itself.
      * 
      * @author Peter Kliem
-     * @version $Id: TimeBarViewer.java 906 2009-11-13 21:15:27Z kliem $
+     * @version $Id: TimeBarViewer.java 969 2009-12-15 21:58:55Z kliem $
      */
     private class Diagram extends JComponent implements MouseListener, MouseMotionListener, MouseWheelListener {
         /** surrounding timebar viewer. */
@@ -830,6 +836,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             if (_relationRenderer != null) {
                 _relationRenderer.renderRelations(_delegate, g);
             }
+            drawGhostIntervals(g);
         }
 
         /**
@@ -3138,6 +3145,133 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      */
     public Pair<TimeBarRow, JaretDate> getPopUpInformation() {
         return _delegate.getPopUpInformation();
+    }
+
+    
+    /** list of ghost intervals to be painted. */
+    protected List<? extends Interval> _ghostIntervals;
+    /** y offsets for the ghost intervals. */
+    protected List<Integer> _ghostIntervalYCoordinates;
+    /**
+     * the origin for painting the ghost intervals/rows. The ghosted elements will paintetd relative to the y
+     * coordinate.
+     */
+    protected Point _ghostOrigin;
+    /** list of ghost rows to paint. */
+    protected List<TimeBarRow> _ghostRows;
+    /** y offsets for the ghost rows. */
+    protected List<Integer> _ghostRowYCoordinates;
+
+    /**
+     * Set the list of ghost intervals to be drawn.
+     * 
+     * @param intervals list of intervals or <code>null</code> to delete ghosted intervals.
+     * @param yCoordinates list of y offsets for the ghost intervals (maybe <code>null</code> when deleting ghost
+     * intervals
+     */
+    public void setGhostIntervals(List<? extends Interval> intervals, List<Integer> yCoordinates) {
+        _ghostIntervals = intervals;
+        _ghostIntervalYCoordinates = yCoordinates;
+        repaint();
+    }
+    
+    /**
+     * Draw ghost intervals and rows.
+     * 
+     * @param gc GC
+     */
+    private void drawGhosts(Graphics gc) {
+        drawGhostIntervals(gc);
+        drawGhostRows(gc);
+    }
+
+    /**
+     * Draw ghost intervals. Y positions are dependant from the ghost y offsets and the ghost origin. (Always uses the
+     * defaultRowHeight.)
+     * 
+     * @param gc GC
+     */
+    private void drawGhostIntervals(Graphics gc) {
+        if (_ghostOrigin != null && _ghostIntervals != null) {
+            for (int i = 0; i < _ghostIntervals.size(); i++) {
+                Interval interval = _ghostIntervals.get(i);
+                int yoff = _ghostIntervalYCoordinates.get(i);
+
+                Rectangle drawingArea = _delegate.getIntervalBounds(-1, interval);
+                if (_delegate.getOrientation().equals(Orientation.HORIZONTAL)) {
+                    drawingArea.y = _ghostOrigin.y + yoff;
+                    drawingArea.height = _delegate.getTimeBarViewState().getDefaultRowHeight();
+                } else {
+                    drawingArea.x = _ghostOrigin.x + yoff;
+                    drawingArea.width = _delegate.getTimeBarViewState().getDefaultRowHeight();
+                }
+                Graphics2D g2 = (Graphics2D)gc;
+                Color color = g2.getColor();
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+
+                TimeBarRenderer renderer = getRenderer(interval.getClass());
+                if (renderer == null) {
+                    throw new RuntimeException("no suitable renderer");
+                }
+
+                
+                Component component = renderer.getTimeBarRendererComponent(this, interval, false, false);
+
+                component.setBounds(drawingArea);//
+
+                Graphics2D g22 = (Graphics2D) g2.create(drawingArea.x, drawingArea.y-_delegate.getRowHeight()/2, drawingArea.width, drawingArea.height);
+                component.paint(g22);
+                
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+                g2.setColor(color);
+
+
+            }
+        }
+    }
+
+    /**
+     * Draw ghost rows. Y positions are dependent from the ghost y offsets and the ghost origin.
+     * 
+     * @param gc GC
+     */
+    private void drawGhostRows(Graphics gc) {
+        if (_ghostOrigin != null && _ghostRows != null) {
+            
+            Graphics2D g2 = (Graphics2D)gc;
+            Color color = g2.getColor();
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+
+            for (int i = 0; i < _ghostRows.size(); i++) {
+                TimeBarRow row = _ghostRows.get(i);
+                int yoff = _ghostRowYCoordinates.get(i);
+
+                if (_delegate.getOrientation().equals(Orientation.HORIZONTAL)) {
+                    int y = _ghostOrigin.y + yoff;
+                    int height = _delegate.getRowHeight(); // default height
+                    _diagram.drawRow(g2, y, height, row, false);
+                } else {
+                    int x = _ghostOrigin.x + yoff;
+                    int width = _delegate.getRowHeight(); // default height
+                    _diagram.drawRowVertical(g2, x, width, row, false);
+                }
+            }
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+            g2.setColor(color);
+        }
+    }
+
+    /**
+     * Set the origin (current drag position) to shift the ghost elements.
+     * 
+     * @param x x coordinate
+     * @param y y coordniate
+     */
+    public void setGhostOrigin(int x, int y) {
+        _ghostOrigin = new Point(x, y);
+        if (_ghostIntervals != null || _ghostRows != null) {
+            repaint();
+        }
     }
 
 }
