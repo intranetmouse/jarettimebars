@@ -85,15 +85,8 @@ public class SwingOverlapExample {
         // BoxTimeScaleRenderer btsr = new BoxTimeScaleRenderer();
         // btsr.setCorrectDST(true);
         // _tbv.setTimeScaleRenderer(btsr);
-
-        JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        f.getContentPane().add(split, BorderLayout.CENTER);
-        split.add(_tbv, JSplitPane.TOP);
-        JPanel panel = new JPanel();
-        panel.setOpaque(false);
-        split.add(panel, JSplitPane.BOTTOM);
         
-//        f.getContentPane().add(_tbv, BorderLayout.CENTER);
+        f.getContentPane().add(_tbv, BorderLayout.CENTER);
 
         f.getContentPane().add(new OverlapControlPanel(_tbv), BorderLayout.SOUTH);
 

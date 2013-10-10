@@ -109,7 +109,7 @@ import de.jaret.util.ui.timebars.swing.renderer.TimeScaleRenderer;
  * <p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 1090 2011-10-04 19:41:10Z kliem $
+ * @version $Id: TimeBarViewer.java 1107 2012-02-09 22:31:29Z kliem $
  */
 @SuppressWarnings("serial")
 public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, ChangeListener, ComponentListener {
@@ -630,7 +630,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * The component drawing the viewer itself.
      * 
      * @author Peter Kliem
-     * @version $Id: TimeBarViewer.java 1090 2011-10-04 19:41:10Z kliem $
+     * @version $Id: TimeBarViewer.java 1107 2012-02-09 22:31:29Z kliem $
      */
     private class Diagram extends JComponent implements MouseListener, MouseMotionListener, MouseWheelListener {
         /** surrounding timebar viewer. */
@@ -1532,7 +1532,9 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                         prefHeight = prefHeight - (y + hCor + prefHeight - (diagramRect.y + diagramRect.height));
                     }
                     // calc x clipping and set clipping rect
-                    gg.setClip(0, upperClipBound, width, prefHeight);
+                    Rectangle clipSave = gg.getClipBounds();
+                    Rectangle newClip = new Rectangle(0, upperClipBound, width, prefHeight).intersection(clipSave);
+                    gg.setClip(newClip);
                 } else {
                     gg = g.create(x, y, width, height);
                     component.setBounds(x, y, width, height);
@@ -1545,7 +1547,9 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                         height = height - (y + height - (diagramRect.y + diagramRect.height));
                     }
                     // calc x clipping and set clipping rect
-                    gg.setClip(x, upperClipBound, width, height);
+                    Rectangle clipSave = gg.getClipBounds();
+                    Rectangle newClip = new Rectangle(x, upperClipBound, width, height).intersection(clipSave);
+                    gg.setClip(newClip);
                 }
                 component.paint(gg);
                 gg.dispose();
@@ -1583,7 +1587,9 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                         prefWidth = prefWidth - (x + wCor + prefWidth - (diagramRect.x + diagramRect.width));
                     }
                     // calc y clipping and set clipping rect
-                    gg.setClip(upperClipBound, 0, prefWidth, height);
+                    Rectangle clipSave = gg.getClipBounds();
+                    Rectangle newClip = new Rectangle(upperClipBound, 0, prefWidth, height).intersection(clipSave);
+                    gg.setClip(newClip);
                 } else {
                     gg = g.create(x, y, width, height);
                     component.setBounds(x, y, width, height);
@@ -1596,7 +1602,9 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                         width = width - (x + width - (diagramRect.x + diagramRect.width));
                     }
                     // calc y clipping and set clipping rect
-                    gg.setClip(upperClipBound, 0, width, height);
+                    Rectangle clipSave = gg.getClipBounds();
+                    Rectangle newClip = new Rectangle(upperClipBound, 0, width, height).intersection(clipSave);
+                    gg.setClip(newClip);
                 }
                 component.paint(gg);
                 gg.dispose();
@@ -1647,7 +1655,9 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                     upperClipBound = diagramRect.y - y;
                 }
                 // calc x clipping and set clipping rect
-                gg.setClip(x, upperClipBound, width, height);
+                Rectangle clipSave = gg.getClipBounds();
+                Rectangle newClip = new Rectangle(x, upperClipBound, width, height).intersection(clipSave);
+                gg.setClip(newClip);
 
                 component.paint(gg);
                 gg.dispose();
@@ -1700,7 +1710,9 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                     upperClipBound = diagramRect.x - x;
                 }
                 // calc y clipping and set clipping rect
-                gg.setClip(upperClipBound, y, width, height);
+                Rectangle clipSave = gg.getClipBounds();
+                Rectangle newClip = new Rectangle(upperClipBound, y, width, height).intersection(clipSave);
+                gg.setClip(newClip);
 
                 component.paint(gg);
                 gg.dispose();
