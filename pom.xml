@@ -4,7 +4,7 @@
 	<groupId>de.jaret</groupId>
 	<artifactId>timebars</artifactId>
 	<packaging>jar</packaging>
-	<version>1.45</version>
+	<version>1.46</version>
 	<name>Jaret timebars</name>
 	<url>http://www.jaret.de</url>
 	<dependencies>

@@ -11,6 +11,16 @@
 			<subsection name="Keep updated: the timebars on Twitter">
 				If you want to know about new versions you can follow the timebars on twitter: <a href="http://twitter.com/jaret_timebars">http://twitter.com/jaret_timebars</a>.
 			</subsection>
+			<subsection name="2011-11-06 version 1.46">
+				<ul>
+					<li>
+						Fixed NullPointerException when setting row height before setting a model (Thx Patrick)
+					</li>
+					<li>
+						SWT: fixed call to super.dispose() in onDipose (thx Chris)
+					</li>
+				</ul>
+			</subsection>
 			<subsection name="2011-10-04 version 1.45">
 				<ul>
 					<li>

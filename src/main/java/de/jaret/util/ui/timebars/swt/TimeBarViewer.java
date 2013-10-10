@@ -138,7 +138,7 @@ import de.jaret.util.ui.timebars.swt.util.actions.JaretTimeBarsActionFactory;
  * </p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 1086 2011-07-30 20:28:05Z kliem $
+ * @version $Id: TimeBarViewer.java 1097 2011-11-06 21:44:47Z kliem $
  */
 public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISelectionProvider {
     /** DEBUGGING OPTION: if set to true the actual paint times will be printed to stdout. */
@@ -361,10 +361,9 @@ public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISe
     }
 
     /**
-     * Dispose all renderes after disposing the widget itself.
+     * Dispose all renderes.
      */
     public void onDispose() {
-        super.dispose();
         _delegate.dispose();
         if (_hierarchyRenderer != null) {
             _hierarchyRenderer.dispose();

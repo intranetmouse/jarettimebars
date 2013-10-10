@@ -77,7 +77,7 @@ import de.jaret.util.ui.timebars.strategy.OverlapInfo;
  * TimeBarViewerInterface.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerDelegate.java 1089 2011-09-14 22:10:45Z kliem $
+ * @version $Id: TimeBarViewerDelegate.java 1097 2011-11-06 21:44:47Z kliem $
  */
 public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelectionListener, TimeBarMarkerListener,
         PropertyChangeListener {
@@ -165,7 +165,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     protected int _firstRowPixelOffset = 0;
 
     /** filtered and sorted list. */
-    protected List<TimeBarRow> _rowList;
+    protected List<TimeBarRow> _rowList = new ArrayList<TimeBarRow>(); // initialize with an empty list to prevent npes
 
     /**
      * Flag controlling min/max setting behaviour. If true the min and max of the viewer are adapted to the models
