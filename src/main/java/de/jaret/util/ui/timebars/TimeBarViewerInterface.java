@@ -46,7 +46,7 @@ import de.jaret.util.ui.timebars.strategy.IOverlapStrategy;
  * TimeBarViewer (Swing or SWT) directly.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerInterface.java 863 2009-06-22 20:06:19Z kliem $
+ * @version $Id: TimeBarViewerInterface.java 870 2009-07-31 13:31:09Z kliem $
  */
 public interface TimeBarViewerInterface {
     /**
@@ -405,6 +405,24 @@ public interface TimeBarViewerInterface {
      */
     void setFirstRowOffset(int offset);
 
+    /**
+     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be displayed as far down as possible by setting
+     * the first row to 0.
+     * 
+     * @param index index of the row to be displayed at the bottom of the viewer.
+     */
+    void setLastRow(int index);
+    
+    /**
+     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be displayed as far down as possible by setting
+     * the first row to 0.
+     * 
+     * @param row the row to be displayed at the bottom of the viewer.
+     */
+    void setLastRow(TimeBarRow row);
+
+    
+    
     /**
      * Get the selection model of the viewer.
      * 

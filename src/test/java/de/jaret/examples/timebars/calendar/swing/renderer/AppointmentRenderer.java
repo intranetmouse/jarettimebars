@@ -34,7 +34,7 @@ public class AppointmentRenderer implements TimeBarRenderer {
      * Component for the renderer.
      * 
      * @author kliem
-     * @version $Id: AppointmentRenderer.java 430 2007-05-13 19:14:28Z olk $
+     * @version $Id: AppointmentRenderer.java 869 2009-07-07 19:32:45Z kliem $
      */
     @SuppressWarnings("serial")
     class AppRendererComponent extends JComponent {
@@ -150,5 +150,13 @@ public class AppointmentRenderer implements TimeBarRenderer {
         }
 
     }
+    /**
+     * {@inheritDoc} Simple default implementation.
+     */
+	public Rectangle getPreferredDrawingBounds(Rectangle intervalDrawingArea,
+			TimeBarViewerDelegate delegate, Interval interval,
+			boolean selected, boolean overlap) {
+		return intervalDrawingArea;
+	}
 
 }

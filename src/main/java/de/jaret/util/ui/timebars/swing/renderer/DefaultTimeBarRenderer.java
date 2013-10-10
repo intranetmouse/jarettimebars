@@ -20,6 +20,7 @@
 package de.jaret.util.ui.timebars.swing.renderer;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import de.jaret.util.date.Interval;
+import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
 
 /**
@@ -34,84 +36,19 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * timebar renderers for special classes.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultTimeBarRenderer.java 800 2008-12-27 22:27:33Z kliem $
+ * @version $Id: DefaultTimeBarRenderer.java 869 2009-07-07 19:32:45Z kliem $
  */
 public class DefaultTimeBarRenderer implements TimeBarRenderer {
     /** component used for rendering. */
     protected JButton _component = new JButton();
 
-    /** map storing the renderers for different classes/interfaces. */
-    protected Map<Class<? extends Interval>, TimeBarRenderer> _rendererMap;
-
-    /**
-     * Register a renderer for a specific class or interface.
-     * 
-     * @param intervalClass class or interface of the intervals
-     * @param renderer renderer
-     */
-    public void registerTimeBarRenderer(Class<? extends Interval> intervalClass, TimeBarRenderer renderer) {
-        if (_rendererMap == null) {
-            _rendererMap = new HashMap<Class<? extends Interval>, TimeBarRenderer>();
-        }
-        _rendererMap.put(intervalClass, renderer);
-    }
-
-    /**
-     * Retrieve a renderer for a given class. Checks all interfaces and all superclasses.
-     * 
-     * @param clazz class in question
-     * @return renderer or null
-     */
-    private TimeBarRenderer getRenderer(Class<? extends Interval> clazz) {
-        TimeBarRenderer result = null;
-        result = _rendererMap.get(clazz);
-        if (result != null) {
-            return result;
-        }
-
-        Class<?>[] interfaces = clazz.getInterfaces();
-        for (Class<?> c : interfaces) {
-            result = _rendererMap.get(c);
-            if (result != null) {
-                return result;
-            }
-        }
-
-        Class<?> sc = clazz.getSuperclass();
-
-        while (sc != null) {
-            result = _rendererMap.get(sc);
-            if (result != null) {
-                return result;
-            }
-            // interfaces of the superclass
-            Class<?>[] scinterfaces = sc.getInterfaces();
-            for (Class<?> c : scinterfaces) {
-                result = _rendererMap.get(c);
-                if (result != null) {
-                    return result;
-                }
-            }
-            sc = sc.getSuperclass();
-        }
-
-        return result;
-    }
 
     /**
      * {@inheritDoc}
      */
     public JComponent getTimeBarRendererComponent(TimeBarViewer tbv, Interval value, boolean isSelected,
             boolean overlapping) {
-        TimeBarRenderer renderer = null;
-        if (_rendererMap != null) {
-            renderer = getRenderer(value.getClass());
-        }
-        if (renderer == null) {
-            return defaultGetTimeBarRendererComponent(tbv, value, isSelected, overlapping);
-        } else {
-            return renderer.getTimeBarRendererComponent(tbv, value, isSelected, overlapping);
-        }
+       return defaultGetTimeBarRendererComponent(tbv, value, isSelected, overlapping);
     }
 
     /**
@@ -128,4 +65,13 @@ public class DefaultTimeBarRenderer implements TimeBarRenderer {
         }
         return _component;
     }
+
+    /**
+     * {@inheritDoc} Simple default implementation.
+     */
+	public Rectangle getPreferredDrawingBounds(Rectangle intervalDrawingArea,
+			TimeBarViewerDelegate delegate, Interval interval,
+			boolean selected, boolean overlap) {
+		return intervalDrawingArea;
+	}
 }

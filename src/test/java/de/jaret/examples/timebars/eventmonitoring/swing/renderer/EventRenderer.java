@@ -21,12 +21,14 @@ package de.jaret.examples.timebars.eventmonitoring.swing.renderer;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import javax.swing.JComponent;
 
 import de.jaret.examples.timebars.eventmonitoring.model.EventInterval;
 import de.jaret.util.date.Interval;
 import de.jaret.util.swing.GraphicsHelper;
+import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
 import de.jaret.util.ui.timebars.swing.renderer.TimeBarRenderer;
 
@@ -34,7 +36,7 @@ import de.jaret.util.ui.timebars.swing.renderer.TimeBarRenderer;
  * Renderer for events in the event monitoring example.
  * 
  * @author Peter Kliem
- * @version $Id: EventRenderer.java 803 2008-12-28 19:30:23Z kliem $
+ * @version $Id: EventRenderer.java 869 2009-07-07 19:32:45Z kliem $
  */
 public class EventRenderer implements TimeBarRenderer {
     EventRendererComponent _eventComponent;
@@ -58,7 +60,7 @@ public class EventRenderer implements TimeBarRenderer {
      * Rendering jcomponet for an event.
      * 
      * @author kliem
-     * @version $Id: EventRenderer.java 803 2008-12-28 19:30:23Z kliem $
+     * @version $Id: EventRenderer.java 869 2009-07-07 19:32:45Z kliem $
      */
     public class EventRendererComponent extends JComponent {
         EventInterval _interval;
@@ -114,4 +116,13 @@ public class EventRenderer implements TimeBarRenderer {
             }
         }
     }
+    /**
+     * {@inheritDoc} Simple default implementation.
+     */
+	public Rectangle getPreferredDrawingBounds(Rectangle intervalDrawingArea,
+			TimeBarViewerDelegate delegate, Interval interval,
+			boolean selected, boolean overlap) {
+		return intervalDrawingArea;
+	}
+
 }

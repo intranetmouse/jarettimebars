@@ -82,7 +82,7 @@ import de.jaret.util.ui.timebars.swt.renderer.TimeBarRenderer;
  * Drag&Drop with the TimeBarViewer.
  * 
  * @author Peter Kliem
- * @version $Id: SwtOverlapExample.java 865 2009-06-23 19:39:14Z kliem $
+ * @version $Id: SwtOverlapExample.java 870 2009-07-31 13:31:09Z kliem $
  */
 public class SwtOverlapExample extends ApplicationWindow {
     /** if set to true an ITimeBarChangeListener will be registered for monitoring changes. */
@@ -387,6 +387,36 @@ public class SwtOverlapExample extends ApplicationWindow {
         
         DefaultOverlapStrategy os = (DefaultOverlapStrategy)_tbv.getOverlapStrategy();
         os.setAssumeSortedIntervals(false);
+
+        
+        // TODO temp
+        final Button lastrow5 = new Button(addPanel, SWT.PUSH);
+        lastrow5.setText("last 5");
+        lastrow5.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                _tbv.getDelegate().setLastRow(5);
+            }
+        });
+        final Button lastrow7 = new Button(addPanel, SWT.PUSH);
+        lastrow7.setText("last 7");
+        lastrow7.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                _tbv.getDelegate().setLastRow(7);
+            }
+        });
+        final Button lastrow0 = new Button(addPanel, SWT.PUSH);
+        lastrow0.setText("last 0");
+        lastrow0.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                _tbv.getDelegate().setLastRow(0);
+            }
+        });
+
+        
+        
         
         return _tbv;
     }
@@ -587,6 +617,9 @@ public class SwtOverlapExample extends ApplicationWindow {
         target.setTransfer(types);
 
         target.addDropListener(new DropTargetListener() {
+        	final static int DELAY = 5; 
+        	int _verticalAutoscrollDelay = DELAY;
+        	
             public void dragEnter(DropTargetEvent event) {
             }
 
@@ -634,6 +667,38 @@ public class SwtOverlapExample extends ApplicationWindow {
                     // tell the timebar viewer
                     tbv.setGhostIntervals(_draggedIntervals, _yOffsets);
                     tbv.setGhostOrigin(destX, destY);
+                    
+                    // vertical autoscroll
+                    // the delay is initialized at the top of the drop target!
+                    int range = 15;
+                    Rectangle diagramRect = _tbv.getDelegate().getDiagramRect();
+                    if (destY<=diagramRect.y) {
+                        _verticalAutoscrollDelay--;
+                        if (_verticalAutoscrollDelay < 0) {
+	                    	_verticalAutoscrollDelay = DELAY;
+	                        int ridx = _tbv.getFirstRowDisplayed();
+	                        if (ridx>0) {
+	                            _tbv.setFirstRowDisplayed(ridx-1);
+	                        }
+                        }
+                    } else 
+                    if (destY>=diagramRect.y+diagramRect.height-range) {
+                        _verticalAutoscrollDelay--;
+                        if (_verticalAutoscrollDelay < 0) {
+	                    	_verticalAutoscrollDelay = DELAY;
+                        	
+                        	TimeBarRow row = _tbv.rowForY(destY);
+	                        int ridx = _tbv.getDelegate().getRowIndex(row);
+	                        if (ridx+1<_tbv.getDelegate().getRowCount()-1) {
+	                            TimeBarRow nextRow = _tbv.getDelegate().getRow(ridx+1);
+	                            _tbv.scrollRowToVisible(nextRow);
+	                        }
+                        }
+                    } else {
+                    	_verticalAutoscrollDelay = DELAY;
+                    }
+                    
+                    
                 }
             }
 
@@ -804,96 +869,18 @@ public class SwtOverlapExample extends ApplicationWindow {
         model.addRow(tbr);
 
         // add some empty rows for drag&drop fun
-        header = new DefaultRowHeader("r4");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
+        for(int rowNumber=4;rowNumber<=20;rowNumber++) {
+            header = new DefaultRowHeader("r"+rowNumber);
+            tbr = new DefaultTimeBarRowModel(header);
+            model.addRow(tbr);
+        	
+        }
 
-        header = new DefaultRowHeader("r5");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r6");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r7");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r8");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r9");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r10");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r11");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r12");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r13");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r14");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
+ 
 
         return model;
     }
     
-// debug constellation    
-//    static void addAddRows(TimeBarModel model) {
-//        DefaultTimeBarRowModel row = new DefaultTimeBarRowModel(new DefaultRowHeader("abc"));
-//        OtherIntervalImpl i = new OtherIntervalImpl(new JaretDate(1262798566000L), new JaretDate(1262801266200L));
-//        i.setLabel("1");
-//        row.addInterval(i);
-//        i = new OtherIntervalImpl(new JaretDate(1262798686000L), new JaretDate(1262799986600L));
-//        i.setLabel("2");
-//        row.addInterval(i);
-//        i = new OtherIntervalImpl(new JaretDate(1262798986000L), new JaretDate(1262800286600L));
-//        i.setLabel("3");
-//        row.addInterval(i);
-//        i = new OtherIntervalImpl(new JaretDate(1262798986000L), new JaretDate(1262800286600L));
-//        i.setLabel("4");
-//        row.addInterval(i);
-//        i = new OtherIntervalImpl(new JaretDate(1262800006000L), new JaretDate(1262801306600L));
-//        i.setLabel("5");
-//        row.addInterval(i);
-//        i = new OtherIntervalImpl(new JaretDate(1262800306000L), new JaretDate(1262803006100L));
-//        i.setLabel("6");
-//        row.addInterval(i);
-//        i = new OtherIntervalImpl(new JaretDate(1262800306000L), new JaretDate(1262803006100L));
-//        i.setLabel("7");
-//        row.addInterval(i);
-//        i = new OtherIntervalImpl(new JaretDate(1262801926000L), new JaretDate(1262803226600L));
-//        i.setLabel("8");
-//        row.addInterval(i);
-//        i = new OtherIntervalImpl(new JaretDate(1262803066000L), new JaretDate(1262805766200L));
-//        i.setLabel("9");
-//        row.addInterval(i);
-//        i = new OtherIntervalImpl(new JaretDate(1262803066000L), new JaretDate(1262805766200L));
-//        i.setLabel("10");
-//        row.addInterval(i);
-//        i = new OtherIntervalImpl(new JaretDate(1262803246000L), new JaretDate(1262805946200L));
-//        i.setLabel("11");
-//        row.addInterval(i);
-//        i = new OtherIntervalImpl(new JaretDate(1262805286000L), new JaretDate(1262807986200L));
-//        i.setLabel("12");
-//        row.addInterval(i);
-//
-//        ((DefaultTimeBarModel) model).addRow(row);
-//    }
 
 
     public static TimeBarModel createLargeModel() {

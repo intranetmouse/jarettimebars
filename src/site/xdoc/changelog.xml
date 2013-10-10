@@ -8,6 +8,31 @@
 			<subsection name="Note for Swing users">
 				The SWT Version is leading. However the the swing version has catched up to provide nearly the same features.
 			</subsection>
+			<subsection name="2009-08-17 version 1.36">
+				<ul>
+					<li>
+						<b>IMPORTANT: This is an SWT only version since there are some open ends in the swing version</b>
+					</li>
+					<li>
+						Swing: removed renderer delegation from the DefaultRenderer (not necessary - register your renderers with the viewer directly)
+					</li>
+					<li>
+						Added better control for the displayed rows: setLastRow. This is in conjunction with a bugfix in scrollRowToVisible and a possible 
+						vertical autoscroll solution for drag+drop (can be found in the swt overlap example)
+					</li>
+					<li>
+						When dragging an interval the bounds are now set in a sequence that ensures that end will always be > begin
+					</li>
+					<li>
+						setSecondsDisplayed is now safe to be used even when the viewer has not been painted. The calculations will be deferred until the 
+						component is painted. Additional parameters (centering, centerDate) will be ignored in this case, since the calculations are not possible.
+					</li>
+					<li>
+						Fixed a weird NPE occurring with Swing/GTK during construction of the timebar viewer 
+					</li>
+					
+				</ul>
+			</subsection>
 			<subsection name="2009-06-23 version 1.35">
 				<ul>
 					<li>

@@ -36,16 +36,23 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * Simple default implementation of a GridRenderer rendering the major and minor ticks using two different colors.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultGridRenderer.java 821 2009-02-04 21:12:16Z kliem $
+ * @version $Id: DefaultGridRenderer.java 870 2009-07-31 13:31:09Z kliem $
  */
 public class DefaultGridRenderer implements GridRenderer {
-    /** color for major grid lines. */
+    /** default color for major grid lines. */
     private static final Color MAJORGRIDCOLOR = new Color(200, 200, 200);
-    /** color for minor grid lines. */
+    /** default color for minor grid lines. */
     private static final Color MINORGRIDCOLOR = new Color(230, 230, 230);
     /** approximate number of minutes in a month. */
     private static final double APPROX_MONTH_MINUTES = (24.0 * 60.0 * 7.0 * 4.0);
 
+    /** color used to paint the major grid. */
+    protected Color _majorGridColor = MAJORGRIDCOLOR;
+
+	/** color used to paint the minor grid. */
+    protected Color _minorGridColor = MINORGRIDCOLOR;
+    
+    
     /** component used for painting. */
     protected MyGridRenderer _component = new MyGridRenderer();
 
@@ -71,10 +78,43 @@ public class DefaultGridRenderer implements GridRenderer {
     }
 
     /**
-     * JComponent for drawing gthe grid.
+     * Retrieve the major grid color.
+     * @return the major grid color
+     */
+    public Color getMajorGridColor() {
+		return _majorGridColor;
+	}
+
+    /**
+     * Set the major grid color.
+     * @param majorGridColor the Color to use for the major grid
+     */
+	public void setMajorGridColor(Color majorGridColor) {
+		_majorGridColor = majorGridColor;
+	}
+
+	/**
+	 * Retrieve the minor grid color.
+	 * @return the minor grid color
+	 */
+	public Color getMinorGridColor() {
+		return _minorGridColor;
+	}
+
+	/**
+	 * Set the minor grid color.
+	 * @param minorGridColor the color to use for the minor grid
+	 */
+	public void setMinorGridColor(Color minorGridColor) {
+		_minorGridColor = minorGridColor;
+	}
+
+    
+    /**
+     * JComponent for drawing the grid.
      * 
      * @author kliem
-     * @version $Id: DefaultGridRenderer.java 821 2009-02-04 21:12:16Z kliem $
+     * @version $Id: DefaultGridRenderer.java 870 2009-07-31 13:31:09Z kliem $
      */
     @SuppressWarnings("serial")
     class MyGridRenderer extends JComponent {
@@ -119,7 +159,7 @@ public class DefaultGridRenderer implements GridRenderer {
         protected void paint(Graphics g, boolean horizontal, ITickProvider tickProvider) {
             // draw minor ticks
             Color color = g.getColor();
-            g.setColor(MINORGRIDCOLOR);
+            g.setColor(_minorGridColor);
 
             for (JaretDate tickDate : tickProvider.getMinorTicks(_tbv.getDelegate())) {
 
@@ -131,7 +171,7 @@ public class DefaultGridRenderer implements GridRenderer {
                 }
             }
             // draw major ticks
-            g.setColor(MAJORGRIDCOLOR);
+            g.setColor(_majorGridColor);
 
             for (JaretDate tickDate : tickProvider.getMajorTicks(_tbv.getDelegate())) {
                 int coord = xForDate(tickDate);

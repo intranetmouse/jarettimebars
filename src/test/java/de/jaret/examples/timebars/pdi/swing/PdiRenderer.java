@@ -33,6 +33,7 @@ import de.jaret.examples.timebars.pdi.model.Taetigkeit;
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.JaretDateFormatter;
 import de.jaret.util.swing.GraphicsHelper;
+import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
 import de.jaret.util.ui.timebars.swing.renderer.TimeBarRenderer;
 
@@ -209,5 +210,13 @@ public class PdiRenderer implements TimeBarRenderer {
             }
         }
     }
+    /**
+     * {@inheritDoc} Simple default implementation.
+     */
+	public Rectangle getPreferredDrawingBounds(Rectangle intervalDrawingArea,
+			TimeBarViewerDelegate delegate, Interval interval,
+			boolean selected, boolean overlap) {
+		return intervalDrawingArea;
+	}
 
 }

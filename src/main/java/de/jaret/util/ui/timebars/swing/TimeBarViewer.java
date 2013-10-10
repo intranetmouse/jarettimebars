@@ -105,7 +105,7 @@ import de.jaret.util.ui.timebars.swing.renderer.TimeScaleRenderer;
  * <p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 858 2009-05-06 22:15:51Z kliem $
+ * @version $Id: TimeBarViewer.java 872 2009-08-17 20:35:53Z kliem $
  */
 @SuppressWarnings("serial")
 public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, ChangeListener, ComponentListener {
@@ -602,7 +602,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * The component drawing the viewer itself.
      * 
      * @author Peter Kliem
-     * @version $Id: TimeBarViewer.java 858 2009-05-06 22:15:51Z kliem $
+     * @version $Id: TimeBarViewer.java 872 2009-08-17 20:35:53Z kliem $
      */
     private class Diagram extends JComponent implements MouseListener, MouseMotionListener, MouseWheelListener {
         /** surrounding timebar viewer. */
@@ -1208,7 +1208,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                 TimeBarRow row) {
             TimeBarRenderer renderer = getRenderer(i.getClass());
             if (renderer == null) {
-                throw new RuntimeException("no suitable renderer registered");
+                throw new RuntimeException("no suitable renderer registered for "+i.getClass().getName());
             }
 
             boolean overlapping = oiInfo != null && oiInfo.maxOverlapping > 0;
@@ -1227,24 +1227,29 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             Component component = renderer.getTimeBarRendererComponent(_timeBarViewer, i, selected, overlapping);
             int x = _delegate.xForDate(i.getBegin());
             int width = _delegate.xForDate(i.getEnd()) - x;
-            component.setBounds(x, y, width, height);
-            Graphics gg = g.create(x, y, width, height);
+            Rectangle intervalDrawingArea = new Rectangle(x, y, width, height);
+            
+            // check for extra rendering space requested
+            Rectangle drawingArea = renderer.getPreferredDrawingBounds(intervalDrawingArea, _delegate, i, selected, overlapping);
+            
+            component.setBounds(drawingArea.x, drawingArea.y, drawingArea.width, drawingArea.height);
+            Graphics gg = g.create(drawingArea.x, drawingArea.y, drawingArea.width, drawingArea.height);
             // calculate height for clipping
             Rectangle diagramRect = _delegate.getDiagramRect();
-            if (y + height > diagramRect.y + diagramRect.height) {
-                height = height - (y + height - (diagramRect.y + diagramRect.height));
+            if (drawingArea.y + drawingArea.height > diagramRect.y + diagramRect.height) {
+            	drawingArea.height = drawingArea.height - (drawingArea.y + drawingArea.height - (diagramRect.y + diagramRect.height));
             }
             int upperClipBound = 0;
-            if (y < diagramRect.y) {
-                upperClipBound = diagramRect.y - y;
+            if (drawingArea.y < diagramRect.y) {
+                upperClipBound = diagramRect.y - drawingArea.y;
             }
 
             // calculate width for clipping
-            if (x + width > diagramRect.x + diagramRect.width) {
-                width = width - (x + width - (diagramRect.x + diagramRect.width));
+            if (drawingArea.x + drawingArea.width > diagramRect.x + diagramRect.width) {
+            	drawingArea.width = drawingArea.width - (drawingArea.x + drawingArea.width - (diagramRect.x + diagramRect.width));
             }
             // calc x clipping and set clipping rect
-            gg.setClip(x < diagramRect.x ? diagramRect.x - x : 0, upperClipBound, width, height);
+            gg.setClip(drawingArea.x < diagramRect.x ? diagramRect.x - drawingArea.x : 0, upperClipBound, drawingArea.width, drawingArea.height);
             component.paint(gg);
             gg.dispose();
         }
@@ -2018,6 +2023,22 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
     /**
      * {@inheritDoc}
      */
+    public void setLastRow(int index) {
+    	_delegate.setLastRow(index);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public void setLastRow(TimeBarRow row) {
+    	_delegate.setLastRow(row);
+    }
+
+    
+    
+    /**
+     * {@inheritDoc}
+     */
     public JaretDate getEndDate() {
         return _delegate.getEndDate();
     }
@@ -2040,6 +2061,15 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * {@inheritDoc}
      */
     public void setTimeScalePosition(int timeScalePosition) {
+        if (timeScalePosition == TimeBarViewerInterface.TIMESCALE_POSITION_NONE) {
+        	if (_gridRenderer != null) {
+        		_gridRenderer.setTickProvider(null);
+        	}
+        } else {
+        	if (_gridRenderer != null && _timeScaleRenderer instanceof ITickProvider) {
+        		_gridRenderer.setTickProvider((ITickProvider) _timeScaleRenderer);
+        	}
+        }
         _delegate.setTimeScalePosition(timeScalePosition);
     }
 
@@ -2829,7 +2859,12 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * {@inheritDoc}
      */
     public String getName() {
-        return _delegate.getName();
+        // null check becuase of the gtk plaf that calls getName before the component is fully initialized
+    	if (_delegate != null) {
+        	return _delegate.getName();
+        } else {
+        	return null;
+        }
     }
 
     /**

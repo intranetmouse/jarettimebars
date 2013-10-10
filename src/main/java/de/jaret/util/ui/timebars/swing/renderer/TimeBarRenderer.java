@@ -19,9 +19,12 @@
  */
 package de.jaret.util.ui.timebars.swing.renderer;
 
+import java.awt.Rectangle;
+
 import javax.swing.JComponent;
 
 import de.jaret.util.date.Interval;
+import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
 
 /**
@@ -29,7 +32,7 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * be reused, i.e. there only has to be one JComponent to be set up for drawing.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarRenderer.java 800 2008-12-27 22:27:33Z kliem $
+ * @version $Id: TimeBarRenderer.java 869 2009-07-07 19:32:45Z kliem $
  */
 public interface TimeBarRenderer {
     /** key for identifying the content rectangle as a client property. */
@@ -50,4 +53,20 @@ public interface TimeBarRenderer {
      * @return a configured JComponent, ready to be painted by <code>paint(Graphics g)</code>
      */
     JComponent getTimeBarRendererComponent(TimeBarViewer tbv, Interval value, boolean isSelected, boolean overlapping);
+
+    /**
+     * Retrieve the preferred drawing bounds for a specific interval. As a default implementation simply return the interval drawing area.
+     * 
+     * @param intervalDrawingArea the rectangle to render the interval in.
+     * @param delegate the viewer delegate
+     * @param interval the interval to be rendered
+     * @param selected true if the interval is selected
+     * @param overlap true if the interval is drawn as one of several intervals that overlap while beeing drawn.
+     * @return the bounding rectangle that the renderer will paint in when rendering
+     */
+    Rectangle getPreferredDrawingBounds(Rectangle intervalDrawingArea, TimeBarViewerDelegate delegate,
+            Interval interval, boolean selected, boolean overlap);
+
+
+
 }

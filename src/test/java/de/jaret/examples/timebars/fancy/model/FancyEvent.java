@@ -26,7 +26,7 @@ import de.jaret.util.date.JaretDate;
  * An extension of the general event holding a label.
  * 
  * @author kliem
- * @version $Id: FancyEvent.java 563 2007-09-15 18:52:33Z olk $
+ * @version $Id: FancyEvent.java 869 2009-07-07 19:32:45Z kliem $
  */
 public class FancyEvent extends Event {
     String _label;
@@ -42,10 +42,10 @@ public class FancyEvent extends Event {
     }
 
     public void setLabel(String label) {
-        
+        String oldVal = _label;
         _label = label;
-        // TODO check modification!
-        firePropertyChange("Label", null, label);
+        if (isRealModification(oldVal, label)) {
+        	firePropertyChange("Label", null, label);
+        }
     }
-
 }

@@ -73,7 +73,7 @@ import de.jaret.util.ui.timebars.strategy.OverlapInfo;
  * TimeBarViewerInterface.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerDelegate.java 863 2009-06-22 20:06:19Z kliem $
+ * @version $Id: TimeBarViewerDelegate.java 872 2009-08-17 20:35:53Z kliem $
  */
 public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelectionListener, TimeBarMarkerListener,
         PropertyChangeListener {
@@ -591,6 +591,15 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     }
 
     /**
+     * Retrieve the index of a given row.
+     * @param row row in question
+     * @return the index or -1 if the row could not be found
+     */
+    public int getRowIndex(TimeBarRow row) {
+    	return _rowList.indexOf(row);
+    }
+    
+    /**
      * Return the size of the row list.
      * 
      * @return the actual row count of the possibly filtered list of rows
@@ -986,7 +995,8 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     }
 
     /**
-     * Set the scaling of the x axis by specifying the number of seconds that should be displayed.
+     * Set the scaling of the x axis by specifying the number of seconds that should be displayed. If the viewer has not been drawn yet,
+     * the method delegates to setInitialDiaplyRange. The center parameter will not be taken into account (since it is impossible to do the calculations).
      * 
      * @param seconds number of seconds that will be displayed on the x axis
      * @param center if set to <code>true</code> the center date will be fixed while scaling
@@ -1003,12 +1013,14 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                 setStartDate(getStartDate().copy().advanceSeconds((oldSeconds - newSeconds) / 2.0)); // will repaint
             }
         } else {
-            throw new IllegalStateException("can not be used until fully initialized and drawn");
+        	// calculation not possible since has not been drawn yet
+        	setInitialDisplayRange(getStartDate(), seconds);
         }
     }
 
     /**
-     * Set the scaling of the x axis by specifying the number of seconds that should be displayed.
+     * Set the scaling of the x axis by specifying the number of seconds that should be displayed. If the viewer has not been drawn yet,
+     * the method delegates to setInitialDiaplyRange. The centerDate parameter will not be taken into account (since this is impossible to calculate).
      * 
      * @param seconds number of seconds that will be displayed on the x axis
      * @param centerDate date that will be fixed while scaling
@@ -1036,7 +1048,8 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                     _optimizeScrolling = optimizeScrolling;
                 }
             } else {
-                throw new IllegalStateException("can not be used until fully initialized and drawn");
+            	// calculation not possible since has not been drawn yet
+            	setInitialDisplayRange(getStartDate(), seconds);
             }
         }
     }
@@ -1365,7 +1378,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     /**
      * Calculate the row index for an absolute pixel position (referring to all rows stacked).
      * 
-     * @param value absolute position in th eimagined all rows display
+     * @param value absolute position in the imagined all rows display
      * @return the index of the row for the given position
      */
     public int getRowIdxForAbsoluteOffset(int value) {
@@ -2471,11 +2484,13 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     }
 
     /**
+     * Sets the first row to be displayed with a pixel offset 0.
+     * 
      * @param firstRow The row to be displayed at the topmost position in the viewer.
      */
     public void setFirstRow(int firstRow) {
         setFirstRow(firstRow, 0);
-    }
+    }    
 
     /**
      * Set the first row to be displayed.
@@ -2559,6 +2574,50 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         setFirstRow(getFirstRow(), offset);
     }
 
+    /**
+     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be displayed as far down as possible by setting
+     * the first row to 0.
+     * 
+     * @param index index of the row to be displayed at the bottom of the viewer.
+     */
+    public void setLastRow(int index) {
+    	System.out.println("set last "+index);
+    	TimeBarRow row = getRow(index);    		
+    	int absY = getAbsPosForRow(index);
+    	int endY = absY+_timeBarViewState.getRowHeight(row);
+    	
+    	int height = _diagramRect.height;
+    	
+    	int upperBound = endY-height;
+    	int y = endY;
+    	int idx = index;
+    	while(idx>=0 && y>upperBound) {
+    		row = getRow(idx);    		
+    		y -= _timeBarViewState.getRowHeight(row);
+    		idx--;
+    	}
+    	if (idx >= 0) {
+	    	int offset = Math.abs(y-upperBound);
+	    	setFirstRow(idx+1, offset);
+    	} else {
+    		setFirstRow(0,0);
+    	}
+    }
+    
+    /**
+     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be displayed as far down as possible by setting
+     * the first row to 0.
+     * 
+     * @param row the row to be displayed at the bottom of the viewer.
+     */
+    public void setLastRow(TimeBarRow row) {
+        int index = _rowList.indexOf(row);
+        if (index != -1) {
+            setLastRow(index);
+        }
+    }
+    
+    
     /**
      * @return Returns the timeScalePosition.
      */
@@ -3535,8 +3594,14 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         }
 
         if (allowed) {
-            _changingInterval.setBegin(newBegin);
-            _changingInterval.setEnd(newEnd);
+            // always do the setting of the interval bounds in the right order to ensure interval consistency with end>begin
+        	if (deltaSecondsSnap > 0) {
+                _changingInterval.setEnd(newEnd);
+                _changingInterval.setBegin(newBegin);
+            } else {
+                _changingInterval.setBegin(newBegin);
+                _changingInterval.setEnd(newEnd);
+            }
             if (_autoscroll && _lastDragDate != null) {
                 if (deltaSeconds < 0) {
                     int scrolledSeconds = scrollDateToVisible(newBegin);
@@ -4393,8 +4458,8 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             }
             if (ridx < _firstRow) {
                 setFirstRow(ridx);
-            } else if (ridx > _firstRow + getRowsDisplayed()) {
-                setFirstRow(ridx - getRowsDisplayed());
+            } else if (ridx >= _firstRow + getRowsDisplayed()) {
+                setLastRow(ridx);
             }
         }
     }

@@ -21,16 +21,18 @@ package de.jaret.examples.timebars.hierarchy.swing;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import javax.swing.JComponent;
 
 import de.jaret.util.date.Interval;
+import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
 import de.jaret.util.ui.timebars.swing.renderer.TimeBarRenderer;
 
 /**
  * @author Peter Kliem
- * @version $Id: SumRenderer.java 237 2007-02-10 21:11:50Z olk $
+ * @version $Id: SumRenderer.java 869 2009-07-07 19:32:45Z kliem $
  */
 
 public class SumRenderer implements TimeBarRenderer {
@@ -118,5 +120,13 @@ public class SumRenderer implements TimeBarRenderer {
             }
         }
     }
+    /**
+     * {@inheritDoc} Simple default implementation.
+     */
+	public Rectangle getPreferredDrawingBounds(Rectangle intervalDrawingArea,
+			TimeBarViewerDelegate delegate, Interval interval,
+			boolean selected, boolean overlap) {
+		return intervalDrawingArea;
+	}
 
 }

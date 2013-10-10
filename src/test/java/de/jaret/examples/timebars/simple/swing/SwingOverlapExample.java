@@ -20,9 +20,16 @@
 package de.jaret.examples.timebars.simple.swing;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import de.jaret.util.date.Interval;
 import de.jaret.util.date.IntervalImpl;
 import de.jaret.util.date.JaretDate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
@@ -31,6 +38,7 @@ import de.jaret.util.ui.timebars.model.DefaultRowHeader;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarModel;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarRowModel;
 import de.jaret.util.ui.timebars.model.TimeBarModel;
+import de.jaret.util.ui.timebars.model.TimeBarRow;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
 
 /**
@@ -49,7 +57,7 @@ public class SwingOverlapExample {
         f.getContentPane().setLayout(new BorderLayout());
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        TimeBarModel model = createModel();
+        final TimeBarModel model = createModel();
         _tbv = new TimeBarViewer(model);
 
         _tbv.addIntervalModificator(new DefaultIntervalModificator());
@@ -64,6 +72,27 @@ public class SwingOverlapExample {
         f.getContentPane().add(_tbv, BorderLayout.CENTER);
 
         f.getContentPane().add(new OverlapControlPanel(_tbv), BorderLayout.SOUTH);
+        
+        
+        // Reproduce overflow bug
+        JPanel bPanel = new JPanel();
+        JButton button=new JButton("rem all");
+        bPanel.add(button);
+        f.getContentPane().add(bPanel, BorderLayout.WEST);
+        button.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {				
+				DefaultTimeBarModel m = (DefaultTimeBarModel)model;
+				for(int i=0;i<m.getRowCount();i++) {
+					DefaultTimeBarRowModel rm = (DefaultTimeBarRowModel) m.getRow(i);
+					List<Interval> intervals = new ArrayList<Interval>(rm.getIntervals());
+					for (Interval interval : intervals) {
+						rm.remInterval(interval);
+									}
+				}
+				
+			}
+		});
         
         f.setVisible(true);
 

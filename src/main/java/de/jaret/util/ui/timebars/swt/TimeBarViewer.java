@@ -137,7 +137,7 @@ import de.jaret.util.ui.timebars.swt.util.actions.JaretTimeBarsActionFactory;
  * </p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 862 2009-05-21 11:16:33Z kliem $
+ * @version $Id: TimeBarViewer.java 870 2009-07-31 13:31:09Z kliem $
  */
 public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISelectionProvider {
     /** DEBUGGING OPTION: if set to true the actual paint times will be printed to stdout. */
@@ -179,7 +179,7 @@ public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISe
 
     /** Renderer for the hierarchy view (tree structure). */
     protected HierarchyRenderer _hierarchyRenderer;
-    /** Renderer for renderign the grid. */
+    /** Renderer for rendering the grid. */
     protected GridRenderer _gridRenderer = new DefaultGridRenderer();
     /** Renderer for doing global rendering. */
     protected GlobalAssistantRenderer _globalRenderer;
@@ -1588,6 +1588,20 @@ public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISe
      */
     public void setFirstRow(int firstRow, int pixOffset) {
         _delegate.setFirstRow(firstRow, pixOffset);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setLastRow(int index) {
+    	_delegate.setLastRow(index);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public void setLastRow(TimeBarRow row) {
+    	_delegate.setLastRow(row);
     }
 
     /**
