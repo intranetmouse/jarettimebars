@@ -79,20 +79,20 @@
 			<table>
 				<tr>
 					<td>
-						<a href="data/timebars-1.38-src.zip">timebars-1.38-src.zip</a>
+						<a href="data/timebars-1.39-src.zip">timebars-1.39-src.zip</a>
 					</td>
 					<td>
 						Recommended download: Contains the complete project for Swing and SWT, including example code. Depends on 
-						de.jaret.util (0.31)!
+						de.jaret.util (0.32)!
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="data/timebars-1.38-bin.zip">timebars-1.38-bin.zip</a>
+						<a href="data/timebars-1.39-bin.zip">timebars-1.39-bin.zip</a>
 					</td>
 					<td>
 						Contains jar including Swing and SWT version. Depends on 
-						de.jaret.util (0.31)!
+						de.jaret.util (0.32)!
 					</td>
 				</tr>
 				<tr>

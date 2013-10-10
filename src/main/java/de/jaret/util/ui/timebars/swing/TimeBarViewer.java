@@ -49,6 +49,7 @@ import javax.swing.event.ChangeListener;
 
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.JaretDate;
+import de.jaret.util.misc.Pair;
 import de.jaret.util.ui.timebars.TimeBarIntervalFilter;
 import de.jaret.util.ui.timebars.TimeBarMarker;
 import de.jaret.util.ui.timebars.TimeBarRowFilter;
@@ -105,7 +106,7 @@ import de.jaret.util.ui.timebars.swing.renderer.TimeScaleRenderer;
  * <p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 881 2009-09-22 21:25:47Z kliem $
+ * @version $Id: TimeBarViewer.java 884 2009-10-08 20:25:15Z kliem $
  */
 @SuppressWarnings("serial")
 public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, ChangeListener, ComponentListener {
@@ -623,7 +624,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * The component drawing the viewer itself.
      * 
      * @author Peter Kliem
-     * @version $Id: TimeBarViewer.java 881 2009-09-22 21:25:47Z kliem $
+     * @version $Id: TimeBarViewer.java 884 2009-10-08 20:25:15Z kliem $
      */
     private class Diagram extends JComponent implements MouseListener, MouseMotionListener, MouseWheelListener {
         /** surrounding timebar viewer. */
@@ -3126,6 +3127,13 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
 	public JPanel getVerticalScrollPanel() {
 		return _verticalScrollPanel;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+    public Pair<TimeBarRow, JaretDate> getPopUpInformation() {
+        return _delegate.getPopUpInformation();
+    }
 
 
 

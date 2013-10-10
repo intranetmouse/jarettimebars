@@ -20,29 +20,13 @@
 package de.jaret.examples.timebars.simple.swing;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-import de.jaret.util.date.Interval;
-import de.jaret.util.date.IntervalImpl;
-import de.jaret.util.date.JaretDate;
+import de.jaret.examples.timebars.simple.model.ModelCreator;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.mod.DefaultIntervalModificator;
-import de.jaret.util.ui.timebars.model.DefaultRowHeader;
-import de.jaret.util.ui.timebars.model.DefaultTimeBarModel;
-import de.jaret.util.ui.timebars.model.DefaultTimeBarRowModel;
 import de.jaret.util.ui.timebars.model.TimeBarModel;
-import de.jaret.util.ui.timebars.model.TimeBarRow;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
 
 /**
@@ -55,13 +39,12 @@ public class SwingOverlapExample {
 	static TimeBarViewer _tbv;
 	
     public static void main(String[] args) {
-    //	java.awt.Toolkit.getDefaultToolkit();
     	JFrame f = new JFrame(SwingOverlapExample.class.getName());
         f.setSize(800, 500);
         f.getContentPane().setLayout(new BorderLayout());
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        final TimeBarModel model = createModel();
+        final TimeBarModel model = ModelCreator.createModel();
         _tbv = new TimeBarViewer(model);
 
         _tbv.addIntervalModificator(new DefaultIntervalModificator());
@@ -72,6 +55,12 @@ public class SwingOverlapExample {
         _tbv.setDrawOverlapping(false);
         _tbv.setSelectionDelta(6);
         _tbv.setTimeScalePosition(TimeBarViewerInterface.TIMESCALE_POSITION_TOP);
+        
+        // Box tsr with DST correction
+//        BoxTimeScaleRenderer btsr = new BoxTimeScaleRenderer();
+//        btsr.setCorrectDST(true);
+//        _tbv.setTimeScaleRenderer(btsr);
+        
         
         f.getContentPane().add(_tbv, BorderLayout.CENTER);
 
@@ -129,96 +118,5 @@ public class SwingOverlapExample {
         f.setVisible(true);
 
 
-    }
-    public static TimeBarModel createModel() {
-        DefaultTimeBarModel model = new DefaultTimeBarModel();
-
-        JaretDate date = new JaretDate();
-
-        int length = 120;
-
-        DefaultRowHeader header = new DefaultRowHeader("r1");
-        DefaultTimeBarRowModel tbr = new DefaultTimeBarRowModel(header);
-        IntervalImpl interval = new IntervalImpl();
-        interval.setBegin(date.copy());
-        interval.setEnd(date.copy().advanceMinutes(length));
-        tbr.addInterval(interval);
-
-        interval = new IntervalImpl();
-        interval.setBegin(date.copy().advanceMinutes(30));
-        interval.setEnd(date.copy().advanceMinutes(length));
-        tbr.addInterval(interval);
-
-        interval = new IntervalImpl();
-        interval.setBegin(date.copy().advanceMinutes(60));
-        interval.setEnd(interval.getBegin().copy().advanceMinutes(length));
-        tbr.addInterval(interval);
-
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r2");
-        tbr = new DefaultTimeBarRowModel(header);
-        interval = new IntervalImpl();
-        interval.setBegin(date.copy());
-        interval.setEnd(date.copy().advanceMinutes(length));
-        tbr.addInterval(interval);
-
-        interval = new IntervalImpl();
-        interval.setBegin(date.copy().advanceMinutes(120));
-        interval.setEnd(date.copy().advanceMinutes(length + length));
-        tbr.addInterval(interval);
-
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r3");
-        tbr = new DefaultTimeBarRowModel(header);
-        interval = new IntervalImpl();
-        interval.setBegin(date.copy());
-        interval.setEnd(date.copy().advanceMinutes(length));
-        tbr.addInterval(interval);
-
-        interval = new IntervalImpl();
-        interval.setBegin(date.copy().advanceMinutes(30));
-        interval.setEnd(date.copy().advanceMinutes(length));
-        tbr.addInterval(interval);
-
-        interval = new IntervalImpl();
-        interval.setBegin(date.copy().advanceMinutes(60));
-        interval.setEnd(interval.getBegin().copy().advanceMinutes(length));
-        tbr.addInterval(interval);
-
-        interval = new IntervalImpl();
-        interval.setBegin(date.copy().advanceMinutes(90));
-        interval.setEnd(interval.getBegin().copy().advanceMinutes(length));
-        tbr.addInterval(interval);
-
-        model.addRow(tbr);
-
-        // add some empty rows for drag&drop fun
-        header = new DefaultRowHeader("r4");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r5");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r6");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r7");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r8");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r9");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        return model;
     }
 }

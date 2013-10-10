@@ -11,6 +11,18 @@
 			<subsection name="Keep updated: the timebars on Twitter">
 				If you want to know about new versions you can follow the timebars on twitter: <a href="http://twitter.com/jaret_timebars">http://twitter.com/jaret_timebars</a>.
 			</subsection>
+			<subsection name="2009-10-08 version 1.39">
+				<ul>
+					<li>
+						Added the possibility to do a DST correction in the time scale renderers (Default and Box: btsr.setCorrectDST). This is a fix for 
+						shifted ticks in the time scale around the DST switches in spring and autumn. 
+					</li>
+					<li>
+						Added the method <code>getPopUpInformation()</code> that supplies the row and date corresponding to the coordinate a 
+						popup menu will be displayed.
+					</li>
+				</ul>
+			</subsection>
 			<subsection name="2009-09-23 version 1.38">
 				<ul>
 					<li>

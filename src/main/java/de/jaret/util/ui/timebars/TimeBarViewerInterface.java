@@ -25,6 +25,7 @@ import java.util.List;
 
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.JaretDate;
+import de.jaret.util.misc.Pair;
 import de.jaret.util.ui.timebars.mod.IntervalModificator;
 import de.jaret.util.ui.timebars.model.FocussedIntervalListener;
 import de.jaret.util.ui.timebars.model.HierarchicalTimeBarModel;
@@ -46,7 +47,7 @@ import de.jaret.util.ui.timebars.strategy.IOverlapStrategy;
  * TimeBarViewer (Swing or SWT) directly.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerInterface.java 870 2009-07-31 13:31:09Z kliem $
+ * @version $Id: TimeBarViewerInterface.java 884 2009-10-08 20:25:15Z kliem $
  */
 public interface TimeBarViewerInterface {
     /**
@@ -406,23 +407,21 @@ public interface TimeBarViewerInterface {
     void setFirstRowOffset(int offset);
 
     /**
-     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be displayed as far down as possible by setting
-     * the first row to 0.
+     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be
+     * displayed as far down as possible by setting the first row to 0.
      * 
      * @param index index of the row to be displayed at the bottom of the viewer.
      */
     void setLastRow(int index);
-    
+
     /**
-     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be displayed as far down as possible by setting
-     * the first row to 0.
+     * Set the last row in the viewer. If there are not enough rows for the row beeing the last row the row will be
+     * displayed as far down as possible by setting the first row to 0.
      * 
      * @param row the row to be displayed at the bottom of the viewer.
      */
     void setLastRow(TimeBarRow row);
 
-    
-    
     /**
      * Get the selection model of the viewer.
      * 
@@ -1228,5 +1227,13 @@ public interface TimeBarViewerInterface {
      * @param secondsDisplayed seconds to be displayed in the viewer
      */
     void setInitialDisplayRange(JaretDate startDate, int secondsDisplayed);
-    
+
+    /**
+     * Retrieve the row and date of the click leading to the activation of a context menu.
+     * 
+     * @return Pair containing the row and date of the click position. Might be <code>null</code> if no click has been
+     * recorded.
+     */
+    Pair<TimeBarRow, JaretDate> getPopUpInformation();
+
 }

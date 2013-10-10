@@ -35,6 +35,7 @@ import java.util.Vector;
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.IntervalImpl;
 import de.jaret.util.date.JaretDate;
+import de.jaret.util.misc.Pair;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface.Orientation;
 import de.jaret.util.ui.timebars.mod.IIntervalModificator;
 import de.jaret.util.ui.timebars.mod.IntervalModificator;
@@ -74,7 +75,7 @@ import de.jaret.util.ui.timebars.strategy.OverlapInfo;
  * TimeBarViewerInterface.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerDelegate.java 881 2009-09-22 21:25:47Z kliem $
+ * @version $Id: TimeBarViewerDelegate.java 884 2009-10-08 20:25:15Z kliem $
  */
 public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelectionListener, TimeBarMarkerListener,
         PropertyChangeListener {
@@ -3244,6 +3245,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             TimeBarRow row = rowForXY(x, y);
             _ctxCoordinate = new Point(x, y);
             _ctxRow = row;
+            _ctxDate = dateForCoord(x, y);
             if (_hierarchyRect.contains(x, y)) {
                 _tbvi.displayHierarchyContextMenu(row, x, y);
             } else if (_yAxisRect.contains(x, y)) {
@@ -3315,7 +3317,10 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     protected Point _ctxCoordinate;
     /** row above that a context menu has been requested to pup up. */
     protected TimeBarRow _ctxRow;
-
+    /** date for the ctx coordinate. */
+    protected JaretDate _ctxDate;
+    
+    
     /**
      * Retrieve the location of a context menu popup request.
      * 
@@ -3334,6 +3339,18 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         return _ctxRow;
     }
 
+    /**
+     * Retrieve the row and date of the click leading to the activation of a context menu.
+     * 
+     * @return Pair containing the row and date of the click position. Might be <code>null</code> if no click has been
+     * recorded.
+     */
+    public Pair<TimeBarRow, JaretDate> getPopUpInformation() {
+        Pair<TimeBarRow, JaretDate> result = new Pair<TimeBarRow, JaretDate>(_ctxRow, _ctxDate);
+        return result;
+    }
+
+    
     // *** End of MouseListener
 
     // *** MouseMotionListener
@@ -5931,4 +5948,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     public boolean getUseUniformHeight() {
         return _useUniformHeight;
     }
+    
+    
+    
 }

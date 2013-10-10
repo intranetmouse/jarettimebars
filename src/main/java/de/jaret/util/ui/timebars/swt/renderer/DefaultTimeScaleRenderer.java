@@ -54,7 +54,7 @@ import de.jaret.util.ui.timebars.swt.TimeBarViewer;
  * is used to display special and holidays in the tooltip. Suports horizontal and vertical orientation.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultTimeScaleRenderer.java 846 2009-02-22 18:32:04Z kliem $
+ * @version $Id: DefaultTimeScaleRenderer.java 883 2009-10-07 21:03:00Z kliem $
  */
 public class DefaultTimeScaleRenderer extends RendererBase implements TimeScaleRenderer, ITickProvider {
 
@@ -450,7 +450,7 @@ public class DefaultTimeScaleRenderer extends RendererBase implements TimeScaleR
      * @param startDate date to use for starting check
      */
     private void checkStrips(GC gc, TimeBarViewerDelegate delegate, JaretDate startDate, JaretDate endDate) {
-        //System.out.println("checkstrips "+startDate.getDate().getTime()+" -- "+endDate.getDate().getTime());
+        // System.out.println("checkstrips "+startDate.getDate().getTime()+" -- "+endDate.getDate().getTime());
         for (int i = 0; i < _iterators.size(); i++) {
             DateIterator it = _iterators.get(i);
             it.reInitialize(startDate, endDate);
@@ -462,7 +462,7 @@ public class DefaultTimeScaleRenderer extends RendererBase implements TimeScaleR
                 JaretDate next = it.getNextDate();
                 int width = delegate.xForDate(next) - delegate.xForDate(current);
                 String label = it.getLabel(current, DateIterator.Format.LONG);
-                System.out.println("Label "+label);
+                System.out.println("Label " + label);
                 Point p = gc.textExtent(label);
                 int bonus = _midStrip == it && _formats.get(i).equals(DateIterator.Format.LONG) ? SETBONUS : 0;
                 if (width > p.x + GAP + ADDITIONALGAP - bonus) {
@@ -562,6 +562,17 @@ public class DefaultTimeScaleRenderer extends RendererBase implements TimeScaleR
      */
     public List<JaretDate> getMinorTicks(TimeBarViewerDelegate delegate) {
         return _minorTicks;
+    }
+
+    /**
+     * Setup the iterators to do a DST correction.
+     * 
+     * @param correctDST true if a correction should be done.
+     */
+    public void setCorrectDST(boolean correctDST) {
+        for (DateIterator iterator : _iterators) {
+            iterator.setCorrectDST(correctDST);
+        }
     }
 
 }

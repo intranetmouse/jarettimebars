@@ -41,6 +41,8 @@ import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JPopupMenu;
 import javax.swing.Timer;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import de.jaret.examples.timebars.eventmonitoring.model.CollectingTimeBarNode;
 import de.jaret.examples.timebars.eventmonitoring.model.EventInterval;
@@ -71,7 +73,7 @@ import de.jaret.util.ui.timebars.swing.renderer.DefaultTitleRenderer;
  * Example showing events (non modificable).
  * 
  * @author Peter Kliem
- * @version $Id: EventMonitoringExample.java 856 2009-04-02 18:54:40Z kliem $
+ * @version $Id: EventMonitoringExample.java 884 2009-10-08 20:25:15Z kliem $
  */
 public class EventMonitoringExample {
     TimeBarViewer _tbv;
@@ -291,13 +293,13 @@ public class EventMonitoringExample {
         _tbv.registerPopupMenu(EventInterval.class, pop);
 
         // add a popup menu for the body
-        action = new AbstractAction("BodyAction") {
+        final Action bodyaction = new AbstractAction("BodyAction") {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("run " + getValue(NAME));
             }
         };
         pop = new JPopupMenu("Operations");
-        pop.add(action);
+        pop.add(bodyaction);
         pop.add(new RunMarkerAction(_tbv));
         
         // add the zoom action
@@ -307,6 +309,32 @@ public class EventMonitoringExample {
         
         _tbv.setBodyContextMenu(pop);
 
+        // sample: check enablement of action in a popup
+//        pop.addPopupMenuListener(new PopupMenuListener() {
+//            
+//            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+//                System.out.println(_tbv.getPopUpInformation().getLeft());
+//                System.out.println(_tbv.getPopUpInformation().getRight().toDisplayString());
+//                if (_tbv.getPopUpInformation().getRight().getHours()>9) {
+//                    bodyaction.setEnabled(false);
+//                } else {
+//                    bodyaction.setEnabled(true);
+//                }
+//            }
+//            
+//            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+//                // TODO Auto-generated method stub
+//                
+//            }
+//            
+//            public void popupMenuCanceled(PopupMenuEvent e) {
+//                // TODO Auto-generated method stub
+//                
+//            }
+//        });
+        
+        
+        
         // add a popup menu for the hierarchy
         action = new AbstractAction("HierarchyAction") {
             public void actionPerformed(ActionEvent e) {
@@ -430,7 +458,7 @@ public class EventMonitoringExample {
     /**
      * Simple zoom action.
      * @author kliem
-     * @version $Id: EventMonitoringExample.java 856 2009-04-02 18:54:40Z kliem $
+     * @version $Id: EventMonitoringExample.java 884 2009-10-08 20:25:15Z kliem $
      */
     class ZoomAction extends AbstractAction implements ISelectionRectListener{
         TimeBarViewer _tbv;

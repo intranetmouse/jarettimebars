@@ -52,7 +52,7 @@ import de.jaret.util.ui.timebars.swt.TimeBarViewer;
  * (vertical might be imperformant since vertical text is used).
  * 
  * @author Peter Kliem
- * @version $Id: BoxTimeScaleRenderer.java 836 2009-02-14 21:24:39Z kliem $
+ * @version $Id: BoxTimeScaleRenderer.java 883 2009-10-07 21:03:00Z kliem $
  */
 public class BoxTimeScaleRenderer extends RendererBase implements TimeScaleRenderer, ITickProvider {
     /** default number of strips to render. */
@@ -468,6 +468,17 @@ public class BoxTimeScaleRenderer extends RendererBase implements TimeScaleRende
      */
     public List<JaretDate> getMinorTicks(TimeBarViewerDelegate delegate) {
         return _minorTicks;
+    }
+
+    /**
+     * Setup the iterators to do a DST correction.
+     * 
+     * @param correctDST true if a correction should be done.
+     */
+    public void setCorrectDST(boolean correctDST) {
+        for (DateIterator iterator : _iterators) {
+            iterator.setCorrectDST(correctDST);
+        }
     }
 
 }

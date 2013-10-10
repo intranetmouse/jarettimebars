@@ -26,7 +26,7 @@ import java.util.List;
  * A default implementation of the TimeBarModel interface. Extends the AbstractTimeBarModel.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultTimeBarModel.java 800 2008-12-27 22:27:33Z kliem $
+ * @version $Id: DefaultTimeBarModel.java 884 2009-10-08 20:25:15Z kliem $
  */
 public class DefaultTimeBarModel extends AbstractTimeBarModel {
     /** list of the rows. */
@@ -73,7 +73,8 @@ public class DefaultTimeBarModel extends AbstractTimeBarModel {
         } else if (row.getMinDate() != null && row.getMaxDate() != null) {
             if (_minDate.compareTo(row.getMinDate()) > 0) {
                 _minDate = row.getMinDate();
-            } else if (_maxDate.compareTo(row.getMaxDate()) < 0) {
+            } 
+            if (_maxDate.compareTo(row.getMaxDate()) < 0) {
                 _maxDate = row.getMaxDate();
             }
         }

@@ -53,7 +53,7 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * A default renderer for a time scale to be used in a TimeBarViewer.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultTimeScaleRenderer.java 856 2009-04-02 18:54:40Z kliem $
+ * @version $Id: DefaultTimeScaleRenderer.java 883 2009-10-07 21:03:00Z kliem $
  */
 public class DefaultTimeScaleRenderer implements TimeScaleRenderer, ITickProvider {
 
@@ -169,7 +169,7 @@ public class DefaultTimeScaleRenderer implements TimeScaleRenderer, ITickProvide
      * JComponent for rendering the timescale.
      * 
      * @author kliem
-     * @version $Id: DefaultTimeScaleRenderer.java 856 2009-04-02 18:54:40Z kliem $
+     * @version $Id: DefaultTimeScaleRenderer.java 883 2009-10-07 21:03:00Z kliem $
      */
     @SuppressWarnings("serial")
     class MyTimeScaleRenderer extends JComponent {
@@ -553,5 +553,16 @@ public class DefaultTimeScaleRenderer implements TimeScaleRenderer, ITickProvide
      */
     public List<JaretDate> getMinorTicks(TimeBarViewerDelegate delegate) {
         return _minorTicks;
+    }
+
+    /**
+     * Setup the iterators to do a DST correction.
+     * 
+     * @param correctDST true if a correction should be done.
+     */
+    public void setCorrectDST(boolean correctDST) {
+        for (DateIterator iterator : _iterators) {
+            iterator.setCorrectDST(correctDST);
+        }
     }
 }

@@ -63,6 +63,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.JaretDate;
+import de.jaret.util.misc.Pair;
 import de.jaret.util.ui.timebars.TimeBarIntervalFilter;
 import de.jaret.util.ui.timebars.TimeBarMarker;
 import de.jaret.util.ui.timebars.TimeBarRowFilter;
@@ -137,7 +138,7 @@ import de.jaret.util.ui.timebars.swt.util.actions.JaretTimeBarsActionFactory;
  * </p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 870 2009-07-31 13:31:09Z kliem $
+ * @version $Id: TimeBarViewer.java 884 2009-10-08 20:25:15Z kliem $
  */
 public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISelectionProvider {
     /** DEBUGGING OPTION: if set to true the actual paint times will be printed to stdout. */
@@ -3126,5 +3127,11 @@ public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISe
     	_delegate.setInitialDisplayRange(startDate, secondsDisplayed);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public Pair<TimeBarRow, JaretDate> getPopUpInformation() {
+        return _delegate.getPopUpInformation();
+    }
 
 }
