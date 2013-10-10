@@ -1,0 +1,60 @@
+<document>
+	<properties>
+		<author email="peter.kliem@jaret.de">Peter Kliem</author>
+		<title>jaret timebars architecture information</title>
+	</properties>
+	<body>
+		<section name="Brief architecture overview">
+<p>
+There are two viewer components (Swing and SWT) implementing an interface that is used by a delegate 
+(one for both gui toolkits) to do the specialized gui handling and the interfaceing to the configured renderers. 
+The viewers make extensive use of the delegate that contains the core 
+controller logic. In fact most of the viewer methods just delegate to the delegate.
+</p>
+<p>
+Rendering (of nearly everything) is always done by renderers called from the viewer component. 
+Renderers can support printing so that printing becomes possible (SWT only, aware of printing so that an optimzed or adapted 
+rendering is possible). 
+Customizing the renderers for special needs is the main work to be done when using the component.
+</p>
+<p>
+The model displayed is either a flat list of rows containing intervals or a tree structure containing the rows of intervals. 
+All model elements are observables so modifications of the model will be reflected by the component instantly without further 
+refresh actions need to be taken. When implementing a model the abstract base classes can easily be extended. 
+The viewers support transparent sorting and filtering on the model.
+The model is clean in the sense that the viewstate is not part of the model 
+(i.e. expanded/collapsed information when using a hierarchical model)
+</p>
+<p>
+The development concentrates on SWT, so there are some emerging helpers for using the timebar viewer in an RCP 
+(actions, storing viewstate in an IMemento, implementing ISelectionProvider and so on) -- ongoing work. This also means the Swing
+version is not up to date concerning some of the newer features. It is still undecided if the swing suport will be dropped in a future version.
+</p> 
+
+<p><b>Please also see the more elaborated <a href="documentation/timebars.html">documentation</a></b></p>
+
+</section>
+		<section name="Some howtos">
+			<subsection name="Adding a listener registering a double click and getting the clicked intervals">
+			<source><![CDATA[ 
+// add a listener for doubleclicks
+ tbv.addMouseListener(new MouseAdapter() {
+     public void mouseDoubleClick(MouseEvent e) {
+         List<Interval> intervals = tbv.getIntervalsAt(e.x, e.y);
+         if (intervals != null && intervals.size()>0) {
+             for (Interval interval : intervals) {
+                 System.out.println("Doubleclicked: "+interval.toString());
+             }
+         }
+     } 
+ });
+			
+			]]></source>
+<p>
+Included in the swt overlap example.
+</p>
+			</subsection>
+
+		</section>
+	</body>
+</document>

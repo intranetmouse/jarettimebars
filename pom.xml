@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.jaret</groupId>
+	<artifactId>timebars</artifactId>
+	<packaging>jar</packaging>
+	<version>1.35</version>
+	<name>Jaret timebars</name>
+	<url>http://www.jaret.de</url>
+	<dependencies>
+		<dependency>
+			<groupId>de.jaret</groupId>
+			<artifactId>jaretutil</artifactId>
+			<version>0.30</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>swt</groupId>
+			<artifactId>org.eclipse.jface_3.2.0</artifactId>
+			<version>R</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>swt</groupId>
+			<artifactId> org.eclipse.swt.win32.win32.x86_3.2.0 </artifactId>
+			<version>R</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>swt</groupId>
+			<artifactId>org.eclipse.swt_3.2.0</artifactId>
+			<version>R</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>swt</groupId>
+			<artifactId>org.eclipse.core.commands_3.2.0</artifactId>
+			<version>R</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	<licenses>
+		<license>
+			<name>GPL (GNU Public License)</name>
+			<url>LICENSE.txt</url>
+		</license>
+		<license>
+			<name>GPL linking exception</name>
+			<url>LICENSE_addendum.txt</url>
+		</license>
+		<license>
+			<name>Jaret commercial full source code license</name>
+			<url>COMMERCIAL_LICENSE_lb.txt</url>
+		</license>
+	</licenses>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<outputDirectory> src/site/resources/data </outputDirectory>
+					<descriptors>
+						<descriptor> src/main/assembly/binassembly.xml </descriptor>
+						<descriptor> src/main/assembly/srcassembly.xml </descriptor>
+					</descriptors>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId> maven-project-info-reports-plugin </artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>javadoc</report>
+							<report>dependencies</report>
+							<report>license</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<minmemory>128m</minmemory>
+					<maxmemory>512</maxmemory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jxr-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<configuration>
+					<configLocation> ../de.jaret.infrastructure/jaret_checks_lib.xml 
+					</configLocation>
+				</configuration>
+			</plugin>
+ 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>1.2</version>
+			</plugin>
+			<!--
+				<plugin> <groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>1.0.0</version> <configuration>
+				<xmlOutput>true|false</xmlOutput> <xmlOutputDirectory>directory
+				location of xml findbugs report</xmlOutputDirectory>
+				<threshold>High|Normal|Low|Exp|Ignore</threshold>
+				<effort>Min|Default|Max</effort>
+				<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+				<includeFilterFile>findbugs-include.xml</includeFilterFile>
+				<visitors>FindDeadLocalStores,UnreadFields</visitors>
+				<omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
+				<pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList>
+				</configuration> </plugin>
+			-->
+			<!--
+				<plugin> <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId> </plugin>
+			-->
+		</plugins>
+	</reporting>
+</project>

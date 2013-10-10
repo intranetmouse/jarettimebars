@@ -1,0 +1,880 @@
+<document>
+	<properties>
+		<author email="peter.kliem@jaret.de">Peter Kliem</author>
+		<title>jaret timebars changelog</title>
+	</properties>
+	<body>
+		<section name="changelog for de.jaret.util.ui.timebars">
+			<subsection name="Note for Swing users">
+				The SWT Version is leading. However the the swing version has catched up to provide nearly the same features.
+			</subsection>
+			<subsection name="2009-06-23 version 1.35">
+				<ul>
+					<li>
+						SWT: Fixed a small bug in the RelationRenderer (NullPointer under rare conditions)
+					</li>
+					<li>
+						Added synchronization for the y axis width in the synchronizer
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2009-05-20 version 1.34">
+				<ul>
+					<li>
+						SWT: Fixed a small bug that could happen when displaying a context menu
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2009-05-07 version 1.33">
+				<ul>
+					<li>
+						Added a feature for setting the initial displayRange when the viewer is first displayed and the width of the widget is available. 
+						See <code>setInitialDisplayRange</code>
+					</li>
+					<li>
+						Fixed a bug in the DefaultTimeBarRowModel that prevented the correct update of the max date if an interval would change min AND max date.
+					</li>
+					<li>
+						Fixed a bug in the Swing DefaultTimeScaleRenderer (refactoring artefact, thanx Ravi).
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2009-02-22 version 1.32">
+				<ul>
+					<li>
+						BoxTimeScaleRenderer now scales down from years to minutes/seconds/milliseconds
+					</li>
+					<li>
+						Swing and SWT: The DefaultTimeScaleRenderer has been replaced by a new one that scales from years to milliseconds. 
+						If your application needs the old default renderer you can set the old renderer explicitly (it is still in the
+						distribution: OldDefaultTimeScaleRenderer).
+					</li>
+					<li>
+						Internal coordinate calculation will now always use milliseconds as the basis. This should not cause any problems. 
+						However, if you encounter problems, please report the bug.
+					</li>
+					<li>
+						Fixed a small bug in tooltip handling.
+					</li>
+					<li>
+						Swing: added the IMarkerRenderer for better control of how markers are painted.
+					</li>
+					<li>
+						Swing: added the IGlobalAssistantRenderer for misc rendering.
+					</li>
+					<li>
+						New methods for scaling: setSecondsDisplayed(...); the scaling can be centered around a date
+					</li>
+					
+					<li>
+						GridRenderers now have to accept an ITickScalProvider to achieve a coupling between time scale renderers and the grid rendeering. 
+						The default grid renderer will use the supplied tick scale provider. The BoxTimeScaleRenderer and the DefaultTimeScaleRenderes
+						do implement the ITickProvider interfaces.
+					</li>
+					<li>
+						Extended ITimeBarChangeListener: marker drags will be reported.
+					</li>
+					<li>
+						The variable x scale feature now supports "breaking" the timescale by marking pps intervals as breaks and defining a pixel width 
+						for the display. See the milli example for details (documentation follows).
+					</li>
+					
+				</ul>
+			</subsection>
+			<subsection name="2009-01-11 version 1.31">
+				<ul>
+					<li>
+						Fixed a bug in the overlap calculations that lead to intervals not properly rendered (rendered above the row)
+						in some data constellations. (Thanks Daran!)
+					</li>
+					<li>
+						Clipping on Linux GTK seems to be implemented using only 16 bit integers. This results
+						in random drawings if a high zoom factor is used in combination with long intervals or relations (the drawings
+						are not really random, since they are just caused by overflowing 16 bit integers). 
+						Added a workaround in the relation renderer and the sum renderer of the swt hierarchy example.
+					</li>
+					
+				</ul>
+			</subsection>
+			<subsection name="2009-01-01 version 1.30">
+				<ul>
+					<li>
+						<b>SWING:</b> Did a lot of corrections and additions for the swing component so that it nearly
+						catches up to the SWT variant:
+						<ul>
+							<li>
+								Ported the BoxTimeScaleRenderer to Swing
+							</li>
+							<li>
+								New Swing example: EventMonitorExample demonstrating some of the new features mentioned below.
+							</li>
+							<li>
+								Added the title renderer for swing and supplied a simple default title renderer.
+							</li>
+							<li>
+								Added relation rendering in the swing world (ported over the relation renderer from SWT).
+							</li>
+							<li>
+								Added the context menu support.
+							</li>
+							<li>
+								Fixed several minor bugs.
+							</li>
+						</ul>
+					</li>
+					<li>
+						Introduced findbugs in the maven build (surprisingly low number of issues) and fixed some more important issues 
+						reported (nothing really serious).
+					</li>
+					<li>
+						Introduced the region selection: a selection that is tied to time and rows that stays present and can be used
+						for several purposes. The functionality has to be enabled (<code>setRegionRectEnable</code>). Region selections can
+						be done with shift+click+drag. The region selection will persist until it is cleared (<code>clearRegionRect</code>)
+						or replaced by the next selection. As an example a simple zoom action has been implemented in the EventMonitorExample (Swing)
+						and the SwtHierarchy example.
+					</li>
+					<li>
+						Introduced a new listener for listening to the selection rect/region selection allowing online information 
+						about ongoing
+						rectangle selections: (<code>ISelectionRectListener</code>)
+					</li>
+					<li>
+						Introduced the IMiscRenderer (Swing and SWT) that will collect rendering routines for some elements/parts in the 
+						timebar viewers (to be extended over time).
+					</li>
+					<li>
+						Added the possibility to hide the root node when using a hierarchical model (<code>setHideRoot</code>).
+					</li>
+					<li>
+						Added the possibility to draw intervals overlapping in selected rows (<code>ITimeBarViewState.setDrawOverlapping(row)</code>).
+					</li>
+					<li>
+						Added the option to allow dragging of markers not only in the time scale area (<code>setMarkerDraggingInDiagramArea</code>.
+					</li>
+					<li>
+						Fixed: when using vertical orientation, optimized scrolling and timescaleposition = bottom the scale would not be scrolled.
+					</li>
+					<li>
+					<b>Attention:(SWT)</b> Removed the deprecated stuff (registering further renderers) from the default renderer. You can easily
+					register specialized renderes with the TimeBarViewer directly. 
+					</li>
+					<li>
+						Added the possibility to enforce uniform heights/widths for intervals drawn non overlapping in the same row 
+						(see <code>setUseUniformHeight</code>).
+					</li>
+					
+				</ul>
+			</subsection>
+			<subsection name="2008-11-08 version 1.29">
+				<ul>
+					<li>
+						New methods to easy scrolling to elements: <code>void setFirstRow(TimeBarRow row)</code> scrolls to a row without 
+						requiring its index. <code>void scrollIntervalToVisible(Interval interval, double horizontalRatio, double verticalRatio)</code> scrolls
+						an interval to a position in the viewable area.
+					</li>
+					<li>
+						Fixed a bug in AbstractGridRenderer (static reference to a Color that got disposed); Thanks Thomas
+					</li>
+					
+				</ul>
+			</subsection>
+			<subsection name="2008-09-20 version 1.28">
+				<ul>
+					<li>
+						Behaviour on focussing/selecting an interval: was scroll begin to visible: this is now refined to scroll only when no part of the 
+						interval is visible. Scrolling on focus change can be disabled completely (setScrollOnfocus). 
+					</li>
+					<li>
+						improved printing when using linux: swt printer devices running on linux seem to always report 72x72dpi which
+						resulted in bad output when using the standard renderers. The RendererBase now contains the method <code>getDefaultLineWidth</code>
+						to get a corrected line width that will work with low resolutions.
+					</li>
+					
+				</ul>
+			</subsection>
+			<subsection name="2008-08-19 version 1.27 (not published)">
+				<ul>
+					<li>
+						Behaviour on focussing/selecting an interval: was scroll begin to visible; now configurable if scrolling should occur
+						(setScrollOnfocus). Maybe this will be replaced by a strategy if necessary.
+					</li>
+					
+				</ul>
+			</subsection>
+			<subsection name="2008-06-22 version 1.26">
+				<ul>
+					<li>
+						Fixed: Before the first paint (sometimes) NullPointerExceptions could happen because of uninitialized layout
+					</li>
+					<li>
+						Fixed: NullPointer in getTooltipText (sometimes)
+					</li>
+					<li>
+						Fixed: Relation rendering: arrows when using end_end.
+					</li>
+					
+				</ul>
+			</subsection>
+			<subsection name="2008-05-29 version 1.251">
+				<ul>
+					<li>
+						Just added a new example: The linechart example: check the screenshots.
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2008-05-04 version 1.25">
+				<ul>
+					<li>
+						introduced relations between intervals and relation rendering and selecting. (IRelationalInterval, 
+						IIntervalRelation, IRelationRenderer, implementations thereof). There is a default implementation of the IRelationRenderer
+						that is not setup by default (RelationRenderer). Changes have been made to the selection model 
+						(can now contain selected IIntervalRelations) and the selection provider (can now have relations in the structured 
+						selection). Unless you use relations you will not have to make changes to existing code.
+						The default relation renderer does not support vertical orientation. The usage
+						can be studied in the SwtHierarchyExample.
+						The relations are observables but have not been added to be observed by the viewer (this would have introduced 
+						major API changes), so for now a redraw has to be triggered when the relation itself changes (this is most 
+						probably a rare case). 
+						
+					</li>
+					<li>
+						fixed a small bug in the box time scale renderer (week label included first day of the next week). Bug has been 
+						fixed in the jaret utils package (Thanx Thomas)
+					</li>
+					<li>
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2008-04-25 version 1.24">
+				<ul>
+					<li>
+						added some changes to the row selection behaviour (shift-click range select, toggle mode for row selections
+						that can be set on the selection model for simulating check box selections). Check box selections and the toggle
+						mode can be seen in the swt overlap example (activate in the control panel). 
+					</li>
+					<li>
+						the rendering of row selection and highlighting has been moved to the grid renderer (so it is better customizable). This obviously
+						breaks the API. For a quick fix reserving the current behaviour just extend AbstractGridRenderer when you have your implemented 
+						own. The grid renderer interface will be a bit more extended in future versions to support some other things that have not
+						been easy customizable. The getters/setters for highlight color etc. in the timebarviewer have been deprecated but will still work
+						with the every extension of the abstract grid renderer.
+					</li>
+					<li>
+						the grid rederer now supports an alpha setting for the row selection
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2008-04-17 version 1.23">
+				<ul>
+					<li>
+						made the timebarviewer friendlier to GUI-Designers (will hopefully not throw exceptions without a model) 
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2008-04-12 version 1.22">
+				<ul>
+					<li>
+						Removed a dependency on Java 6 in the DefaultOverlapStrategy (Thanks Maarten)
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2008-04-06 version 1.21">
+				<ul>
+					<li>
+						Fixed a bug that have been introduced with the autoscroll improvements: When using the grid snap dragging an interval
+						has not been working.
+					</li>
+					<li>
+						Th egrid snap provided by the IntervalModificators is now applied specifically: the first modificator that claims to
+						be applicable will provide the grid snap. That makes it possible to use different grid snaps for different types
+						of intervals.  
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2008-03-30 version 1.20">
+				<ul>
+					<li>
+						Improved the resize detection/beviour: increasing the size of an interval has sometimes behaved unexpected,
+						since the cursor had to be inside the interval.  
+					</li>
+					<li>
+						Autoscrolling has been quite fast (since it was accellerating with the scrolling). This has been fixed. It is
+						now possible to set the autoscrollDelta (in pixel) to ensure a controllable drag.  
+					</li>
+					<li>
+						The timebar viewer will now drag all selected intervals if an interval is dragged and the option is enabled. 
+						Autoscrolling is focussed on the 
+						actual interval that is beeing dragged. If one of the intervals is not allowed to move to the new position, the
+						whole drag is stopped. This behaviour can be enabled by setting setDragAllSelectedIntervals(true).    
+					</li>
+					
+				</ul>
+			</subsection>
+			<subsection name="2008-03-22 version 1.19">
+				<ul>
+					<li>
+						Improved calendar example to show whole day appointments in header area. 
+					</li>
+					<li>
+						Thanks go to Mathias Kurth for supplying an improved overlap calculation drastically 
+						decreasing the time needed. This is especially helpful when handling huge quantities of intervals. (Added a link to his work
+						on the usage page)
+					</li>
+					<li>
+						Added a method to access the delegate in the viewers. Please note that the direct use of the delegate ist not ecouraged unless
+						it is absolutely necessary.
+					</li>
+					<li>
+						Added the RelationRenderer to render intervals having a relation (IRelationalInterval). 
+						The relation rendering is work in progress.
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2007-12-27 version 1.18">
+				<ul>
+					<li>
+						Internal version distributed with the jare calendar plugin 
+					</li>
+					<li>
+						Bugfix: Interval modification failed in some special cases when using more than one IntervalModificator. 
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2007-12-22 version 1.17">
+				<ul>
+					<li>
+						Bugfix: (non variable time scale) Scroll bounds have not been correct (small difference) corresponding to the model  
+					</li>
+					<li>
+						Bugfix: just another small scrolling bug (using page steps with optimized scrolling)  
+					</li>
+					<li>
+						Small change in the IntervalModificator interface (Sorry for that!) allowing better differentiation when using
+						heterogenous models. (new Method isApplicable(...) to check whether the modificator is responsible -> just return true to preserve
+						current behaviour.)  
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2007-11-20 version 1.16">
+				<ul>
+					<li>
+						Bugfix: Scrolling with the time scroll bar using page steps failed when using optimized scrolling.  
+					</li>
+					<li>
+						Bugfix: Single selections have been disabled by the selection behaviour if other intervals have been selected ... corrected  
+					</li>
+				</ul>
+			</subsection>
+
+			<subsection name="2007-11-03 version 1.15">
+				<ul>
+					<li>
+						Small improvements for scroll bars (right sized from the first appearance, max data check corrected)  
+					</li>
+					<li>
+						Fixed several bugs when adding/removing nodes in a hierarchical model. (For test purposes the SWT Hierarchical example
+						can now be switched to support drag and drop. Check the source code for the flag)  
+					</li>
+					<li>
+						The default hierarchy renderer can now handle different label providers for different row/node implementations
+					</li>
+					<li>
+						Improved selection behaviour: when doing a multiselection the next single selecting click did reset the multi selection. 
+						This has been changed to do the single select on mouse release when intervals are selected. Thanks to Martin Schmidt
+						for pointing that out.
+					</li>
+					<li>
+						Added a new example showing events in a timeline fashion (s. screenshots). This has been inspired by the simile timeline
+						for html pages (http://simile.mit.edu/timeline/).
+					</li>
+					<li>
+						Externalized the strategy for calculating the overlap information. This allows implementing strategies that 
+						can support lareg numbers of massively overlapping intervals without beeing too slow. See the timeline example for
+						a sample of an alternative implementation. 
+					</li>
+					<li>
+						BoxTimeScaleRenderer improved to handle variable scaling by adapting the scale
+					</li>
+					<li>
+						Improved TimeScaleDragSupport to allow listening on diagram drags for scrolling
+					</li>
+					<li>
+						Some small API extensions (non breaking)
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2007-09-22 version 1.14">
+				<ul>
+					<li>
+						Fixed "row selection not working"-Bug  
+					</li>
+					<li>
+						Fixed some Tooltip-Bugs (vertical). 
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2007-09-16 version 1.13">
+				<ul>
+					<li>
+					Fixed a small bug that lead to a paint error for partly painted intervals when using variable scale
+					</li>
+					<li>
+					The BoxTimeScaleRenderer now supports vertical orientation (might be time consuming since 
+					vertical oriented text is)
+					</li>
+					<li>
+					SWT: rendering outside the bounds given by the interval is now supported. See the extended renderer interface 
+					TimeBarRenderer2 for details on how to do this from your renederer. This has a little impact on rendering optimizations
+					so it can be turend off. See TimeBarViewer#setStrictClipTimeCheck for details. 
+					</li>
+					<li>
+					SWT: Added an example doing some more fancy drawing. Demonstrating the new feature of drawing outside the 
+					core interval space (FancyExample).
+					</li>
+					<li>
+						Added a linking exception to the GPL license that allows linking to other freely available software (source code freely available)
+					</li>
+
+				</ul>
+			</subsection>
+			<subsection name="2007-08-19 version 1.12">
+				<ul>
+					<li>
+						Added variable row heights/widths including the possibility to change the height/width of a row
+						by dragging or the use of a calculation strategy (see ITimeBarViewstate).
+					</li>
+					<li>
+						fixed some ends concerning vertical orientation (still the interface might be quite irritating when thinking
+						vertical)
+					</li>
+					<li>
+						SWT: printing fixed for windows, horizontal orientation, including support for variable row heights
+					</li>
+
+				</ul>
+			</subsection>
+			<subsection name="2007-07-18 version 1.11">
+				<ul>
+					<li>
+						Fixed a bug that prevented the SWT version from drawing overlapped intervals without height correction. 
+					</li>
+					<li>
+						Added a listener that is informed while intervals are modified by the users (ITimeBarChangeListener).
+					</li>
+					<li>
+						Began a list of known usages of the timebars component (see <a href="tb_usages.html">usages</a>)
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2007-06-05 version 1.10">
+				<ul>
+					<li>
+						<b>This version incorporates some bigger changes. Please regard it as a snapshot! Bug reports welcome.</b>
+					</li>
+					<li>
+						introduced vertical orientation. Modifications have been done carefully, the semantics of some 
+						API calls changed organically (rows now can be columns depending on the orientation ...). Support for
+						vertical rendering has been added to most of the default renderers (Swing and SWT). (Some examples allow switching 
+						orientation; a special example has been added: the calendar example, see screenshots).
+						<p>
+						Note: Hierachy renderers have not yet been enhanced to support vertical orientation --> so dont use a hierarchical 
+						viewer with vertical orientation by now.
+						</p>
+					</li>
+					<li>
+						added support for internal row (column) scaling: if set the viewer adapts the row height to always display 
+						a fixed number of rows (columns) (see setAutoRowScaling) 
+					</li>
+					<li>
+						Scrolling optimizations fixed for SWT (tested Win, Linux/GTK, OSX/Intel). Scrolling optimizations are now <b>ENABLED</b>
+						by default. If you experience any artefacts when scrolling, disable scroll optimizations (setOptimizedScrolling(false).)
+					</li>
+					<li>
+						By mistake and stupidness the TimeBarViewerDelegate referenced SWT classes rendering it unusable for Swing. Fixed that
+						(Thanks Tim!)
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2007-05-01 version 1.02">
+				<ul>
+					<li>
+						SWT&amp;Swing: Introduced scrolling optimizations (copying previously drawn areas).
+						The behaviour is switchable (setOptimizedScrolling) and defaults to false, since I noticed
+						problems using SWT on Linux/GTK and OSX/Intel. However the
+						performance gain on Windows XP is quite big if a lot or fancy diagrams are drawn.  
+						For Swing the optimizations do work on all of the platforms.
+						The scroling optimizations can not be 
+						used together with a variable x scale.
+					</li>
+					<li>
+						Added a method to the DefaultTimeBarRowModel that allows addition of more than one interval at a time. 
+						(Please. note that the default implementation is an implementation that can easyly - and sometimes should -
+						 be tailored for the needs of the concrete application). Also added methods for removal of more than one 
+						 interval at a time.
+					</li>
+					<li>
+						Fixed issues with non overlapped drawing and the dynamic use of an interval filter.
+					</li>
+					<li>
+						Enhanced non overlapped drawing: in some cases the the result wasted some place.
+					</li>
+					<li>
+						Fine tuned interaction between model and selection: Intervals removed from the mdoel will be removed
+						from the selection. (This is not implemented for removeing lots of intervals at once, sice it would
+						sacrify the peformance gained by removing all intervals at once)
+					</li>
+					<li>
+						Fixed a small bug that occured when an interval was selected (apparent only on large scales, caused scrolling the 
+						viewer without need).
+					</li>
+					<li>
+						Fixed updating of the vertical scroll bar (to short in some situations)
+					</li>
+					<li>
+						introduced the <a href="/timebars.addon/index.html">timebars.addon package</a>
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2007-03-12 version 1.01">
+				<ul>
+					<li>
+						small correction to the default hierarchy renderer and the title renderer so that it
+						accepts image descriptors instead of ressource paths
+					</li>
+					<li>a bug in the DefaultTimeScaleRenderer fixed (drawing was not complete)</li>
+					<li>
+						fixed a bug that prevented all intervals from beeing drawn when showing a long period
+						of time (small pps)
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2007-02-18 version 1.0">
+				<ul>
+					<li>
+						<b>Finally reached 1.0! Swing version is behind but the SWT version matters.</b>
+					</li>
+					<li>Wrote overview documentation to get users of the component started.</li>
+					<li>
+						Did testing using Linux/GTK and Mac OS X 10.4.5/Intel: Works, improved performance
+					</li>
+					<li>
+						Added the renderer selection for different interval implementations to the core
+						viewers (SWT and Swing)
+					</li>
+					<li>
+						SWT: Added improved TimeScaleRenderer: The BoxTimeScaleRenderer is easy to modify and
+						clear in appearance.
+					</li>
+					<li>
+						SWT: revisited the printing support and did a lot of corrections, checked printing
+						capability of the default renderers (added two PDF printouts to the screen shot page)
+					</li>
+					<li>Swing: added support for non-overlapping drawing of intervals</li>
+					<li>Swing: added SwingOverlapExample</li>
+					<li>
+						Cleaned the example code from old rubbish (some code has never been touched since
+						2004)
+					</li>
+					<li>Added millisecond accuracy to the interface (x scroll bar using milliseconds)</li>
+					<li>Added interface for variable x scale to the main interface.</li>
+					<li>Removed the obsolete setMajor/MinorTickMinutes methods from the viewers</li>
+					<li>
+						SWT: moved the gap renderer from the PDI example to main package as a default gap
+						renderer (that has to be set if needed).
+					</li>
+					<li>
+						fixed small bug: x scroll disappeared when scale has been changed on scrolled viewer
+						making it impossible to scroll back to the beginning (only relevat when scaling
+						changed)
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="version 0.991">
+				<ul>
+					<li>
+						<b>Version 0.991 has been an internal evaluation version</b>
+					</li>
+					<li>Did some work on the variable scale feature.</li>
+					<li>Added millisecond accuracy (SWT)</li>
+				</ul>
+			</subsection>
+			<subsection name="2007-01-25 version 0.99">
+				<ul>
+					<li>
+						Added support for drawing "ghosted" intervals and rows to the timebar viewer to
+						support visual drag and drop.
+					</li>
+					<li>
+						Colors for highlighting, row selection and row grid lines now configurable. Use alpha
+						blending for highlighting resulting in smoother appearance.
+					</li>
+					<li>
+						Selection delta for detecting marker selection/drag and interval edge detecting now
+						configurable.
+					</li>
+					<li>
+						Fixed some unclean behaviour when resizing intervals that resulted in the experience
+						that in some cases the selection seemed a bit unsharp (selection for resizing: cursor
+						has been set to resize cursor outside the interval).
+					</li>
+					<li>Internal drag operations can now be canceled with ESC</li>
+					<li>Improved the default title render: now supports a background image.</li>
+					<li>Improved the default hierarchy render: now supports images as symbols.</li>
+					<li>Further improvements of the documentation (Still some work to do)</li>
+					<li>
+						Improved SwtOverlapExample to support and demonstrate possible variant of implementing
+						drag&amp;drop
+					</li>
+					<li>
+						Improved SwtHierarchyExample: added more options to play with and demonstrate images
+						in the hierarchy renderer
+					</li>
+					<li>
+						The DefaultRenderer for intervals now checks the registered renderers by interfaces
+						and superclasses eliminating the need to use concrete classes for matching special
+						renderers
+					</li>
+					<li>
+						The limiting lines determing the width of the hierarchy area and the width of the
+						header area (y axis) can now be dragged by the user. This behaviour can be disabled.
+					</li>
+					<li>
+						Fixed some minor bugs (probably never noticed by anyone):
+						<ul>
+							<li>selection using space did not work on SWT version</li>
+							<li>printing without time scale caused NPE</li>
+							<li>printing missed the title</li>
+						</ul>
+					</li>
+					<li>
+						Added some methods to the DefaultTimeBarModel making it easier to modify data therein.
+					</li>
+					<li>Updated status page</li>
+
+				</ul>
+			</subsection>
+			<subsection name="2007-01-06 version 0.982">
+				<ul>
+					<li>
+						<b>
+							Version 0.982 is another snapshot on the way to the Version 1.0 release, this is
+							almost feature complete
+						</b>
+					</li>
+					<li>
+						Corrected bug: When rows have been added to an AddingTimeBarRow that did not contain
+						any intervals this has been handled incorrectly. Improved that class in some aspects.
+						(Thanks to Shahar Maoz for pointing out the bug)
+					</li>
+					<li>
+						Corrected bug: In some cases with high pixel per second setting the drawing failed
+						until the scrollbar has been moved (Thanks to Shahar Maoz for pointing out the bug)
+					</li>
+					<li>Corrected the project path and plugin name: de.jaret.util.ui.timebars</li>
+					<li>
+						Made the TimeBarIntervalFilter a PropertyObservable. Introduced AbstractTimeBarFilter.
+					</li>
+					<li>Further improvements of the documentation</li>
+					<li>
+						Included the experimental feature of different scalings on the xaxis for dedicated
+						intervals. See the swthierarchy example for a usage example.
+					</li>
+
+				</ul>
+			</subsection>
+			<subsection name="2006-08-22 version 0.981">
+				<ul>
+					<li>
+						<b>
+							Version 0.981 is another snapshot on the way to the Version 1.0 release, this is
+							almost feature complete
+						</b>
+					</li>
+					<li>
+						Documentation: Improved parts of the javadoc, added a brief overview describing the
+						examples, added a document describing the architecture and containing some little
+						howtos.
+					</li>
+
+				</ul>
+			</subsection>
+			<subsection name="2006-05-03 version 0.98">
+				<ul>
+					<li>
+						<b>
+							Version 0.98 is another snapshot on the way to the Version 1.0 release, this is
+							almost feature complete
+						</b>
+					</li>
+					<li>
+						SWT: fixed some bugs in handling the rendering and dragging of multiple overlapping
+						intervals.
+					</li>
+					<li>
+						fixed some bugs that were introduced with the soft scrolling, causing selection by
+						click to fail in some cases (hope I got them all by now)
+					</li>
+					<li>
+						SWT: enhanced hierarchy handling (togglingArea, row selection in hierachy, label from
+						label provider will be rendererd by DefaultHierarchyRenderer)
+					</li>
+					<li>
+						SWT: added a global renderer allowing the rendering of elements in between the
+						individual intervals (e.g. relations); see the SwtHierarchy example.
+					</li>
+					<li>SWT: added zoom in/out using ctrl+mousewheeel</li>
+					<li>
+						SWT: refactored support for standard actions to be in util.actions (the handling of
+						predefined actions may change in future versions)
+					</li>
+					<li>did some code cleanup and optimizations</li>
+
+				</ul>
+			</subsection>
+			<subsection name="2006-02-17 version 0.97">
+				<ul>
+					<li>
+						<b>Version 0.97 is another snapshot on the way to the Version 1.0 release</b>
+						- it may contain some open ends.
+					</li>
+					<li>
+						SWT: introduced focus handling: a focus mark can be moved by the cursor keys if the
+						viewer has the focus. Keyboard control: shift+left/right=grow left/right,
+						alt+left/right=schrink left/right, ctrl+left/right=move left/right, SPACE=select,
+						ctrl+SPACE=select multiple.
+					</li>
+					<li>
+						SWT: TimeBarViewer now implements ISelectionProvider for better RCP/JFace integration
+					</li>
+					<li>
+						SWT: Introduced TBViewer as extension of JFace.StructuredViewer for better JFace
+						integration (experimental)
+					</li>
+					<li>changed build to maven2</li>
+					<li>
+						TimeBarRowSorters and -filters are now PropertyObservables. (Quick fix for existing
+						Filters and Sorters: extend PropertyObservableBase!)
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2005-10-03 version 0.96">
+				<ul>
+					<li>
+						<b>Version 0.96 is a snapshot on the way to the Version 1.0 release</b>
+						- it may contain some open ends.
+					</li>
+					<li>SWT: Introduced a title renderer.</li>
+					<li>
+						SWT: changed the rendering subsystem (sorry: includes the renderers) to support
+						printing with a minimal effort. Enabled the default renderers for printing. Use the
+						TimeBarPrinter to print the graph.
+					</li>
+					<li>SWT: introduced context menu handling</li>
+					<li>SWT + Swing: introduced smooth scrolling (showign a clipped row as the top row)</li>
+					<li>SWT: introduced rendering of a title</li>
+					<li>Cleaned the TimebarMarker interface.</li>
+					<li>SWT: introduced the TimebarMarkerRenderer for rendering of markers.</li>
+					<li>SWT: improved hierarchy renderer</li>
+					<li>
+						SWT: added the dispose() method to all renderers to support disposal of resources.
+					</li>
+					<li>
+						Improved default timescale and grid renderers (scaling, labelling). SWT versions now
+						support marking of weekends and holidays (with a HolidayEnumerator, see jaretutil
+						package)
+					</li>
+					<li>
+						Separated the view state of the hierarchical model (expanded/collapsed) from the model
+						itself thus allowing different views on the same hierarchical model. This refactoring
+						did cause some major changes. The introduced HierarchicalViewState does not support
+						view states identified by a path. This causes the state of equal nodes in a model to
+						be the same.
+					</li>
+					<li>
+						Removed the accessor for the delegate. Maybe there are still some methods missing ->
+						report.
+					</li>
+					<li>Switched to SWT 3.1 Release</li>
+					<li>SWT: forceFocus() on click -> mouse wheel will scroll vertically</li>
+
+
+				</ul>
+			</subsection>
+			<subsection name="2005-06-04 version 0.95">
+				<ul>
+					<li>Corrected some bugs ;-)</li>
+					<li>
+						Introduced AddingTimeBarRow and AddingTimeBarNode for hierachical view (see hierarchy
+						example)
+					</li>
+					<li>
+						Default renderers for TimeBars now support registration for additional renderers for
+						easy differentiated rendering of different intervals
+					</li>
+					<li>Cleaned and enhanced handling of the scrollbars (page increment etc.)</li>
+					<li>
+						Enhanced default timescalerenderer and default gridrenderer to scale. The
+						TimeScaleRenderer now supports top and bottom placement.
+					</li>
+					<li>Added autoscrolling for visual editing and markers.</li>
+					<li>
+						Corrected tooltip behaviour (toooltips will show up for swt version after clicking the
+						mouse), timebar markers will show their description as the tooltip.
+					</li>
+
+				</ul>
+			</subsection>
+
+
+			<subsection name="2005-05-07 version 0.94">
+				<ul>
+					<li>refactorings (JDK 1.5, ++)</li>
+					<li>changed build process to maven</li>
+					<li>
+						introduced an interface for the row header (will force changes in existing
+						applications)
+					</li>
+					<li>added support for a hierarchical model as an extension to the flat list of rows</li>
+					<li>
+						added support for changing intervals (drag an interval inside its row, resize an
+						interval), controlled by IntervalModificators that allow/disallow changes
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2004-12-23 version 0.92">
+				<ul>
+					<li>
+						changed the JaretDate/JaretDateFormatter to use a single JaretDateFormatter for all
+						JaretDates. This change decreases the memory usage but restricts applications to one
+						Formatter.
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2004-12-21 version 0.91">
+				<ul>
+					<li>first public release</li>
+					<li>some minor bug fixes and refactoring</li>
+					<li>
+						refactoring of the class JaretDate: i8n, introduced a localized JaretDateFormatter as
+						a delegate to do convenient textual output
+					</li>
+					<li>
+						correction of the Swing DefaultGridRenderer: minor ticks were not painted up to the
+						first major tick.
+					</li>
+					<li>
+						the delegate is still accessible; the most common methods can now be called on the
+						viewers itself.
+					</li>
+					<li>added some documentation</li>
+					<li>included (bad) example code in the distribution</li>
+				</ul>
+			</subsection>
+			<subsection name="2004-11-09 version 0.90">
+				<ul>
+					<li>non-public pre release</li>
+				</ul>
+			</subsection>
+		</section>
+	</body>
+</document>

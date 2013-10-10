@@ -1,0 +1,105 @@
+<document>
+	<properties>
+		<author email="peter.kliem@jaret.de">Peter Kliem</author>
+		<title>jare timebars examples</title>
+	</properties>
+	<body>
+		<section name="brief overview of the examples">
+<p>
+<b>Please note that additional information concerning some of the examples can be found in the documentation: </b>
+<a href="documentation/timebars.html">HTML documentation</a>.
+</p>
+<p>
+This document gives a short introduction to the examples supplied with the jare timebar component.
+</p>
+<p>
+The examples are created at different time throughout the development of the component, so some of them are quite old. All examples are 
+"hacks" and do not strive to be nice looking code. Some of the examples are commented in german for historical reasons. The structure is
+a bit chaotic since the swing and swt examples share the models.
+</p>		
+<p>
+Screenshots are on the screenshots page.
+</p>
+
+		</section>
+			<section name="SWT">
+			<subsection name="de.jaret.examples.timebars.simple.SwtOverlapExample">
+<p>
+This example demonstrates the handling of overlapping intervals if drawOverlapping is false. Every interval will only get
+a fraction of the row space for rendering. Renderer is the simple default renderer. Possiblity to change the intervals (dragging, resizing).
+Possiblity to change the scale. Printing possiblity. Other renderers: default.
+</p>			
+<p>
+The example also contains an example of defining a drag source and a drop target on the timebar viewer. The majority of the functionality
+is implemented outside the timebar viewer. This takes into account, that there are many possibilities to define the semantics
+of drag and drop.
+</p>			
+		</subsection>
+			<subsection name="de.jaret.examples.timebars.hierarchy.swt.SwtHierarchy">
+<p>
+Simple hierarchical view SWT version. Scaling, manipulating the intervals, tree structure. The sum interval
+is rendered by a specialized sum renderer. The arrows beetween the intervals are a demonstration of a GlobalAssistant renderer. 
+Context menus on scale and hierarchy. Hierarchy using label provider including icons.
+</p>
+<p>
+Can be switched (check the souce code) to demonstrate variable xscale scaling. If anabled a row containing intervals determing regions of
+different scaling is shown as the last row. The intervals can be manipulated.   
+</p>
+			</subsection>
+			<subsection name="de.jaret.examples.timebars.fzd.swt.SwtFzdExample">
+<p>
+Intervals are rendered one on the other.
+</p>
+			</subsection>
+			
+			<subsection name="de.jaret.examples.timebars.pdi.swt.SwtPdiExample">
+<p>
+Two coupled viewers (using the synchronizer). Different tooltip for red corners.
+Gap renderer. Large number of intervals!
+</p>
+			</subsection>
+			
+			</section>
+			
+			
+			
+			<section name="Swing">
+			<subsection name="de.jaret.examples.timebars.simple.SwingTimeBarExample">
+<p>
+Very simple example just filling a timebar viewer with a lot of intervals and change them by the main thread. 
+Beware: the main thread has to be stopped "by hand" (or it will run until all intervals have been modified.).
+</p>
+			</subsection>
+			<subsection name="de.jaret.examples.timebars.touren.TourenExample">
+<p>
+This example is a proof of concept showing trips from one point to another point ("Touren") in the timebarviewer and shows additional
+data in an attached JTable. Since newer versiocns of the viewer component scroll smooth - a feature the JTable lacks to have - the integration with
+th table is not as nice as it could be. For demonstration purposes a sorter and a filter can be chosen from comboboxes. Scaling is possible.
+Renderer for the tour elements is specialized. A gap renderer is used to render the point labels.
+</p>
+			</subsection>
+			
+			<subsection name="de.jaret.examples.timebars.hierarchy.swing.SwingHierarchy">
+<p>
+Simple hierarchical view Swing version. Scaling, manipulating the intervals, tree structure, draggable marker. The sum interval
+is rendered by a specialized sum renderer.
+</p>
+			</subsection>
+			<subsection name="de.jaret.examples.timebars.fzd.swing.FzdTest">
+<p>
+Two coupled viewers (using the synchronizer), draggable marker, intervals are rendered one on the other, sorter, interval filter
+</p>
+			</subsection>
+			<subsection name="de.jaret.examples.timebars.pdi.swing.PdiExample">
+<p>
+Two coupled viewers (using the synchronizer). "freisetzen" deletes selected intervals from the upper viewer, different tooltip for red corners.
+Gap renderer. Large number of intervals!
+</p>
+			</subsection>
+			
+			
+			
+			
+			</section>
+	</body>
+</document>

@@ -1,0 +1,16 @@
+Linking exception to the GPL for the jaret timebars component
+
+Linking this library statically or dynamically with other modules is making a 
+combined work based on this library. Thus, the terms and conditions of the 
+GNU General Public License cover the whole combination.
+
+Nothing in this Exception gives you or anyone else the right to change the 
+licensing terms of the jaret timebars component.
+
+As a special exception, the copyright holders of this library give you permission 
+to link this library with independent modules, if
+- all linked code is available in source code form free of charge
+- and if all linked code is licensend under one of the following licenses:
+Eclipse Public License 1.0 (EPL), Common Public License 1.0 (CPL), 
+GNU Library or "Lesser" General Public License (LGPL) 2.0/2.1,
+Apache License 2.0, Common Development and Distribution License (CDDL)

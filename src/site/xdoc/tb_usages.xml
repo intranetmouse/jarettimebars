@@ -1,0 +1,53 @@
+<document>
+  <properties>
+    <author email="peter.kliem@jaret.de">Peter Kliem</author>
+    <title>timebar usages</title>
+  </properties>
+  <body>
+    <section name="Known usages of the timebars">
+		<p>
+			This page will list known (and publishable) usages of the timebars component. Licencees will not be listed here. 
+			If you think, your project should be listed here drop a mail.
+		</p>
+		<p>
+					<table>
+				<tr>
+					<td>
+						<a href="http://www.wisdom.weizmann.ac.il/~maozs/tracer/">Tracer</a>
+					</td>
+					<td>
+						Shahar Maoz et. al.: Using the timebars component for scientific visualization
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="http://www.permeter.de/">Permeter</a>
+					</td>
+					<td>
+						Permeter is a research activity conducted by the Department of Business Information Systems,  
+						of the Carl-von-Ossietzky-University Oldenburg, Germany. 
+						The tool includes a project planning part with the timebars as the visualization component. 
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="http://sarwiki.informatik.hu-berlin.de/Brn.Gui#Time_Bars">http://sarwiki.informatik.hu-berlin.de/Brn.Gui</a>
+					</td>
+					<td>
+						The Berlin RoofNet Simulator (Brn.Sim): Using the timebars component for scientific visualization (lots of intervals).
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="http://plone.itc.nl/agile_old/Conference/2008-Girona/PDF/78_DOC.pdf">Semantic Annotation of GPS Trajectories (PDF)</a>
+					</td>
+					<td>
+						More visualization in academia (small part).
+					</td>
+				</tr>
+
+			</table>
+		</p>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,42 @@
+<document>
+  <properties>
+    <author email="peter.kliem@jaret.de">Peter Kliem</author>
+    <title>friends &amp; co</title>
+  </properties>
+  <body>
+    <section name="Commercial use of the jaret timebars">
+		<p>
+			The package is dual licensed under the GNU Public License and a commercial license that can be purchased (see <a href="license.html">LICENSE</a> you will find 
+			the commercial license after the GPL). 
+		</p>
+		<p>
+			The commercial license is basically a full source code license that allows inclusion in commercial projects without any royalties or limitations 
+			on the number of developers. The license allows modifications to the source without any obligations and it allows delivering the source code 
+			to customers. 
+		</p>
+		<subsection name="Pricing and ordering">
+		<p>
+			<b>The price for the commercial license is EUR 3500.- (excluding VAT)</b>
+		</p>
+		<p>
+			If you want to purchase a license you can place the order at:
+			info@marsys.de (Please prepend the subject with "[jaret]"). 
+		</p>
+		<p>
+			Please use the contact for questions regarding payment and required ordering information (these vary by country; absolutely needed
+			are the billing address and the legal entity or individual that the component should be licensed to).
+		</p>
+		</subsection>
+		<subsection name="Evaluating">
+		<p>
+			We recommend that you do a thorough evaluation before you purchase a license. If you have any questions during your evaluation phase please
+			contact us at info@jaret.de (please prepend the subject with "[jaret]").
+		</p>
+		<p>
+			If you miss a feature that is critical for your application and might be an overall improvement for the component please contact us. 
+			Chances are that it is possible to just include it in the next version.
+		</p>
+		</subsection>
+    </section>
+  </body>
+</document>

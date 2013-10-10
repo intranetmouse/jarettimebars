@@ -1,0 +1,143 @@
+<document>
+  <properties>
+    <author email="peter.kliem@jaret.de">Peter Kliem</author>
+    <title>jaret timebars (gantt chart for SWT and Swing)</title>
+  </properties>
+ <head>
+    <meta name="keywords" content="java, component, widget, Swing, SWT, Gantt chart" />
+  </head>
+ <body>
+    <section name="de.jaret.util.ui.timebars">
+		<p>
+		The jaret timebars package contains a viewer for a data model containing rows of intervals. The viewer displays the
+		intervals in a Gantt chart fashion. The viewer is implemented for Swing and the SWT toolkit using a delegate for
+		most of the work. <b>Prority of the development is the SWT version! Swing mostly catched up with version 1.30.</b>
+		</p>
+		<p> If you like you can comment and rate the timebars component at 
+		<a href="http://www.eclipseplugincentral.com/Web_Links-index-req-ratelink-lid-818.html">Eclipse Plugin Central</a>.
+		</p>
+		<p>
+		Features include:
+		<ul>
+			<li>
+				rendering is done by renderers allowing a complete customization (simple default renderes are supplied). Renderers may
+				support printing.
+			</li>
+			<li>
+				follows the mvc pattern
+			</li>
+			<li>
+				available for SWT and Swing (lower priority)
+			</li>
+			<li>
+				additional components: marker (vertical), synchronizer for multiple viewers
+			</li>
+			<li>
+				flexible selection model
+			</li>
+			<li>
+				supports hierarchical view 
+			</li>
+			<li>
+				supports relations between intervals 
+			</li>
+			<li>
+				supports visual editing (dragging of intervals, resizing of intervals) 
+			</li>
+			<li>
+				supports horizontal (classic gantt) and vertical orientation (i.e. for a calendar view) 
+			</li>
+			<li>
+				region selection 
+			</li>
+			<li>
+				variable time scale including "breaks" in the timeline 
+			</li>
+			<li>
+				addon package supports using the timebars component in an Eclipse RCP (saving the viewstate) and
+				adds synchronization support towards the jaret table allowing combined visualization
+				of tabular and timed data 
+			</li>
+		</ul>
+		</p>
+		<subsection name="Dual licensing">
+		<p>
+			The package is licensed under the GNU Public License (see <a href="license.html">LICENSE</a>) allowing
+			the usage in other free projects under the GPL. If you are interested in a commercial license 
+			for use in closed source projects check <a href="timebars/commercial.html">here</a> or contact info@jaret.de (please prepend the
+			subject with "[jaret]").
+		</p>
+		</subsection>
+		<subsection name="Download / javadoc">
+		<p>
+			There are several different packages available for download 
+			(please note that you will also need the <a href="/jaretutil">jaretutil</a> package):
+		</p>
+			<table>
+				<tr>
+					<td>
+						<a href="data/timebars-1.35-src.zip">timebars-1.35-src.zip</a>
+					</td>
+					<td>
+						Recommended download: Contains the complete project for Swing and SWT, including example code. Depends on 
+						de.jaret.util (0.30)!
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="data/timebars-1.35-bin.zip">timebars-1.35-bin.zip</a>
+					</td>
+					<td>
+						Contains jar including Swing and SWT version. Depends on 
+						de.jaret.util (0.30)!
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="documentation/timebars.pdf">overview documentation (PDF)</a>
+					</td>
+					<td>
+						Overview documentation as a PDF (html: see <a href="documentation/timebars.html">HTML documentation</a>)
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="../timebars.addon/index.html">timebars addon package</a>
+					</td>
+					<td>
+						Addon package
+					</td>
+				</tr>
+			</table>
+		<p>
+			View the javadoc here: <a href="apidocs/index.html">apidoc</a>.
+		</p>
+		</subsection>
+		<subsection name="Screenshots and screen casts">
+		<p>
+			There are some screenshots and screencasts available <a href="tb_screenshots.html">here.</a> Remember that the rendering is done
+			by renderers that can easily be customized.
+		</p>
+		</subsection>
+		<subsection name="Status and platforms">
+		<p>
+			We think the TimeBarViewer is production quality - as long as the supported features serve the purposes
+			of the application (In fact it is in production use since Q1/2005). With the 1.0 version the SWT version 
+			is stable.
+			<b>However: This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+			without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</b>
+		</p>
+		<p>
+			The Swing version of the TimeBarViewer should run on every platform supporting Java 1.5. The main testing of the SWT
+			component was done on Win32. Tests have also been performed on Linux with the GTK+ version of SWT and on Mac OS X. Due to the
+			nature of the SWT toolkit it can not be guaranteed that the component will work on all platforms. 
+		</p>
+		</subsection>
+		<subsection name="Bugs">
+		<p>
+			This component can not be free of bugs. Please report bugs to info@jaret.de (please prepend the subject with "[jaret]").
+		</p>
+</subsection>
+</section>
+  </body>
+</document>

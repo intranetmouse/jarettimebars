@@ -1,0 +1,144 @@
+<document>
+  <properties>
+    <author email="peter.kliem@jaret.de">Peter Kliem</author>
+    <title>jaret timebars screenshots</title>
+  </properties>
+ <body>
+    <section name="de.jaret.util.ui.timebars: Screenshots and screencasts">
+		<p>
+			These are some screenshots and screencasts of the timebar viewer in action. Remember that the rendering is done
+			by renderers that can easily be customized. Not all screenshots shown on this page are included as an example.
+		</p>
+		<p>
+			<b>Click to enlarge!</b>
+		</p>
+		<subsection name="SwtHierarchy (1.0)">
+			<p><a href="images/swt_hierarchy.png"><img src="images/swt_hierarchy_small.png"/></a></p>
+			<p>
+				SWT (v1.0): Hierarchical structured intervals with a sum interval and a global renderer rendering the relation arrows.
+				Labelprovider provides icon and text (Example included). Time scale is rendered by the BoxTimeScaleRenderer. 
+			</p>
+			<p>
+				<a href="images/hierarchy.htm">See a screencast! (v0.99) (2.3MB)</a> (Created with <a href="http://www.debugmode.com/wink/" target="_blank">Wink</a>)
+			</p>
+			<p>
+				<a href="images/SwtHierarchy_print.pdf">Printed version (PDF)</a>
+			</p>
+		</subsection>
+
+		<subsection name="Intervals drawn non overlapping and DND 1.0)">
+		<p>
+		<a href="images/overlap.png"><img src="images/overlap_small.png"/></a>
+		</p>
+		<p>
+		SWT (v1.0): Intervals drawn non overlapping. Interval and row dragging implemented. Shows dragging in progress. (Example included). 
+		</p>
+			<p>
+				<a href="images/dnd.htm">See a screencast! (v0.99) (1.4MB)</a> (Created with <a href="http://www.debugmode.com/wink/" target="_blank">Wink</a>)
+			</p>
+			<p>
+			<a href="images/SwtOverlap_print.pdf">Printed version (PDF) (v1.0)</a>
+			</p>
+		</subsection>
+		<subsection name="Vertical orientation (1.10)">
+		<p>		<a href="images/swtcalendar.png"><img src="images/swtcalendar_small.png"/></a></p>
+		<p>
+			SWT: version 1.10 vertical orientation: the calendar example (also available for Swing).
+		</p>
+		</subsection>
+
+		<subsection name="Some more drawing">
+		<p>		<a href="images/fancy1.png"><img src="images/fancy1_small.png"/></a></p>
+		<p>
+			SWT: version 1.13, drawing besides the area of the interval, rendering a point in time.
+		</p>
+		<p>		<a href="images/fancy2.png"><img src="images/fancy2_small.png"/></a></p>
+		<p>
+			SWT: version 1.13, drawing a drop shadow.
+		</p>
+		<p>		<a href="images/fancy3.png"><img src="images/fancy3_small.png"/></a></p>
+		<p>
+			SWT: version 1.13, drawing a reflection.
+		</p>
+		<p>		<a href="images/timeline.png"><img src="images/timeline_small.png"/></a></p>
+		<p>
+			SWT: version 1.15, drawing a timeline inspired by the <a href="http://simile.mit.edu/timeline/">SIMILE timeline</a>
+		</p>
+		</subsection>
+
+		<subsection name="Swing EventMonitor (1.30)">
+		<p>		<a href="images/eventmonitor.png"><img src="images/eventmonitor_small.png"/></a></p>
+		<p>
+			Swing (version 1.30): Customized header renderer, row height strategy, uniform interval height, region selection (used for
+			a zoom action)
+		</p>
+		</subsection>
+
+
+		<subsection name="Hierarchy with global rendering (0.98)">
+		<p>		<a href="images/jaret1_098.gif"><img src="images/jaret1_098_small.gif"/></a></p>
+		<p>
+			SWT: version 0.98 (hierarchical with a sum interval + global rendering of relations between intervals, example not included). 
+			Interval rendering customized.
+		</p>
+		</subsection>
+
+		<subsection name="Usage for other time based data display">
+		<p>		<a href="images/linechart.png"><img src="images/linechart_small.png"/></a></p>
+		<p>
+			It is quite easy to use the mechanics of the time bar viewer to draw other time based data. An example 
+			for drawing a simple line chart is included. Those applications can easyly profit from the optimized
+			scrolling and the other features of the timebar viewer.
+		</p>
+		</subsection>
+
+		<subsection name="TimeBarViewer synced with JaretTable (1.02, 0.81)">
+		<p>		<a href="images/overlapTableSync.png"><img src="images/overlapTableSync_small.png"/></a></p>
+		<p>
+			SWT: TimeBarViewer synchronized with a JaretTable using the synchronizer from the timebars.addon package.
+		</p>
+		<p>		<a href="images/hierarchyTableSync.png"><img src="images/hierarchyTableSync_small.png"/></a></p>
+		<p>
+			SWT: Hierarchical TimeBarViewer synchronized with a JaretTable using the synchronizer from the timebars.addon package.
+		</p>
+		</subsection>
+
+
+		<subsection name="Several other (older) screenshots">
+		<p>
+		<a href="images/variablexscale.png"><img src="images/variablexscale_small.png"/></a>
+		</p>
+		<p>
+		SWT (v0.982): Hierarchical structured intervals (see above) showing a variable x axis scaling (visualized by the last row with marking intervals
+		for changed scale; variable xaxis scaling is experimental) (Example included). 
+		</p>
+
+		<p>
+		<a href="images/TourenTest.gif"><img src="images/TourenTest_small.gif"/></a>
+		</p>
+		<p>
+		Swing(v0.94): Simple view configuration showing (fake) duties. The TimeBarViewer is coupled with a JTable displaying
+		details. (Default grid renderer, default header renderer, default time scale renderer)
+		</p>
+		<p>
+		<a href="images/fzd_swt.gif"><img src="images/fzd_swt_small.gif"/></a>
+		</p>
+		<p>
+		SWT(v0.94): Overlapping intervals with custom renderers.
+		</p>
+		<p>
+		<a href="images/fzd_swing.gif"><img src="images/fzd_swing_small.gif"/></a>
+		</p>
+		<p>
+		Swing(v0.94): Overlapping intervals with custom renderers. Two synchronized viewers, marker.
+		</p>
+		<p>
+		<a href="images/pdi_swt.gif"><img src="images/pdi_swt_small.gif"/></a>
+		</p>
+		<p>
+		SWT(v0.94): Intervals with custom renderer. Two synchronized viewers, gap renderer.
+		</p>
+		</subsection>
+    </section>
+  </body>
+</document>
