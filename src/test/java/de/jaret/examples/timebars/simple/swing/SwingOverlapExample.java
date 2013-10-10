@@ -37,6 +37,8 @@ import java.util.List;
 import java.util.TooManyListenersException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 import de.jaret.examples.timebars.simple.model.ModelCreator;
 import de.jaret.util.date.Interval;
@@ -84,7 +86,14 @@ public class SwingOverlapExample {
         // btsr.setCorrectDST(true);
         // _tbv.setTimeScaleRenderer(btsr);
 
-        f.getContentPane().add(_tbv, BorderLayout.CENTER);
+        JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        f.getContentPane().add(split, BorderLayout.CENTER);
+        split.add(_tbv, JSplitPane.TOP);
+        JPanel panel = new JPanel();
+        panel.setOpaque(false);
+        split.add(panel, JSplitPane.BOTTOM);
+        
+//        f.getContentPane().add(_tbv, BorderLayout.CENTER);
 
         f.getContentPane().add(new OverlapControlPanel(_tbv), BorderLayout.SOUTH);
 

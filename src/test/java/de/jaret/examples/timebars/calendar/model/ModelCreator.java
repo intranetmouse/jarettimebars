@@ -9,10 +9,18 @@ public class ModelCreator {
 
         Day secondOfMay;
         
+        model.createMonth(3, 2007);
         model.createMonth(4, 2007);
         model.createMonth(5, 2007);
         model.createMonth(6, 2007);
         model.createMonth(7, 2007);
+        
+//        JaretDate xdate = new JaretDate(30, 3, 2007, 0, 0, 0); 
+//        Day xday = model.getDay(xdate);
+//        Appointment xa = new Appointment(xdate, 12, 0, 48, "cut appointment");
+//        xday.addInterval(xa);
+
+        
         
         JaretDate date = new JaretDate(30, 4, 2007, 0, 0, 0); 
         // 30.4.

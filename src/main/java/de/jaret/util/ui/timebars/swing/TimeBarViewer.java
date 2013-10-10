@@ -678,6 +678,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             long time = System.currentTimeMillis();
             long nanoTime = System.nanoTime();
 
+            
             _delegate.preparePaint(getWidth(), getHeight()); // prepare the geometry
 
             g.setColor(Color.WHITE);
@@ -712,23 +713,26 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             _miscRenderer.renderRegionRect(g, this._timeBarViewer, _delegate);
             g.setClip(clipSave);
 
-            // draw the title if a title renderer has been set
+         // draw the title if a title renderer has been set
             if (_titleRenderer != null) {
                 JComponent titleComponent = _titleRenderer.getTitleRendererComponent(this._timeBarViewer);
                 if (!_useTitleRendererComponentInPlace) {
                     titleComponent.setBounds(_delegate.getTitleRect());
                     titleComponent.paint(g);
                 } else {
+                    boolean added = false;
                     if (titleComponent.getParent() == null) {
                         add(titleComponent);
+                        added = true;
                     }
                     titleComponent.setBounds(_delegate.getTitleRect());
                     titleComponent.doLayout();
-                    // no double painting for the title renderer
-                    //titleComponent.paintAll(g); 
+                    // no double painting for the title renderer; only paint the first time
+                    if (added)
+                        titleComponent.paintAll(g);
                 }
             }
-
+            
             // kick in the global assistant renderer
             if (_globalAssistantRenderer != null) {
                 _globalAssistantRenderer.doRenderingLast(_delegate, g);
@@ -861,7 +865,12 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
 
             // set the clipping to include only the heigth of the diagram rect
             Rectangle clipSave = g.getClipBounds();
-            g.setClip(0, _delegate.getDiagramRect().y, getWidth(), _delegate.getDiagramRect().height);
+
+            Rectangle newClip = new Rectangle(0, _delegate.getDiagramRect().y, getWidth(), _delegate.getDiagramRect().height).intersection(g.getClipBounds());
+            g.setClip(newClip);
+
+            
+//            g.setClip(0, _delegate.getDiagramRect().y, getWidth(), _delegate.getDiagramRect().height);
 
             // separating line to the header
             // MAYBE color configurable
@@ -920,7 +929,10 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
 
             // set the clipping to include only the heigth of the diagram rect
             Rectangle clipSave = g.getClipBounds();
-            g.setClip(0, _delegate.getDiagramRect().y, getWidth(), _delegate.getDiagramRect().height);
+            
+            Rectangle newClip = new Rectangle(0, _delegate.getDiagramRect().y, getWidth(), _delegate.getDiagramRect().height).intersection(g.getClipBounds());
+            g.setClip(newClip);
+            //g.setClip(0, _delegate.getDiagramRect().y, getWidth(), _delegate.getDiagramRect().height);
 
             // separating line to the header
             // MAYBE coloro configurable
@@ -1256,6 +1268,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         private void drawInterval(Graphics g, int y, int height, Interval i, boolean selected, OverlapInfo oiInfo,
                 TimeBarRow row) {
             TimeBarRenderer renderer = getRenderer(i.getClass());
+
+
             if (renderer == null) {
                 throw new RuntimeException("no suitable renderer registered for " + i.getClass().getName());
             }
@@ -1306,6 +1320,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
 
             component.setBounds(x, y, width, height);
             Graphics gg = g.create(x, y, width, height);
+            Rectangle ggClip = gg.getClipBounds();
+            
             // calculate height for clipping
             Rectangle diagramRect = _delegate.getDiagramRect();
             if (y + height > diagramRect.y + diagramRect.height) {
@@ -1319,16 +1335,12 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             if (x + width > diagramRect.x + diagramRect.width) {
                 width = width - (x + width - (diagramRect.x + diagramRect.width));
             }
-            // calc x clipping and set clipping rect
-
-//            Rectangle cr = new Rectangle(x < diagramRect.x ? diagramRect.x - x : 0, upperClipBound, diagramRect.width,
-//                    height);
-//
-//            gg.setClip(cr);
 
             int clipX = x < diagramRect.x ? diagramRect.x - x : 0;
             int clipWidth = x < diagramRect.x ? Math.max(0, width - (diagramRect.x - x)) : width;
-            gg.setClip(clipX, upperClipBound, clipWidth, height);
+                        
+            Rectangle newClip = new Rectangle(clipX, upperClipBound, clipWidth, height).intersection(ggClip);
+            gg.setClip(newClip);
             
             component.paint(gg);
             gg.dispose();
@@ -1380,6 +1392,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
 
             component.setBounds(x, y, width, height);
             Graphics gg = g.create(x, y, width, height);
+            Rectangle ggClip = gg.getClipBounds();
             // calculate height for clipping
             Rectangle diagramRect = _delegate.getDiagramRect();
             if (x + width > diagramRect.x + diagramRect.width) {
@@ -1395,16 +1408,12 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                 height = height - (y + height - (diagramRect.y + diagramRect.height));
             }
             // calc x clipping and set clipping rect
-//            Rectangle cr = new Rectangle(upperClipBound, y < diagramRect.y ? diagramRect.y - y : 0, width,
-//                    diagramRect.height);
-//
-//            gg.setClip(cr);
 
             int clipY = y < diagramRect.y ? diagramRect.y - y : 0;
             int clipHeight = y < diagramRect.y ? Math.max(0, height - (diagramRect.y - y)) : height;
-            gg.setClip(upperClipBound, clipY, width, clipHeight);
             
-            
+            Rectangle newClip = new Rectangle(upperClipBound, clipY, width, clipHeight).intersection(ggClip);
+            gg.setClip(newClip);
             
             component.paint(gg);
             gg.dispose();

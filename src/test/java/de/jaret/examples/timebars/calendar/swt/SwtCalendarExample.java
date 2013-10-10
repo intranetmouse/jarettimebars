@@ -19,6 +19,7 @@
  */
 package de.jaret.examples.timebars.calendar.swt;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +59,7 @@ import de.jaret.examples.timebars.calendar.swt.renderer.CalendarTimeScaleRendere
 import de.jaret.examples.timebars.calendar.swt.renderer.DayHeaderRenderer;
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.JaretDate;
+import de.jaret.util.ui.timebars.TimeBarRowFilter;
 import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarRowModel;
@@ -70,7 +72,7 @@ import de.jaret.util.ui.timebars.swt.TimeBarViewer;
  * SWT: example demonstrating the vertical orientation showing a calendar view.
  * 
  * @author Peter Kliem
- * @version $Id: SwtCalendarExample.java 1083 2011-07-01 20:29:16Z kliem $
+ * @version $Id: SwtCalendarExample.java 1104 2012-02-07 22:03:30Z kliem $
  */
 public class SwtCalendarExample extends ApplicationWindow {
     private static TimeBarViewer _tbv;
@@ -94,6 +96,27 @@ public class SwtCalendarExample extends ApplicationWindow {
         _tbv.setTimeScalePosition(TimeBarViewer.TIMESCALE_POSITION_TOP);
         _tbv.setModel(model);
 
+//        _tbv.setRowFilter(new TimeBarRowFilter() {
+//            
+//            @Override
+//            public void removePropertyChangeListener(PropertyChangeListener listener) {
+//            }
+//            
+//            @Override
+//            public void addPropertyChangeListener(PropertyChangeListener listener) {
+//            }
+//            
+//            @Override
+//            public boolean isInResult(TimeBarRow row) {
+//                Day d = (Day)row;
+//                JaretDate date = new JaretDate(1,4,2007,0,0,0);
+//                return d.getDayDate().compareDateTo(date)>=0;
+//            }
+//        });
+
+        
+        
+        
         _tbv.setPixelPerSecond(0.018);
         _tbv.setDrawRowGrid(true);
 

@@ -44,7 +44,7 @@ import de.jaret.util.ui.timebars.swing.renderer.OldDefaultTimeScaleRenderer;
  * Swing: the swing version of the calendar example (without drag and drop).
  * 
  * @author Peter Kliem
- * @version $Id: SwingCalendarExample.java 1083 2011-07-01 20:29:16Z kliem $
+ * @version $Id: SwingCalendarExample.java 1104 2012-02-07 22:03:30Z kliem $
  */
 public class SwingCalendarExample {
     static TimeBarViewer _tbv;
@@ -89,6 +89,7 @@ public class SwingCalendarExample {
         _tbv.setGridRenderer(new CalendarGridRenderer());
         
         _tbv.registerTimeBarRenderer(Appointment.class, new AppointmentRenderer());
+  
         
         
         f.getContentPane().add(_tbv, BorderLayout.CENTER);
