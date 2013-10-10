@@ -112,7 +112,7 @@ import de.jaret.util.ui.timebars.swing.renderer.TimeScaleRenderer;
  * <p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 1025 2010-06-14 21:34:29Z kliem $
+ * @version $Id: TimeBarViewer.java 1068 2010-08-18 20:07:49Z kliem $
  */
 @SuppressWarnings("serial")
 public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, ChangeListener, ComponentListener {
@@ -630,7 +630,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * The component drawing the viewer itself.
      * 
      * @author Peter Kliem
-     * @version $Id: TimeBarViewer.java 1025 2010-06-14 21:34:29Z kliem $
+     * @version $Id: TimeBarViewer.java 1068 2010-08-18 20:07:49Z kliem $
      */
     private class Diagram extends JComponent implements MouseListener, MouseMotionListener, MouseWheelListener {
         /** surrounding timebar viewer. */
@@ -882,9 +882,9 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                 // int y = (r - _delegate.getFirstRow()) * rowHeight + _delegate.getDiagramRect().y
                 // - _delegate.getFirstRowOffset();
                 int y = _delegate.yForRow(row);
-                if (y == -1) {
-                    // no coord -> is not displayed
-                    break;
+                if (y + rowHeight < 0) {
+                    // Bypass rows with the bottom pixel above the drawing area
+                    continue;
                 }
 
                 // row is drawn if either the beginning or the end is inside the
@@ -901,6 +901,10 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                         drawRowGaps(g, y, rowHeight, _delegate.getRow(r), _delegate.getSelectionModel().isSelected(
                                 _delegate.getRow(r)));
                     }
+                }
+                if (y > lowerYBound) {
+                    // Omit all further checks if the row would be drawn off the bottom of the screen
+                    break;
                 }
             }
             g.setClip(clipSave);
@@ -940,11 +944,11 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                 // - _delegate.getFirstRowOffset();
 
                 int x = _delegate.yForRow(row);
-                if (x == -1) {
-                    // no coord -> is not displayed
-                    break;
+                if (x + rowWidth < 0) {
+                    // Bypass columns with the right pixel to the left of the drawing area
+                    continue;
                 }
-
+    
                 // row is drawn if either the beginning or the end is inside the
                 // clipping rect
                 // or if the upperBound is inside the row rect (clipping rect is
@@ -959,6 +963,10 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                         drawRowGapsVertical(g, x, rowWidth, _delegate.getRow(r), _delegate.getSelectionModel()
                                 .isSelected(_delegate.getRow(r)));
                     }
+                }
+                if (x > rightXBound) {
+                    // Omit all further checks if the column would be drawn off the right of the screen
+                    break;
                 }
             }
             g.setClip(clipSave);

@@ -75,7 +75,7 @@ import de.jaret.util.ui.timebars.strategy.OverlapInfo;
  * TimeBarViewerInterface.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerDelegate.java 1024 2010-06-14 21:16:24Z kliem $
+ * @version $Id: TimeBarViewerDelegate.java 1068 2010-08-18 20:07:49Z kliem $
  */
 public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelectionListener, TimeBarMarkerListener,
         PropertyChangeListener {
@@ -3026,7 +3026,9 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      * @param modifierMask modifier mask for keyboard diversification (AWT input event type)
      */
     public void mousePressed(int x, int y, boolean isPopupTrigger, int modifierMask) {
-        boolean nothingHitInDiagramArea = true;
+        _lastPressedX = x;
+        _lastPressedY = y;
+    	boolean nothingHitInDiagramArea = true;
         if (_diagramRect.contains(x, y)) { // selection
             // normal selection only if shift is not pressed
             if ((modifierMask & InputEvent.SHIFT_DOWN_MASK) == 0) {
@@ -3289,7 +3291,10 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                 Interval interval = intervalAt(row, x, y);
                 // if the interval is filtered, it can't be selected
                 if (interval != null && (_intervalFilter == null || _intervalFilter.isInResult(interval))) {
-                    _tbvi.displayIntervalContextMenu(interval, x, y);
+                	// if not selected use the one interval as selection
+                	if (!_selectionModel.isSelected(interval)) {
+                        _selectionModel.setSelectedInterval(interval);
+                    }_tbvi.displayIntervalContextMenu(interval, x, y);
                 } else {
                     _tbvi.displayBodyContextMenu(x, y);
                 }
@@ -3420,6 +3425,8 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     /** list of lat grid snap differences, used when more than one interval is beeing dragged. */
     protected List<Double> _lastGridSnapDifferences;
 
+    protected int _lastPressedX;
+    protected int _lastPressedY;
     /**
      * Handle mouse dragging.
      * 
@@ -3536,12 +3543,13 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         } else {
             // no dragging in the moment ... maybe start one
             // first check for edge drag
+        	// use the coordinates from the last press (the curret ones do not reflect the user feedback)
             TimeBarRow row = rowForXY(x, y);
             if (row != null) {
-                Interval interval = getTouchedInterval(row, x, y);
+                Interval interval = getTouchedInterval(row, _lastPressedX, _lastPressedY);
                 if (interval != null && isResizingAllowed(row, interval)) {
                     Rectangle rect = getIntervalBounds(row, interval);
-                    int diff = horizontal ? Math.abs(x - rect.x) : Math.abs(y - rect.y);
+                    int diff = horizontal ? Math.abs(_lastPressedX - rect.x) : Math.abs(_lastPressedY - rect.y);
                     if (diff <= _selectionDelta) {
                         // left
                         _draggedIntervalEdgeLeft = true;

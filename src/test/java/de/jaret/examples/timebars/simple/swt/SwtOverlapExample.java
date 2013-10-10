@@ -84,7 +84,7 @@ import de.jaret.util.ui.timebars.swt.renderer.TimeBarRenderer;
  * Drag&Drop with the TimeBarViewer.
  * 
  * @author Peter Kliem
- * @version $Id: SwtOverlapExample.java 906 2009-11-13 21:15:27Z kliem $
+ * @version $Id: SwtOverlapExample.java 1066 2010-08-18 20:01:40Z kliem $
  */
 public class SwtOverlapExample extends ApplicationWindow {
     /** if set to true an ITimeBarChangeListener will be registered for monitoring changes. */
@@ -533,8 +533,10 @@ public class SwtOverlapExample extends ApplicationWindow {
                     if (l.size() > 0) {
                         Interval interval = l.get(0);
                         JaretDate date = tbv.dateForXY(event.x, event.y);
-                        if (Math.abs(date.diffSeconds(interval.getBegin())) < 1000
-                                || Math.abs(date.diffSeconds(interval.getEnd())) < 1000) {
+                        //int secondsForMargin = (int)(50.0/_tbv.getPixelPerSecond()); // 50 pixel margin
+                        int secondsForMargin = 1000; // 1000 second margin
+                        if (Math.abs(date.diffSeconds(interval.getBegin())) < secondsForMargin
+                                || Math.abs(date.diffSeconds(interval.getEnd())) < secondsForMargin) {
                             System.out.println("Near the border of an interval -> no drag");
                             event.doit = false;
                         } else {

@@ -11,6 +11,22 @@
 			<subsection name="Keep updated: the timebars on Twitter">
 				If you want to know about new versions you can follow the timebars on twitter: <a href="http://twitter.com/jaret_timebars">http://twitter.com/jaret_timebars</a>.
 			</subsection>
+			<subsection name="2010-08-18 version 1.44">
+				<ul>
+					<li>
+						Fixed a glitch in edge dragging: coordniates used for drag detection differed from the coordinates th euser pressed the button. This lead to strange behaviour: cursor indicates 
+						edge drag, press, nothing happens.
+					</li>
+					<li>
+						Swing: (Thx Chris): Fix a problem where rows would sometimes not be drawn when scrolling
+					</li>
+					<li>
+						Right click/PopUp behaviour: if interval right clicked on is not already selected use this as the only
+						selected one (-> Context menu works properly) (Thx Chris)
+					</li>
+					
+				</ul>
+			</subsection>
 			<subsection name="2010-06-14 version 1.43">
 				<ul>
 					<li>
