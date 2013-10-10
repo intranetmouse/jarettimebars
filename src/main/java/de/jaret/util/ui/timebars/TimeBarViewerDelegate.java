@@ -75,7 +75,7 @@ import de.jaret.util.ui.timebars.strategy.OverlapInfo;
  * TimeBarViewerInterface.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerDelegate.java 906 2009-11-13 21:15:27Z kliem $
+ * @version $Id: TimeBarViewerDelegate.java 1024 2010-06-14 21:16:24Z kliem $
  */
 public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelectionListener, TimeBarMarkerListener,
         PropertyChangeListener {
@@ -2627,26 +2627,26 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      * @param index index of the row to be displayed at the bottom of the viewer.
      */
     public void setLastRow(int index) {
-//        TimeBarRow row = getRow(index);
-//        int absY = getAbsPosForRow(index);
-//        int endY = absY + _timeBarViewState.getRowHeight(row);
-//
-//        int height = _diagramRect.height;
-//
-//        int upperBound = endY - height;
-//        int y = endY;
-//        int idx = index;
-//        while (idx > 0 && y > upperBound) {
-//            row = getRow(idx);
-//            y -= _timeBarViewState.getRowHeight(row);
-//            idx--;
-//        }
-//        if (idx >= 0) {
-//            int offset = Math.abs(y - upperBound);
-//            setFirstRow(idx + 1, offset);
-//        } else {
-//            setFirstRow(0, 0);
-//        }
+        // TimeBarRow row = getRow(index);
+        // int absY = getAbsPosForRow(index);
+        // int endY = absY + _timeBarViewState.getRowHeight(row);
+        //
+        // int height = _diagramRect.height;
+        //
+        // int upperBound = endY - height;
+        // int y = endY;
+        // int idx = index;
+        // while (idx > 0 && y > upperBound) {
+        // row = getRow(idx);
+        // y -= _timeBarViewState.getRowHeight(row);
+        // idx--;
+        // }
+        // if (idx >= 0) {
+        // int offset = Math.abs(y - upperBound);
+        // setFirstRow(idx + 1, offset);
+        // } else {
+        // setFirstRow(0, 0);
+        // }
 
         TimeBarRow row = getRow(index);
         int absY = getAbsPosForRow(index);
@@ -2658,8 +2658,8 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         int y = endY;
         int idx = index;
 
-        if (endY<height) {
-            setFirstRow(0,0);
+        if (endY < height) {
+            setFirstRow(0, 0);
         } else {
             y -= _timeBarViewState.getRowHeight(row);
             idx--;
@@ -2669,14 +2669,14 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                 idx--;
             }
             int offset = Math.abs(y - upperBound);
-            if (idx >= 0 ) {
+            if (idx >= 0) {
                 setFirstRow(idx + 1, offset);
             } else {
                 setFirstRow(0, offset);
             }
-            
+
         }
-        
+
     }
 
     /**
@@ -3242,7 +3242,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             }
             fireSelectionRectClosed();
         } else {
-            if ((modifierMask & InputEvent.CTRL_DOWN_MASK) == 0 && _diagramRect.contains(x, y)) {
+            if (!isPopupTrigger && (modifierMask & InputEvent.CTRL_DOWN_MASK) == 0 && _diagramRect.contains(x, y)) {
                 TimeBarRow row = rowForXY(x, y);
                 if (row != null) {
                     Interval interval = intervalAt(row, x, y);
@@ -3642,9 +3642,9 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
 
         // normal case: drag the delta between the two positions
         double deltaSeconds = currentDragDate.diffMilliSeconds(lastDragDate) / 1000.0;
-     //   System.out.println("deltaseconds " + deltaSeconds);
+        // System.out.println("deltaseconds " + deltaSeconds);
         deltaSeconds += _scrolledlastDrag;
-      //  System.out.println("deltaseconds2 " + deltaSeconds);
+        // System.out.println("deltaseconds2 " + deltaSeconds);
 
         // if the cursor is outside the diagram rect, use the autoscroll delta to determine the new
         // position
@@ -5986,16 +5986,20 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     public void componentResized() {
         if (_diagramRect.width != 0) { // do not do any scrolling if the component has not been painted before
             preparePaint(_tbvi.getWidth(), _tbvi.getHeight());
-            TimeBarRow row = _rowList.get(_rowList.size() - 1);
-            
-            int absStartY = getAbsPosForRow(_firstRow)+_firstRowPixelOffset;
-            int absLastY = getAbsPosForRow(_rowList.size() - 1);
-            
-            if ((absLastY+_timeBarViewState.getRowHeight(row))-absStartY < _diagramRect.height) {
-                setLastRow(row);
+
+            int numRows = _rowList.size();
+            if (numRows > 0) {
+                TimeBarRow row = _rowList.get(_rowList.size() - 1);
+                int absStartY = getAbsPosForRow(_firstRow) + _firstRowPixelOffset;
+                int absLastY = getAbsPosForRow(_rowList.size() - 1);
+
+                if ((absLastY + _timeBarViewState.getRowHeight(row)) - absStartY < _diagramRect.height) {
+                    setLastRow(row);
+                }
             }
         }
         updateScrollBars();
     }
+
 
 }

@@ -11,14 +11,30 @@
 			<subsection name="Keep updated: the timebars on Twitter">
 				If you want to know about new versions you can follow the timebars on twitter: <a href="http://twitter.com/jaret_timebars">http://twitter.com/jaret_timebars</a>.
 			</subsection>
-			<subsection name="2009-12-xx version 1.42">
+			<subsection name="2010-06-14 version 1.43">
+				<ul>
+					<li>
+						Fixed a printing bug: grid has only be printed for the range currently displayed. There might still exist a problem with printing when the timescale renderer is
+						not the ITickProvider used (not very probable).
+					</li>
+					<li>
+						Fixed a bug that occurred when resizing the component without rows in the model (thx Chris)
+					</li>
+					<li>
+						Fixed popup (right click behaviour)  (thx Chris)
+					</li>
+					<li>
+						Swing: added the possibility to use a title renderer directly as a component (not just painting; see scheduling example)
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="2009-12-31 version 1.42">
 				<ul>
 					<li>
 						Added a new Swing example: the SchedulingExample.
 					</li>
 					<li>
-					</li>
-					<li>
+						Internal, unpublished
 					</li>
 				</ul>
 			</subsection>

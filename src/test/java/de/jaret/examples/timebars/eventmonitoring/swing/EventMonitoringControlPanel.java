@@ -42,7 +42,7 @@ import de.jaret.util.ui.timebars.swing.renderer.DefaultTimeScaleRenderer;
  * Control panel for the event monitoring example.
  * 
  * @author Peter Kliem
- * @version $Id: EventMonitoringControlPanel.java 842 2009-02-19 22:15:39Z kliem $
+ * @version $Id: EventMonitoringControlPanel.java 974 2009-12-22 22:15:29Z kliem $
  */
 public class EventMonitoringControlPanel extends JPanel {
     TimeBarViewer _viewer;
@@ -54,43 +54,41 @@ public class EventMonitoringControlPanel extends JPanel {
     TimeBarMarkerImpl _marker;
     JButton _freisetzenButton;
 
-    public EventMonitoringControlPanel(TimeBarViewer viewer, TimeBarMarkerImpl marker) {
+    public EventMonitoringControlPanel(TimeBarViewer viewer, TimeBarMarkerImpl marker, int initalSecondsDisplayed) {
         _viewer = viewer;
         _marker = marker;
         this.setPreferredSize(new Dimension(1000, 100));
         setLayout(new FlowLayout());
-        createControls();
+        createControls(initalSecondsDisplayed);
     }
 
-    double log2(double a) {
-        return Math.log(a)/Math.log(2);
-    }
-    
     /**
      * 
      */
-    private void createControls() {
+    private void createControls(int initialSeconds) {
         final double min = 1; // minimum value for seconds displayed
         final double max = 3 * 365 * 24 * 60 * 60; // max nummber of seconds displayed (3 years in seconds)
         final double slidermax = 1000; // slider maximum (does not really matter)
         _timeScaleSlider = new JSlider(0, (int) slidermax);
-        
+
         _timeScaleSlider.setPreferredSize(new Dimension(_timeScaleSlider.getPreferredSize().width * 4, _timeScaleSlider
                 .getPreferredSize().height));
         add(_timeScaleSlider);
 
-        
         final double b = 1.0 / 100.0; // additional factor to reduce the absolut values in the exponent
-        final double faktor =  (min - max) / (1 - Math.pow(2, slidermax * b)); // factor for the exp function
-        final double c = (min - faktor) ;
-        
+        final double faktor = (min - max) / (1 - Math.pow(2, slidermax * b)); // factor for the exp function
+        final double c = (min - faktor);
+
+        int initialSliderVal = calcInitialSliderVal(c, b, faktor, initialSeconds);
+        _timeScaleSlider.setValue((int) (slidermax- initialSliderVal));
+
         final JCheckBox centeredZoomCheck = new JCheckBox("Zoom around center (when no marker is not visible");
         add(centeredZoomCheck);
 
         _timeScaleSlider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 final double x = slidermax - (double) _timeScaleSlider.getValue(); // reverse x
-                double seconds = c+ faktor * Math.pow(2, x * b); // calculate the seconds to display
+                double seconds = c + faktor * Math.pow(2, x * b); // calculate the seconds to display
                 if (_viewer.isDisplayed(_marker.getDate())) {
                     _viewer.setSecondsDisplayed((int) seconds, _marker.getDate());
                 } else {
@@ -161,6 +159,17 @@ public class EventMonitoringControlPanel extends JPanel {
             }
         });
         add(uniformHeightCheck);
+    }
+
+    private int calcInitialSliderVal(double c, double b, double faktor, int seconds) {
+
+        double x = 1 / b * log2((seconds - c) / faktor);
+
+        return (int) x;
+    }
+
+    private double log2(double a) {
+        return Math.log(a) / Math.log(2);
     }
 
 }

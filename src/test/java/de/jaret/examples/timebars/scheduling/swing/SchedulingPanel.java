@@ -40,8 +40,10 @@ import javax.swing.event.ChangeListener;
 import de.jaret.examples.timebars.scheduling.model.Job;
 import de.jaret.examples.timebars.scheduling.model.ScheduleTimeBarModel;
 import de.jaret.examples.timebars.scheduling.swing.renderer.JobRenderer;
+import de.jaret.examples.timebars.scheduling.swing.renderer.ScheduleingTitleRenderer;
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.JaretDate;
+import de.jaret.util.misc.Pair;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.mod.DefaultIntervalModificator;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarRowModel;
@@ -50,6 +52,7 @@ import de.jaret.util.ui.timebars.model.TimeBarSelectionListener;
 import de.jaret.util.ui.timebars.model.TimeBarSelectionModel;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
 import de.jaret.util.ui.timebars.swing.renderer.BoxTimeScaleRenderer;
+import de.jaret.util.ui.timebars.swing.renderer.ITitleRenderer;
 
 public class SchedulingPanel extends JPanel {
 
@@ -109,9 +112,16 @@ public class SchedulingPanel extends JPanel {
                 dgl);
 
         // controls at the bottom
-        JPanel controlPanel = createControlPanel();
+        JPanel controlPanel = createControlPanel(24 * 60 * 60);
         add(controlPanel, BorderLayout.SOUTH);
 
+        
+        // setup title renderer
+        // use the component directly
+        ITitleRenderer trenderer = new ScheduleingTitleRenderer();
+        _tbv.setTitleRenderer(trenderer);
+        _tbv.setUseTitleRendererComponentInPlace(true);
+        
     }
 
     /**
@@ -141,6 +151,18 @@ public class SchedulingPanel extends JPanel {
             }
         };
         pop = new JPopupMenu("Operations");
+        pop.add(action);
+        action = new AbstractAction("Push back") {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("run " + getValue(NAME));
+                Pair<TimeBarRow, JaretDate> info = _tbv.getPopUpInformation();
+                List<Interval> intervals = info.getLeft().getIntervals(info.getRight());
+                if (intervals.size() == 1) {
+                    System.out.println("pushback on "+intervals.get(0));
+                }
+            }
+            
+        };
         pop.add(action);
         _tbv.registerPopupMenu(Job.class, pop);
     }
@@ -375,7 +397,7 @@ public class SchedulingPanel extends JPanel {
         }
     }
 
-    private JPanel createControlPanel() {
+    private JPanel createControlPanel(int initialSeconds) {
         JPanel panel = new JPanel();
         // simple layout
         panel.setLayout(new FlowLayout());
@@ -420,6 +442,9 @@ public class SchedulingPanel extends JPanel {
         final double faktor = (min - max) / (1 - Math.pow(2, slidermax * b)); // factor for the exp function
         final double c = (min - faktor);
 
+        int initialSliderVal = calcInitialSliderVal(c, b, faktor, initialSeconds);
+        _timeScaleSlider.setValue((int) (slidermax-initialSliderVal));
+
         _timeScaleSlider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 final double x = slidermax - (double) _timeScaleSlider.getValue(); // reverse x
@@ -429,6 +454,17 @@ public class SchedulingPanel extends JPanel {
         });
 
         return panel;
+    }
+
+    private int calcInitialSliderVal(double c, double b, double faktor, int seconds) {
+
+        double x = 1 / b * log2((seconds - c) / faktor);
+
+        return (int) x;
+    }
+
+    private double log2(double a) {
+        return Math.log(a) / Math.log(2);
     }
 
     protected ScheduleTimeBarModel createTBVModel() {

@@ -38,6 +38,7 @@ import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.ViewConfiguration;
 import de.jaret.util.ui.timebars.model.TimeBarRow;
+import de.jaret.util.ui.timebars.strategy.ITickProvider;
 import de.jaret.util.ui.timebars.swt.renderer.GlobalAssistantRenderer;
 import de.jaret.util.ui.timebars.swt.renderer.GridRenderer;
 import de.jaret.util.ui.timebars.swt.renderer.HeaderRenderer;
@@ -53,7 +54,7 @@ import de.jaret.util.ui.timebars.swt.renderer.TitleRenderer;
  * Utility class for printing a time bar chart. All renderers used have to support the creation of a print renderer.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarPrinter.java 800 2008-12-27 22:27:33Z kliem $
+ * @version $Id: TimeBarPrinter.java 1024 2010-06-14 21:16:24Z kliem $
  */
 public class TimeBarPrinter {
     /** default margin in cm. */
@@ -422,6 +423,7 @@ public class TimeBarPrinter {
             }
         }
 
+        
         // calculate the number of pages along the y axis
         int pagesY;
         List<Integer> firstRows = new ArrayList<Integer>();
@@ -512,11 +514,18 @@ public class TimeBarPrinter {
         // System.out.println("print "+firstRow+" offset "+firstRowOffset);
         _delegate.setFirstRow(firstRow, firstRowOffset);
 
+        // draw the axis first
+        RenderDelegate.drawXAxis(_delegate, _timeScaleRenderer, true, gc);
+        // use the timescale renderre as the tick provider if set and implemnting the interface
+        // TODO this is not exactly super clean since there might be another tick provider that have been set on the grid renderer
+        if (_timeScaleRenderer != null && _timeScaleRenderer instanceof ITickProvider) {
+            _gridRenderer.setTickProvider((ITickProvider)_timeScaleRenderer);
+        }
         RenderDelegate.drawGrid(_delegate, _gridRenderer, true, gc);
         if (_globalAssistantRenderer != null) {
             _globalAssistantRenderer.doRenderingBeforeIntervals(_delegate, gc, true);
         }
-        RenderDelegate.drawXAxis(_delegate, _timeScaleRenderer, true, gc);
+//        RenderDelegate.drawXAxis(_delegate, _timeScaleRenderer, true, gc);
         drawRows(gc);
         RenderDelegate.drawMarkers(_delegate, _markerRenderer, true, gc);
         if (_delegate.getTitleRect().width > 0 && _delegate.getTitleRect().height > 0) {

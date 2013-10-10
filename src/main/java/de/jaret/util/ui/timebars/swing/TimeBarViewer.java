@@ -112,7 +112,7 @@ import de.jaret.util.ui.timebars.swing.renderer.TimeScaleRenderer;
  * <p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 969 2009-12-15 21:58:55Z kliem $
+ * @version $Id: TimeBarViewer.java 1025 2010-06-14 21:34:29Z kliem $
  */
 @SuppressWarnings("serial")
 public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, ChangeListener, ComponentListener {
@@ -187,6 +187,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
     protected JPanel _horizontalScrollPanel;
     /** panel the vertical scrollbar is placed on. */
     protected JPanel _verticalScrollPanel;
+
+    protected boolean _useTitleRendererComponentInPlace = false;
 
     /**
      * Constructs a timebar viewer.
@@ -628,7 +630,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * The component drawing the viewer itself.
      * 
      * @author Peter Kliem
-     * @version $Id: TimeBarViewer.java 969 2009-12-15 21:58:55Z kliem $
+     * @version $Id: TimeBarViewer.java 1025 2010-06-14 21:34:29Z kliem $
      */
     private class Diagram extends JComponent implements MouseListener, MouseMotionListener, MouseWheelListener {
         /** surrounding timebar viewer. */
@@ -713,8 +715,17 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             // draw the title if a title renderer has been set
             if (_titleRenderer != null) {
                 JComponent titleComponent = _titleRenderer.getTitleRendererComponent(this._timeBarViewer);
-                titleComponent.setBounds(_delegate.getTitleRect());
-                titleComponent.paint(g);
+                if (!_useTitleRendererComponentInPlace) {
+                    titleComponent.setBounds(_delegate.getTitleRect());
+                    titleComponent.paint(g);
+                } else {
+                    if (titleComponent.getParent() == null) {
+                        add(titleComponent);
+                    }
+                    titleComponent.setBounds(_delegate.getTitleRect());
+                    titleComponent.doLayout();
+                    titleComponent.paintAll(g);
+                }
             }
 
             // kick in the global assistant renderer
@@ -3147,7 +3158,6 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         return _delegate.getPopUpInformation();
     }
 
-    
     /** list of ghost intervals to be painted. */
     protected List<? extends Interval> _ghostIntervals;
     /** y offsets for the ghost intervals. */
@@ -3174,7 +3184,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         _ghostIntervalYCoordinates = yCoordinates;
         repaint();
     }
-    
+
     /**
      * Draw ghost intervals and rows.
      * 
@@ -3205,7 +3215,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                     drawingArea.x = _ghostOrigin.x + yoff;
                     drawingArea.width = _delegate.getTimeBarViewState().getDefaultRowHeight();
                 }
-                Graphics2D g2 = (Graphics2D)gc;
+                Graphics2D g2 = (Graphics2D) gc;
                 Color color = g2.getColor();
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
 
@@ -3214,17 +3224,16 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                     throw new RuntimeException("no suitable renderer");
                 }
 
-                
                 Component component = renderer.getTimeBarRendererComponent(this, interval, false, false);
 
                 component.setBounds(drawingArea);//
 
-                Graphics2D g22 = (Graphics2D) g2.create(drawingArea.x, drawingArea.y-_delegate.getRowHeight()/2, drawingArea.width, drawingArea.height);
+                Graphics2D g22 = (Graphics2D) g2.create(drawingArea.x, drawingArea.y - _delegate.getRowHeight() / 2,
+                        drawingArea.width, drawingArea.height);
                 component.paint(g22);
-                
+
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
                 g2.setColor(color);
-
 
             }
         }
@@ -3237,8 +3246,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      */
     private void drawGhostRows(Graphics gc) {
         if (_ghostOrigin != null && _ghostRows != null) {
-            
-            Graphics2D g2 = (Graphics2D)gc;
+
+            Graphics2D g2 = (Graphics2D) gc;
             Color color = g2.getColor();
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
 
@@ -3272,6 +3281,16 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         if (_ghostIntervals != null || _ghostRows != null) {
             repaint();
         }
+    }
+
+    /**
+     * If set to true this will cause the title renderer component to be used directly instead of beeing just used to
+     * paint.
+     * 
+     * @param useTitleRendererComponentInPlace true for direct use of the component
+     */
+    public void setUseTitleRendererComponentInPlace(boolean useTitleRendererComponentInPlace) {
+        _useTitleRendererComponentInPlace = useTitleRendererComponentInPlace;
     }
 
 }

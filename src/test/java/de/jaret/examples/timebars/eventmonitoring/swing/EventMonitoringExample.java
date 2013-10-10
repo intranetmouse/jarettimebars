@@ -73,7 +73,7 @@ import de.jaret.util.ui.timebars.swing.renderer.DefaultTitleRenderer;
  * Example showing events (non modificable).
  * 
  * @author Peter Kliem
- * @version $Id: EventMonitoringExample.java 884 2009-10-08 20:25:15Z kliem $
+ * @version $Id: EventMonitoringExample.java 974 2009-12-22 22:15:29Z kliem $
  */
 public class EventMonitoringExample {
     TimeBarViewer _tbv;
@@ -382,7 +382,7 @@ public class EventMonitoringExample {
                 DnDConstants.ACTION_COPY, dgl);
 
         // add the control panel
-        EventMonitoringControlPanel cp = new EventMonitoringControlPanel(_tbv, _tm);
+        EventMonitoringControlPanel cp = new EventMonitoringControlPanel(_tbv, _tm, 100); // TODO
         f.getContentPane().add(cp, BorderLayout.SOUTH);
 
         
@@ -458,7 +458,7 @@ public class EventMonitoringExample {
     /**
      * Simple zoom action.
      * @author kliem
-     * @version $Id: EventMonitoringExample.java 884 2009-10-08 20:25:15Z kliem $
+     * @version $Id: EventMonitoringExample.java 974 2009-12-22 22:15:29Z kliem $
      */
     class ZoomAction extends AbstractAction implements ISelectionRectListener{
         TimeBarViewer _tbv;

@@ -94,7 +94,7 @@ import de.jaret.util.ui.timebars.swt.util.actions.JaretTimeBarsActionFactory;
  * </p>
  * 
  * @author Peter Kliem
- * @version $Id: SwtHierachy.java 861 2009-05-07 20:19:06Z kliem $
+ * @version $Id: SwtHierachy.java 1024 2010-06-14 21:16:24Z kliem $
  */
 public class SwtHierachy extends ApplicationWindow {
     // if set to true a variable xaxis scaling will be used
@@ -240,6 +240,11 @@ public class SwtHierachy extends ApplicationWindow {
         Menu bodyContextMenu = bodyMM.createContextMenu(_tbv);
         _tbv.setBodyContextMenu(bodyContextMenu);
 
+
+        MenuManager intervalMM = new MenuManager();
+        intervalMM.add(new DummyAction(_tbv));
+        Menu intervalContextMenu = intervalMM.createContextMenu(_tbv);
+        _tbv.setIntervalContextMenu(intervalContextMenu);
         
         if (SUPPORT_DND) {
             initDND(_tbv, parent);
@@ -332,7 +337,7 @@ public class SwtHierachy extends ApplicationWindow {
      * determine its enablement.
      * 
      * @author kliem
-     * @version $Id: SwtHierachy.java 861 2009-05-07 20:19:06Z kliem $
+     * @version $Id: SwtHierachy.java 1024 2010-06-14 21:16:24Z kliem $
      */
     public class ZoomAction extends Action implements ISelectionRectListener {
         private TimeBarViewer _tbv;
@@ -390,7 +395,7 @@ public class SwtHierachy extends ApplicationWindow {
      * Action that clears the region rect.
      * 
      * @author kliem
-     * @version $Id: SwtHierachy.java 861 2009-05-07 20:19:06Z kliem $
+     * @version $Id: SwtHierachy.java 1024 2010-06-14 21:16:24Z kliem $
      */
     public class ClearRegionAction extends Action {
         private TimeBarViewer _tbv;
@@ -415,6 +420,36 @@ public class SwtHierachy extends ApplicationWindow {
 
     }
 
+    /**
+     * Simpled dummy action.
+     * 
+     * @author kliem
+     * @version $Id: SwtHierachy.java 1024 2010-06-14 21:16:24Z kliem $
+     */
+    public class DummyAction extends Action {
+        private TimeBarViewer _tbv;
+
+        public DummyAction(TimeBarViewer tbv) {
+            _tbv = tbv;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public void run() {
+            System.out.println("dummy action triggered");
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public String getText() {
+            return "Dummy action";
+        }
+
+    }
+
+    
     public class HCtxHandler implements RowContextMenuHandler {
         Menu ctx;
 
