@@ -36,7 +36,7 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * timebar renderers for special classes.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultTimeBarRenderer.java 869 2009-07-07 19:32:45Z kliem $
+ * @version $Id: DefaultTimeBarRenderer.java 881 2009-09-22 21:25:47Z kliem $
  */
 public class DefaultTimeBarRenderer implements TimeBarRenderer {
     /** component used for rendering. */
@@ -60,7 +60,7 @@ public class DefaultTimeBarRenderer implements TimeBarRenderer {
         _component.setToolTipText(value.toString());
         if (isSelected) {
             _component.setBackground(Color.BLUE);
-        } else {
+          } else {
             _component.setBackground(Color.LIGHT_GRAY);
         }
         return _component;

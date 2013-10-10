@@ -11,7 +11,10 @@
 		<p>
 		The jaret timebars package contains a viewer for a data model containing rows of intervals. The viewer displays the
 		intervals in a Gantt chart fashion. The viewer is implemented for Swing and the SWT toolkit using a delegate for
-		most of the work. <b>Prority of the development is the SWT version! Swing mostly catched up with version 1.30.</b>
+		most of the work. <b>Priority of the development is the SWT version! Swing mostly caught up with version 1.30.</b>
+		</p>
+		<p>If you want to know about new versions you can <b>follow the 
+		timebars on twitter</b>: <a href="http://twitter.com/jaret_timebars">http://twitter.com/jaret_timebars</a>
 		</p>
 		<p> If you like you can comment and rate the timebars component at 
 		<a href="http://www.eclipseplugincentral.com/Web_Links-index-req-ratelink-lid-818.html">Eclipse Plugin Central</a>.
@@ -76,20 +79,20 @@
 			<table>
 				<tr>
 					<td>
-						<a href="data/timebars-1.37-src.zip">timebars-1.37-src.zip</a>
+						<a href="data/timebars-1.38-src.zip">timebars-1.38-src.zip</a>
 					</td>
 					<td>
 						Recommended download: Contains the complete project for Swing and SWT, including example code. Depends on 
-						de.jaret.util (0.30)!
+						de.jaret.util (0.31)!
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="data/timebars-1.37-bin.zip">timebars-1.37-bin.zip</a>
+						<a href="data/timebars-1.38-bin.zip">timebars-1.38-bin.zip</a>
 					</td>
 					<td>
 						Contains jar including Swing and SWT version. Depends on 
-						de.jaret.util (0.30)!
+						de.jaret.util (0.31)!
 					</td>
 				</tr>
 				<tr>
@@ -106,14 +109,6 @@
 					</td>
 					<td>
 						Addon package
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<a href="data/timebars-1.35-src.zip">timebars-1.35-src.zip</a>
-					</td>
-					<td>
-						Older version - use this for swing 
 					</td>
 				</tr>
 			</table>

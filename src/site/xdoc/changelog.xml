@@ -6,7 +6,40 @@
 	<body>
 		<section name="changelog for de.jaret.util.ui.timebars">
 			<subsection name="Note for Swing users">
-				The SWT Version is leading. However the the swing version has catched up to provide nearly the same features.
+				The SWT Version is leading. However the the swing version has caught up to provide nearly the same features.
+			</subsection>
+			<subsection name="Keep updated: the timebars on Twitter">
+				If you want to know about new versions you can follow the timebars on twitter: <a href="http://twitter.com/jaret_timebars">http://twitter.com/jaret_timebars</a>.
+			</subsection>
+			<subsection name="2009-09-23 version 1.38">
+				<ul>
+					<li>
+						Fixed: NPE in Swing version if a no context menu has been defined for an interval type 
+					</li>
+					<li>
+						Fixed: Bug in scrollRowToVisible when using variable row heights (prevented the vertical autoscroll sample code to work
+						with variable row heights)
+					</li>
+					<li>
+						Fixed: Swing context menus using mac OS X (weird: "In Mac OS X, the pop-up trigger is set on MOUSE_PRESSED. 
+						In Windows it is set on MOUSE_RELEASED. For portability, both cases should be considered.")
+					</li>
+					<li>
+						Swing: added support for drawing outside the interval bounds for the TimeBarRenderer (see getPreferredDrawingBounds). 
+						This has been around for SWT before ... an example for Swing is the SwingEventExample (TBD for SWT, the feature is implemented for SWT: see
+						the FancyExample). 
+						The feature is still in development (as is the example). The changed interface will cause Swing users the inconvenience to 
+						implement the method ... which is trivial as can be seen in the DefaultTimeBarRenderer.
+					</li>
+					<li>
+						Swing: the scroll bars are now placed on panels that are accessible by getters (getHorizontalScrollPanel, getVerticalScrollPanel).
+						This allows special extension to be placed in the scroll bar area.
+					</li>
+					<li>
+						The new interface IIntervalModificator provides a small extension over the existing IntervalModificator allowing control of the grid snap 
+						for single intervals.
+					</li>
+				</ul>
 			</subsection>
 			<subsection name="2009-09-03 version 1.37">
 				<ul>

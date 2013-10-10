@@ -47,6 +47,10 @@ public class EventRenderer implements TimeBarRenderer {
     /** pixeloffset for the label drawing. */
     private static final int LABELOFFSET = 3;
 
+    protected Color _color = Color.GRAY;
+	protected Color _selectedColor = Color.BLUE;
+    
+    
     EventRendererComponent _eventComponent;
 
     TimeBarViewerDelegate _delegate;
@@ -107,7 +111,7 @@ public class EventRenderer implements TimeBarRenderer {
     
     
     /**
-     * Rendering jcomponet for an event.
+     * Rendering jcomponent for an event.
      * 
      * @author kliem
      * @version $Id: EventRenderer.java 803 2008-12-28 19:30:23Z kliem $
@@ -135,65 +139,36 @@ public class EventRenderer implements TimeBarRenderer {
         }
 
         protected void paintComponent(Graphics g) {
-        	Rectangle drawingArea = getBounds();
+            Color bg = g.getColor();
+            int height = getHeight();
+            int width = getWidth();
+        	Rectangle drawingArea = new Rectangle(0,0,width,height);
             boolean horizontal = _delegate.getOrientation() == TimeBarViewerInterface.Orientation.HORIZONTAL;
             Rectangle da = getDrawingRect(drawingArea, horizontal);
 
-            //setBounds(da);
-            
-            g.fillRect(drawingArea.x, drawingArea.y, drawingArea.width, drawingArea.height);
-
-            super.paintComponent(g);
-            int height = getHeight();
-            int width = getWidth();
-
-//            int y = height / 3;
-//            int bheight = height / 3;
-//            int yEnd = y + bheight;
-//
-//            // balken
-//            if (_selected) {
-//                g.setColor(Color.BLUE);
-//            } else {
-//                g.setColor(Color.YELLOW);
-//            }
-//            g.fillRect(0, y, width - 1, height / 3);
-//            // Rahmen
-//            g.setColor(Color.BLACK);
-//            g.drawRect(0, y, width - 1, height / 3);
-//
-//            // Balkenbeschriftung
-    //        GraphicsHelper.drawStringCenteredVCenter(g, _interval.getTitle(), 0, width, height / 2);
- 
-
-            
             // draw focus
-//            drawFocus(gc, da, delegate, interval, selected, printing, overlap);
+//            drawFocus(g, da, delegate, interval, selected, printing, overlap);
 
-            Color bg = g.getColor();
 
             // draw the diamond
-            g.setColor(Color.GRAY);
-
-            int[] points = new int[] {da.x, da.y + da.height / 2, da.x + da.width / 2, da.y, da.x + da.width,
-                    da.y + da.height / 2, da.x + da.width / 2, da.y + da.height};
 
             int[] pointsx = new int[] {da.x, da.x + da.width / 2, da.x + da.width,
                      da.x + da.width / 2};
             int[] pointsy = new int[] {da.y + da.height / 2,  da.y, 
                     da.y + da.height / 2,  da.y + da.height};
             
+            if (_selected) {
+            	g.setColor(_selectedColor);
+            } else {
+            	g.setColor(_color);
+            }
             g.fillPolygon(pointsx, pointsy, pointsx.length);
+
+            
+            
             g.setColor(Color.BLACK);
             g.drawPolygon(pointsx, pointsy, pointsx.length);
         
-//            if (selected) {
-//                gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_BLUE));
-//                gc.setAlpha(60);
-//                gc.fillPolygon(points);
-//                gc.setAlpha(255);
-//            }
-//            gc.setBackground(bg);
 
             SampleEvent fe = (SampleEvent) _interval;
 
@@ -202,10 +177,13 @@ public class EventRenderer implements TimeBarRenderer {
                 GraphicsHelper.drawStringVCentered(g, fe.getLabel(), da.x + da.width + LABELOFFSET, da.y, da.y
                         + da.height);
             } else {
-//                SwtGraphicsHelper.drawStringCentered(gc, fe.getLabel(), da.x + da.width / 2, da.y + da.height
+// TODO
+            	//                SwtGraphicsHelper.drawStringCentered(gc, fe.getLabel(), da.x + da.width / 2, da.y + da.height
 //                        + scaleY(LABELOFFSET) + gc.textExtent(fe.getLabel()).y);
             }
 
+            g.setColor(bg);
+            
         }
 
         /**
@@ -217,7 +195,7 @@ public class EventRenderer implements TimeBarRenderer {
         private Rectangle getDrawingRect(Rectangle drawingArea, boolean horizontal) {
             if (horizontal) {
                 int y = drawingArea.y + (drawingArea.height - 2 * SIZE) / 2;
-                return new Rectangle(drawingArea.x - SIZE, y, 2 * SIZE, 2 * SIZE);
+                return new Rectangle(drawingArea.x , y, 2 * SIZE, 2 * SIZE);
             } else {
                 int x = drawingArea.x + (drawingArea.width - 2 * SIZE) / 2;
                 return new Rectangle(x, drawingArea.y - SIZE, 2 * SIZE, 2 * SIZE);
@@ -256,4 +234,26 @@ public class EventRenderer implements TimeBarRenderer {
             }
         }
     }
+    
+    public Color getColor() {
+		return _color;
+	}
+
+	public void setColor(Color color) {
+		_color = color;
+	}
+
+	public Color getSelectedColor() {
+		return _selectedColor;
+	}
+
+	public void setSelectedColor(Color selectedColor) {
+		_selectedColor = selectedColor;
+	}
+
+
+
+
+    
+    
 }

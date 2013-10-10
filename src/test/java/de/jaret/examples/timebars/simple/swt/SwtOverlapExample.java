@@ -60,6 +60,7 @@ import de.jaret.util.ui.timebars.TimeBarMarker;
 import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.mod.DefaultIntervalModificator;
+import de.jaret.util.ui.timebars.mod.IIntervalModificator;
 import de.jaret.util.ui.timebars.model.DefaultRowHeader;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarModel;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarRowModel;
@@ -82,7 +83,7 @@ import de.jaret.util.ui.timebars.swt.renderer.TimeBarRenderer;
  * Drag&Drop with the TimeBarViewer.
  * 
  * @author Peter Kliem
- * @version $Id: SwtOverlapExample.java 874 2009-09-03 20:34:06Z kliem $
+ * @version $Id: SwtOverlapExample.java 881 2009-09-22 21:25:47Z kliem $
  */
 public class SwtOverlapExample extends ApplicationWindow {
     /** if set to true an ITimeBarChangeListener will be registered for monitoring changes. */
@@ -128,6 +129,14 @@ public class SwtOverlapExample extends ApplicationWindow {
             public double getSecondGridSnap() {
                 return 100;
             }
+ 
+//            @Override
+//            public double getSecondGridSnap(TimeBarRow row, Interval interval) {
+//            	if (row.getIntervals().size() == 1) {
+//            		return 2000;
+//            	} 
+//            	return -1;
+//            }
 
             @Override
             public boolean isApplicable(TimeBarRow row, Interval interval) {

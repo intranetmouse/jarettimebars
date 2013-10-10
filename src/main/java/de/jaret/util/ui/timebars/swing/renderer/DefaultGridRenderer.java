@@ -36,7 +36,7 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * Simple default implementation of a GridRenderer rendering the major and minor ticks using two different colors.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultGridRenderer.java 870 2009-07-31 13:31:09Z kliem $
+ * @version $Id: DefaultGridRenderer.java 881 2009-09-22 21:25:47Z kliem $
  */
 public class DefaultGridRenderer implements GridRenderer {
     /** default color for major grid lines. */
@@ -114,7 +114,7 @@ public class DefaultGridRenderer implements GridRenderer {
      * JComponent for drawing the grid.
      * 
      * @author kliem
-     * @version $Id: DefaultGridRenderer.java 870 2009-07-31 13:31:09Z kliem $
+     * @version $Id: DefaultGridRenderer.java 881 2009-09-22 21:25:47Z kliem $
      */
     @SuppressWarnings("serial")
     class MyGridRenderer extends JComponent {
@@ -185,6 +185,7 @@ public class DefaultGridRenderer implements GridRenderer {
         }
 
         protected void paint(Graphics g, boolean horizontal) {
+            Color color = g.getColor();
             // first date
             JaretDate date = _tbv.getStartDate().copy();
 
@@ -254,6 +255,7 @@ public class DefaultGridRenderer implements GridRenderer {
                     date.advanceMinutes(majTick);
                 }
             }
+            g.setColor(color);
         }
     }
 

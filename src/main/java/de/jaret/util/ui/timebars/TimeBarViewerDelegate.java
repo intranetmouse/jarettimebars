@@ -36,6 +36,7 @@ import de.jaret.util.date.Interval;
 import de.jaret.util.date.IntervalImpl;
 import de.jaret.util.date.JaretDate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface.Orientation;
+import de.jaret.util.ui.timebars.mod.IIntervalModificator;
 import de.jaret.util.ui.timebars.mod.IntervalModificator;
 import de.jaret.util.ui.timebars.model.DefaultRowHeader;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarNode;
@@ -73,7 +74,7 @@ import de.jaret.util.ui.timebars.strategy.OverlapInfo;
  * TimeBarViewerInterface.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerDelegate.java 874 2009-09-03 20:34:06Z kliem $
+ * @version $Id: TimeBarViewerDelegate.java 881 2009-09-22 21:25:47Z kliem $
  */
 public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelectionListener, TimeBarMarkerListener,
         PropertyChangeListener {
@@ -3742,7 +3743,15 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             }
             if (modificator != null) {
                 double newVal;
-                double gridsnap = modificator.getSecondGridSnap();
+                double gridsnap = -1;
+                // if the extended interface is available: try
+                if (modificator instanceof IIntervalModificator) {
+                	gridsnap = ((IIntervalModificator)modificator).getSecondGridSnap(row, interval);
+                }
+                // if no gridsnap available try the generic interface
+                if (gridsnap < 0) {
+                	gridsnap = modificator.getSecondGridSnap();
+                }
                 if (gridsnap < 0) {
                     return diffSeconds;
                 }
@@ -4500,6 +4509,8 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             if (ridx < _firstRow) {
                 setFirstRow(ridx);
             } else if (ridx >= _firstRow + getRowsDisplayed()) {
+                setLastRow(ridx);
+            } else if (getTimeBarViewState().getUseVariableRowHeights() && ridx >= _firstRow + getRowsDisplayed()-1) {
                 setLastRow(ridx);
             }
         }

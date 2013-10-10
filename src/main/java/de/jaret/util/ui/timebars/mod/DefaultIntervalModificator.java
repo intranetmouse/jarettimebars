@@ -27,9 +27,9 @@ import de.jaret.util.ui.timebars.model.TimeBarRow;
  * Default implementation of the IntervalModificator simply allowing everything.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultIntervalModificator.java 800 2008-12-27 22:27:33Z kliem $
+ * @version $Id: DefaultIntervalModificator.java 881 2009-09-22 21:25:47Z kliem $
  */
-public class DefaultIntervalModificator implements IntervalModificator {
+public class DefaultIntervalModificator implements IIntervalModificator {
 
     /**
      * {@inheritDoc}
@@ -79,5 +79,12 @@ public class DefaultIntervalModificator implements IntervalModificator {
     public double getSecondGridSnap() {
         return -1;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+	public double getSecondGridSnap(TimeBarRow row, Interval interval) {
+        return -1;
+	}
 
 }

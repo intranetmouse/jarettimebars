@@ -57,7 +57,6 @@ public class SwingEventExample {
         _tbv.setDrawOverlapping(false);
         _tbv.setSelectionDelta(6);
         _tbv.setTimeScalePosition(TimeBarViewerInterface.TIMESCALE_POSITION_TOP);
-        _tbv.setTimeScalePosition(TimeBarViewerInterface.TIMESCALE_POSITION_NONE);
         
         _tbv.registerTimeBarRenderer(SampleEvent.class, new EventRenderer());
         

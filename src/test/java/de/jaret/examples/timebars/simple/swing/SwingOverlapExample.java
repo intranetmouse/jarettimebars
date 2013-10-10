@@ -22,9 +22,13 @@ package de.jaret.examples.timebars.simple.swing;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -75,24 +79,52 @@ public class SwingOverlapExample {
         
         
         // Reproduce overflow bug
-        JPanel bPanel = new JPanel();
-        JButton button=new JButton("rem all");
-        bPanel.add(button);
-        f.getContentPane().add(bPanel, BorderLayout.WEST);
-        button.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {				
-				DefaultTimeBarModel m = (DefaultTimeBarModel)model;
-				for(int i=0;i<m.getRowCount();i++) {
-					DefaultTimeBarRowModel rm = (DefaultTimeBarRowModel) m.getRow(i);
-					List<Interval> intervals = new ArrayList<Interval>(rm.getIntervals());
-					for (Interval interval : intervals) {
-						rm.remInterval(interval);
-									}
-				}
-				
-			}
-		});
+//        JPanel bPanel = new JPanel();
+//        JButton button=new JButton("rem all");
+//        bPanel.add(button);
+//        f.getContentPane().add(bPanel, BorderLayout.WEST);
+//        button.addActionListener(new ActionListener() {
+//			
+//			public void actionPerformed(ActionEvent e) {				
+//				DefaultTimeBarModel m = (DefaultTimeBarModel)model;
+//				for(int i=0;i<m.getRowCount();i++) {
+//					DefaultTimeBarRowModel rm = (DefaultTimeBarRowModel) m.getRow(i);
+//					List<Interval> intervals = new ArrayList<Interval>(rm.getIntervals());
+//					for (Interval interval : intervals) {
+//						rm.remInterval(interval);
+//									}
+//				}
+//				
+//			}
+//		});
+        
+        
+        // export the viewer to an image
+//        
+//        JPanel bPanel = new JPanel();
+//        JButton button=new JButton("export image");
+//        bPanel.add(button);
+//        f.getContentPane().add(bPanel, BorderLayout.WEST);
+//        button.addActionListener(new ActionListener() {
+//			
+//			public void actionPerformed(ActionEvent e) {				
+//				DefaultTimeBarModel m = (DefaultTimeBarModel)model;
+//
+//				BufferedImage bi = new BufferedImage(2000, 2000, BufferedImage.TYPE_4BYTE_ABGR);
+//				TimeBarViewer viewer = new TimeBarViewer(model);
+//				viewer.setVisible(true);
+//				viewer.setBounds(0, 0, 2000, 2000);
+//				viewer.doLayout();
+//				viewer.printAll(bi.getGraphics());
+//				try {
+//				    File outputfile = new File("saved.png");
+//				    ImageIO.write(bi, "png", outputfile);
+//				    
+//				} catch (IOException ex) {
+//				    ex.printStackTrace();
+//				}
+//			}
+//		});
         
         f.setVisible(true);
 

@@ -1,5 +1,6 @@
 package de.jaret.examples.timebars.events.model;
 
+import de.jaret.util.date.IntervalImpl;
 import de.jaret.util.date.JaretDate;
 import de.jaret.util.ui.timebars.model.DefaultRowHeader;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarModel;
@@ -11,18 +12,22 @@ public class ModelCreator {
         DefaultTimeBarModel model = new DefaultTimeBarModel();
 
         JaretDate date = new JaretDate();
-
+  
         int length = 120;
 
-        DefaultRowHeader header = new DefaultRowHeader("r4");
+        DefaultRowHeader header = new DefaultRowHeader("r0");
         DefaultTimeBarRowModel tbr = new DefaultTimeBarRowModel(header);
         model.addRow(tbr);
+
+        IntervalImpl interval = new IntervalImpl(date.copy(), date.copy().advanceMinutes(30));
+        tbr.addInterval(interval);
+        
         SampleEvent event = new SampleEvent(date.copy().advanceMinutes(length));
         event.setLabel("label 1");
         tbr.addInterval(event);
         
         
-        header = new DefaultRowHeader("r5");
+        header = new DefaultRowHeader("r1");
         tbr = new DefaultTimeBarRowModel(header);
         model.addRow(tbr);
         event = new SampleEvent(date.copy().advanceMinutes(length));
@@ -32,41 +37,12 @@ public class ModelCreator {
         event.setLabel("label 3");
         tbr.addInterval(event);
 
-        header = new DefaultRowHeader("r6");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r7");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r8");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r9");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r10");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r11");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r12");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r13");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
-
-        header = new DefaultRowHeader("r14");
-        tbr = new DefaultTimeBarRowModel(header);
-        model.addRow(tbr);
+        // add some empty rows
+        for(int i=2;i<=16;i++) {
+            header = new DefaultRowHeader("r"+i);
+            tbr = new DefaultTimeBarRowModel(header);
+            model.addRow(tbr);
+        }
 
         return model;
     }

@@ -4,14 +4,14 @@
 	<groupId>de.jaret</groupId>
 	<artifactId>timebars</artifactId>
 	<packaging>jar</packaging>
-	<version>1.37</version>
+	<version>1.38</version>
 	<name>Jaret timebars</name>
 	<url>http://www.jaret.de</url>
 	<dependencies>
 		<dependency>
 			<groupId>de.jaret</groupId>
 			<artifactId>jaretutil</artifactId>
-			<version>0.30</version>
+			<version>0.31</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

@@ -105,7 +105,7 @@ import de.jaret.util.ui.timebars.swing.renderer.TimeScaleRenderer;
  * <p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 874 2009-09-03 20:34:06Z kliem $
+ * @version $Id: TimeBarViewer.java 881 2009-09-22 21:25:47Z kliem $
  */
 @SuppressWarnings("serial")
 public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, ChangeListener, ComponentListener {
@@ -173,6 +173,15 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
     /** context menu for the title area. */
     protected JPopupMenu _titleContextMenu;
 
+    /** flag indicating we are running on a mac. */
+    protected boolean _macOS;
+    
+    /** panel the horizontal scrollbar is placed on. */
+    protected JPanel _horizontalScrollPanel;
+	/** panel the vertical scrollbar is placed on. */
+    protected JPanel _verticalScrollPanel;
+    
+    
     /**
      * Constructs a timebar viewer.
      * 
@@ -192,7 +201,9 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         brModelX.addChangeListener(this);
         _xScrollBar.setUnitIncrement(1);
         if (!suppressXScroll) {
-            add(_xScrollBar, BorderLayout.SOUTH);
+            _horizontalScrollPanel = new JPanel(new BorderLayout());
+        	add(_horizontalScrollPanel, BorderLayout.SOUTH);
+        	_horizontalScrollPanel.add(_xScrollBar, BorderLayout.CENTER);
         }
         // vertical scrollbar
         _yScrollBar = new JScrollBar(JScrollBar.VERTICAL);
@@ -200,7 +211,9 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         brModelY.addChangeListener(this);
         _yScrollBar.setUnitIncrement(1);
         if (!suppressYScroll) {
-            add(_yScrollBar, BorderLayout.EAST);
+            _verticalScrollPanel = new JPanel(new BorderLayout());
+        	add(_verticalScrollPanel, BorderLayout.EAST);
+        	_verticalScrollPanel.add(_yScrollBar, BorderLayout.CENTER);
         }
 
         // diagram
@@ -223,6 +236,14 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         // heavy knowledge of the default setup here ...
         _gridRenderer.setTickProvider((DefaultTimeScaleRenderer) _timeScaleRenderer);
 
+        
+        // check macos
+        String osname = System.getProperty("os.name");
+        if (osname != null) {
+        	_macOS = osname.startsWith("Mac");
+        }
+        
+        
     }
 
     /**
@@ -602,7 +623,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * The component drawing the viewer itself.
      * 
      * @author Peter Kliem
-     * @version $Id: TimeBarViewer.java 874 2009-09-03 20:34:06Z kliem $
+     * @version $Id: TimeBarViewer.java 881 2009-09-22 21:25:47Z kliem $
      */
     private class Diagram extends JComponent implements MouseListener, MouseMotionListener, MouseWheelListener {
         /** surrounding timebar viewer. */
@@ -1228,6 +1249,15 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             Component component = renderer.getTimeBarRendererComponent(_timeBarViewer, i, selected, overlapping);
             int x = _delegate.xForDate(i.getBegin());
             int width = _delegate.xForDate(i.getEnd()) - x;
+
+            // check preferred drawing bounds
+            Rectangle intervalDrawingArea = new Rectangle(x, y, width, height);
+          	Rectangle drawingArea = renderer.getPreferredDrawingBounds(intervalDrawingArea, _delegate, i, selected, overlapping);
+            x = drawingArea.x;
+            width = drawingArea.width;
+            y= drawingArea.y;
+            height = drawingArea.height;
+            
             component.setBounds(x, y, width, height);
             Graphics gg = g.create(x, y, width, height);
             // calculate height for clipping
@@ -1249,35 +1279,6 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
          
             
             
-//            Component component = renderer.getTimeBarRendererComponent(_timeBarViewer, i, selected, overlapping);
-//            int x = _delegate.xForDate(i.getBegin());
-//            int width = _delegate.xForDate(i.getEnd()) - x;
-//            Rectangle intervalDrawingArea = new Rectangle(x, y, width, height);
-//            
-//            System.out.println("DR "+intervalDrawingArea);
-//            // check for extra rendering space requested
-//            Rectangle drawingArea = renderer.getPreferredDrawingBounds(intervalDrawingArea, _delegate, i, selected, overlapping);
-//            System.out.println("Corrected DR "+drawingArea);
-//            
-//            //component.setBounds(drawingArea.x, drawingArea.y, drawingArea.width, drawingArea.height);
-//            component.setBounds(0,0, drawingArea.width, drawingArea.height);
-//            Graphics gg = g.create(drawingArea.x, drawingArea.y, drawingArea.width, drawingArea.height);
-//            // calculate height for clipping
-//            Rectangle diagramRect = _delegate.getDiagramRect();
-//            if (drawingArea.y + drawingArea.height > diagramRect.y + diagramRect.height) {
-//            	drawingArea.height = drawingArea.height - (drawingArea.y + drawingArea.height - (diagramRect.y + diagramRect.height));
-//            }
-//            int upperClipBound = 0;
-//            if (drawingArea.y < diagramRect.y) {
-//                upperClipBound = diagramRect.y - drawingArea.y;
-//            }
-//
-//            // calculate width for clipping
-//            if (drawingArea.x + drawingArea.width > diagramRect.x + diagramRect.width) {
-//            	drawingArea.width = drawingArea.width - (drawingArea.x + drawingArea.width - (diagramRect.x + diagramRect.width));
-//            }
-//            // calc x clipping and set clipping rect
-//          //  gg.setClip(drawingArea.x < diagramRect.x ? diagramRect.x - drawingArea.x : 0, upperClipBound, drawingArea.width, drawingArea.height);
             component.paint(gg);
             gg.dispose();
         }
@@ -1316,6 +1317,15 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             Component component = renderer.getTimeBarRendererComponent(_timeBarViewer, i, selected, overlapping);
             int y = _delegate.xForDate(i.getBegin());
             int height = _delegate.xForDate(i.getEnd()) - y;
+
+            // check preferred drawing bounds
+            Rectangle intervalDrawingArea = new Rectangle(x, y, width, height);
+          	Rectangle drawingArea = renderer.getPreferredDrawingBounds(intervalDrawingArea, _delegate, i, selected, overlapping);
+            x = drawingArea.x;
+            width = drawingArea.width;
+            y= drawingArea.y;
+            height = drawingArea.height;
+            
             component.setBounds(x, y, width, height);
             Graphics gg = g.create(x, y, width, height);
             // calculate height for clipping
@@ -1651,7 +1661,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
          * {@inheritDoc}
          */
         public void mousePressed(MouseEvent e) {
-            _delegate.mousePressed(e.getX(), e.getY(), e.isPopupTrigger(), e.getModifiersEx());
+        	_delegate.mousePressed(e.getX(), e.getY(), e.isPopupTrigger(), e.getModifiersEx());
         }
 
         /**
@@ -1664,7 +1674,12 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
          * {@inheritDoc}
          */
         public void mouseReleased(MouseEvent e) {
-            _delegate.mouseReleased(e.getX(), e.getY(), e.isPopupTrigger(), e.getModifiersEx());
+            boolean popupTrigger = e.isPopupTrigger();
+            if (!popupTrigger && _macOS) {
+            	popupTrigger = e.getButton() == MouseEvent.BUTTON3;
+            }
+
+        	_delegate.mouseReleased(e.getX(), e.getY(), popupTrigger, e.getModifiersEx());
         }
 
         // *** End of MouseListener
@@ -2421,7 +2436,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * {@inheritDoc}
      */
     public void displayBodyContextMenu(int x, int y) {
-        if (_bodyContextMenu != null) {
+    	if (_bodyContextMenu != null) {
             _bodyContextMenu.show(_diagram, x, y);
         }
     }
@@ -2440,7 +2455,9 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      */
     public void displayIntervalContextMenu(Interval interval, int x, int y) {
         JPopupMenu menu = getPopupMenu(interval.getClass());
-        menu.show(_diagram, x, y);
+        if (menu != null) {
+        	menu.show(_diagram, x, y);
+        }
     }
 
     /**
@@ -3092,4 +3109,25 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
     	_delegate.setInitialDisplayRange(startDate, secondsDisplayed);
     }
 
+    /**
+     * Retrieve the panel that the horizontal scroll bar is plcaed on (BorderLayout, CENETER). This can be used to add 
+     * special extensions in the scroll bar area.
+     * @return th panel or <code>null</code> if the scroll bar has been suppressed
+     */
+    public JPanel getHorizontalScrollPanel() {
+		return _horizontalScrollPanel;
+	}
+
+    /**
+     * Retrieve the panel that the vertical scroll bar is plcaed on (BorderLayout, CENETER). This can be used to add 
+     * special extensions in the scroll bar area.
+     * @return th panel or <code>null</code> if the scroll bar has been suppressed
+     */
+	public JPanel getVerticalScrollPanel() {
+		return _verticalScrollPanel;
+	}
+
+
+
+    
 }

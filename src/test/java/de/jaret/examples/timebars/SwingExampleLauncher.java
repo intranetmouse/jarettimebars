@@ -19,7 +19,6 @@
  */
 package de.jaret.examples.timebars;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -28,8 +27,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import timebarview.Viewer;
-
+import de.jaret.examples.timebars.eventmonitoring.swing.EventMonitoringExample;
 import de.jaret.examples.timebars.events.swing.SwingEventExample;
 import de.jaret.examples.timebars.hierarchy.swing.SwingHierarchy;
 import de.jaret.examples.timebars.simple.swing.SwingOverlapExample;
@@ -86,13 +84,14 @@ public class SwingExampleLauncher {
 		contentPane.add(b);
 
 		b = new JButton();
-		b.setText("Overflow");
+		b.setText("EventMonitoring");
 		b.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				Viewer.main(new String[0]);
+				EventMonitoringExample.main(new String[0]);
 			}
 		});
 		contentPane.add(b);
+
 	}
 }

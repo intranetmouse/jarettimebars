@@ -32,7 +32,7 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * Default implementation of th misc renderer for the swing time bar viewer.
  * 
  * @author kliem
- * @version $Id: DefaultMiscRenderer.java 802 2008-12-28 12:30:41Z kliem $
+ * @version $Id: DefaultMiscRenderer.java 881 2009-09-22 21:25:47Z kliem $
  */
 public class DefaultMiscRenderer implements IMiscRenderer {
     /** color used for highlighting. */
@@ -59,8 +59,10 @@ public class DefaultMiscRenderer implements IMiscRenderer {
      * {@inheritDoc}
      */
     public void renderSelectionRect(Graphics graphics, TimeBarViewer tbv, Rectangle selectionRect) {
-        graphics.setColor(Color.GRAY);
+        Color old = graphics.getColor();
+    	graphics.setColor(Color.GRAY);
         graphics.drawRect(selectionRect.x, selectionRect.y, selectionRect.width, selectionRect.height);
+        graphics.setColor(old);
     }
 
     /**
@@ -71,7 +73,6 @@ public class DefaultMiscRenderer implements IMiscRenderer {
         graphics.setColor(Color.LIGHT_GRAY);
         graphics.drawLine(x1, y1, x2, y2);
         graphics.setColor(color);
-
     }
 
     /**
