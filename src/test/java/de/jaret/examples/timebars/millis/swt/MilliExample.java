@@ -71,7 +71,7 @@ import de.jaret.util.ui.timebars.swt.renderer.DefaultTitleRenderer;
  * Example showing millisecond accuracy usage.
  * 
  * @author Peter Kliem
- * @version $Id: MilliExample.java 846 2009-02-22 18:32:04Z kliem $
+ * @version $Id: MilliExample.java 894 2009-11-02 22:29:11Z kliem $
  */
 public class MilliExample extends ApplicationWindow {
     private TimeBarViewer _tbv;

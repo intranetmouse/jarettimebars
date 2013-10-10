@@ -138,7 +138,7 @@ import de.jaret.util.ui.timebars.swt.util.actions.JaretTimeBarsActionFactory;
  * </p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 892 2009-10-31 22:35:44Z kliem $
+ * @version $Id: TimeBarViewer.java 894 2009-11-02 22:29:11Z kliem $
  */
 public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISelectionProvider {
     /** DEBUGGING OPTION: if set to true the actual paint times will be printed to stdout. */

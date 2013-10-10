@@ -106,7 +106,7 @@ import de.jaret.util.ui.timebars.swing.renderer.TimeScaleRenderer;
  * <p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 892 2009-10-31 22:35:44Z kliem $
+ * @version $Id: TimeBarViewer.java 906 2009-11-13 21:15:27Z kliem $
  */
 @SuppressWarnings("serial")
 public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, ChangeListener, ComponentListener {
@@ -622,7 +622,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * The component drawing the viewer itself.
      * 
      * @author Peter Kliem
-     * @version $Id: TimeBarViewer.java 892 2009-10-31 22:35:44Z kliem $
+     * @version $Id: TimeBarViewer.java 906 2009-11-13 21:15:27Z kliem $
      */
     private class Diagram extends JComponent implements MouseListener, MouseMotionListener, MouseWheelListener {
         /** surrounding timebar viewer. */
@@ -2269,9 +2269,11 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
     public String getHeaderToolTipText(TimeBarRow row, int x, int y) {
         if (_headerRenderer != null && row != null) {
             JComponent component = _headerRenderer.getHeaderRendererComponent(this, row.getRowHeader(), false);
-            component.setBounds(_delegate.getHeaderRect(row));
-            return component.getToolTipText(new MouseEvent(this, 0, 0, 0, x - _delegate.getYAxisRect().x, y
-                    - _delegate.getYAxisRect().y, 0, false));
+            if (component != null) {
+                component.setBounds(_delegate.getHeaderRect(row));
+                return component.getToolTipText(new MouseEvent(this, 0, 0, 0, x - _delegate.getYAxisRect().x, y
+                        - _delegate.getYAxisRect().y, 0, false));
+            }
         }
         return null;
     }

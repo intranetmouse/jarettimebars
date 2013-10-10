@@ -11,6 +11,20 @@
 			<subsection name="Keep updated: the timebars on Twitter">
 				If you want to know about new versions you can follow the timebars on twitter: <a href="http://twitter.com/jaret_timebars">http://twitter.com/jaret_timebars</a>.
 			</subsection>
+			<subsection name="2009-11-13 version 1.41">
+				<ul>
+					<li>
+						Did some small changes to setLastRow and the component resize behaviour since there have been problems using the Swing version.
+						If you rely on this (i.e. vertical autoscroll) please check carefully.
+					</li>
+					<li>
+						Removed two forgotten System.outs (Ughh!)
+					</li>
+					<li>
+						Fixed a possible NPE in Swing(Headertooltip)
+					</li>
+				</ul>
+			</subsection>
 			<subsection name="2009-11-02 version 1.40">
 				<ul>
 					<li>

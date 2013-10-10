@@ -84,7 +84,7 @@ import de.jaret.util.ui.timebars.swt.renderer.TimeBarRenderer;
  * Drag&Drop with the TimeBarViewer.
  * 
  * @author Peter Kliem
- * @version $Id: SwtOverlapExample.java 884 2009-10-08 20:25:15Z kliem $
+ * @version $Id: SwtOverlapExample.java 906 2009-11-13 21:15:27Z kliem $
  */
 public class SwtOverlapExample extends ApplicationWindow {
     /** if set to true an ITimeBarChangeListener will be registered for monitoring changes. */
@@ -700,6 +700,9 @@ public class SwtOverlapExample extends ApplicationWindow {
 	                        int ridx = _tbv.getFirstRowDisplayed();
 	                        if (ridx>0) {
 	                            _tbv.setFirstRowDisplayed(ridx-1);
+	                            _tbv.setFirstRowOffset(0);
+	                        } else {
+	                            _tbv.setFirstRowOffset(0);
 	                        }
                         }
                     } else 
@@ -710,9 +713,12 @@ public class SwtOverlapExample extends ApplicationWindow {
                         	
                         	TimeBarRow row = _tbv.rowForY(destY);
 	                        int ridx = _tbv.getDelegate().getRowIndex(row);
-	                        if (ridx+1<=_tbv.getDelegate().getRowCount()-1) {
+	                        System.out.println("ridx "+ridx);
+	                        if (ridx+1<_tbv.getDelegate().getRowCount()) {
+	                            System.out.println("try ridx "+(ridx+1));
 	                            TimeBarRow nextRow = _tbv.getDelegate().getRow(ridx+1);
-	                            _tbv.scrollRowToVisible(nextRow);
+	                            _tbv.setLastRow(nextRow);
+//	                            _tbv.scrollRowToVisible(nextRow);
 	                        }
                         }
                     } else {
