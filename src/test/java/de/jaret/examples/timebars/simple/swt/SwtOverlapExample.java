@@ -82,7 +82,7 @@ import de.jaret.util.ui.timebars.swt.renderer.TimeBarRenderer;
  * Drag&Drop with the TimeBarViewer.
  * 
  * @author Peter Kliem
- * @version $Id: SwtOverlapExample.java 870 2009-07-31 13:31:09Z kliem $
+ * @version $Id: SwtOverlapExample.java 874 2009-09-03 20:34:06Z kliem $
  */
 public class SwtOverlapExample extends ApplicationWindow {
     /** if set to true an ITimeBarChangeListener will be registered for monitoring changes. */
@@ -414,6 +414,14 @@ public class SwtOverlapExample extends ApplicationWindow {
                 _tbv.getDelegate().setLastRow(0);
             }
         });
+        final Button lastrow20 = new Button(addPanel, SWT.PUSH);
+        lastrow20.setText("last 20");
+        lastrow20.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                _tbv.getDelegate().setLastRow(19);
+            }
+        });
 
         
         
@@ -689,7 +697,7 @@ public class SwtOverlapExample extends ApplicationWindow {
                         	
                         	TimeBarRow row = _tbv.rowForY(destY);
 	                        int ridx = _tbv.getDelegate().getRowIndex(row);
-	                        if (ridx+1<_tbv.getDelegate().getRowCount()-1) {
+	                        if (ridx+1<=_tbv.getDelegate().getRowCount()-1) {
 	                            TimeBarRow nextRow = _tbv.getDelegate().getRow(ridx+1);
 	                            _tbv.scrollRowToVisible(nextRow);
 	                        }

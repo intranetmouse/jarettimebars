@@ -28,6 +28,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import timebarview.Viewer;
+
 import de.jaret.examples.timebars.events.swing.SwingEventExample;
 import de.jaret.examples.timebars.hierarchy.swing.SwingHierarchy;
 import de.jaret.examples.timebars.simple.swing.SwingOverlapExample;
@@ -79,6 +81,16 @@ public class SwingExampleLauncher {
 			
 			public void actionPerformed(ActionEvent e) {
 				SwingOverlapExample.main(new String[0]);
+			}
+		});
+		contentPane.add(b);
+
+		b = new JButton();
+		b.setText("Overflow");
+		b.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Viewer.main(new String[0]);
 			}
 		});
 		contentPane.add(b);

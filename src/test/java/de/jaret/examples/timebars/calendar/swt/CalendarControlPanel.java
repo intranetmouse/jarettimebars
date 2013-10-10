@@ -53,7 +53,7 @@ import de.jaret.util.ui.timebars.swt.renderer.DefaultGapRenderer;
  * Control panel for the calendar example.
  * 
  * @author Peter Kliem
- * @version $Id: CalendarControlPanel.java 568 2007-09-16 19:57:58Z olk $
+ * @version $Id: CalendarControlPanel.java 874 2009-09-03 20:34:06Z kliem $
  */
 public class CalendarControlPanel extends Composite {
 
@@ -72,6 +72,29 @@ public class CalendarControlPanel extends Composite {
      */
     private void createControls(CalendarControlPanel panel) {
         panel.setLayout(new RowLayout());
+
+// set secondsDisplayed test
+//        final Scale pixPerSecondsScale = new Scale(this, SWT.HORIZONTAL);
+//        pixPerSecondsScale.setMaximum(60*60*24);
+//        pixPerSecondsScale.setMinimum(60*60*24/2);
+//        if (_tbv.getPixelPerSecond() * (24.0 * 60.0 * 60.0) > 700) {
+//            pixPerSecondsScale.setMaximum((int) (_tbv.getPixelPerSecond() * (24.0 * 60.0 * 60.0)));
+//        }
+//        pixPerSecondsScale.addSelectionListener(new SelectionListener() {
+//            public void widgetSelected(SelectionEvent ev) {
+//                int val = pixPerSecondsScale.getSelection();
+//                double pps = ((double) val) / (24.0 * 60.0 * 60.0);
+//                System.out.println("scale " + val + "pps " + pps);
+//                _tbv.setSecondsDisplayed(val, true);
+//                //_tbv.setPixelPerSecond(pps);
+//            }
+//
+//            public void widgetDefaultSelected(SelectionEvent arg0) {
+//            }
+//        });
+//        pixPerSecondsScale.setSelection((int) (_tbv.getPixelPerSecond() * (24.0 * 60.0 * 60.0)));
+//        RowData rd = new RowData(800, 40);
+//        pixPerSecondsScale.setLayoutData(rd);
 
         final Scale pixPerSecondsScale = new Scale(this, SWT.HORIZONTAL);
         pixPerSecondsScale.setMaximum(700);

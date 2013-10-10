@@ -8,6 +8,19 @@
 			<subsection name="Note for Swing users">
 				The SWT Version is leading. However the the swing version has catched up to provide nearly the same features.
 			</subsection>
+			<subsection name="2009-09-03 version 1.37">
+				<ul>
+					<li>
+						<b>IMPORTANT: This is an SWT only version since there are some open ends in the swing version</b>
+					</li>
+					<li>
+						Fixed: setSecondsDisplayed will now work with vertical orientation
+					</li>
+					<li>
+						Fixed: vertical autoscroll sample code in SwtOverlapExample: +-1 problem -> could not scroll to the last row
+					</li>
+				</ul>
+			</subsection>
 			<subsection name="2009-08-17 version 1.36">
 				<ul>
 					<li>

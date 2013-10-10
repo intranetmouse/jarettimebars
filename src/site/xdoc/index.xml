@@ -76,7 +76,7 @@
 			<table>
 				<tr>
 					<td>
-						<a href="data/timebars-1.36-src.zip">timebars-1.36-src.zip</a>
+						<a href="data/timebars-1.37-src.zip">timebars-1.37-src.zip</a>
 					</td>
 					<td>
 						Recommended download: Contains the complete project for Swing and SWT, including example code. Depends on 
@@ -85,7 +85,7 @@
 				</tr>
 				<tr>
 					<td>
-						<a href="data/timebars-1.36-bin.zip">timebars-1.36-bin.zip</a>
+						<a href="data/timebars-1.37-bin.zip">timebars-1.37-bin.zip</a>
 					</td>
 					<td>
 						Contains jar including Swing and SWT version. Depends on 
@@ -106,6 +106,14 @@
 					</td>
 					<td>
 						Addon package
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="data/timebars-1.35-src.zip">timebars-1.35-src.zip</a>
+					</td>
+					<td>
+						Older version - use this for swing 
 					</td>
 				</tr>
 			</table>
