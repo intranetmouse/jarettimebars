@@ -109,7 +109,7 @@ import de.jaret.util.ui.timebars.swing.renderer.TimeScaleRenderer;
  * <p>
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewer.java 1107 2012-02-09 22:31:29Z kliem $
+ * @version $Id: TimeBarViewer.java 1113 2013-09-17 19:49:20Z kliem $
  */
 @SuppressWarnings("serial")
 public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, ChangeListener, ComponentListener {
@@ -186,6 +186,12 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
     protected JPanel _verticalScrollPanel;
 
     protected boolean _useTitleRendererComponentInPlace = false;
+    
+    /** if true mouse wheel scrolls x axis when in the appropriate rectangle. */
+    protected boolean _allowMouseWheelXAxisScrolling = true;
+    /** if true mouse wheel scrolls y axis. */
+    protected boolean _allowMouseWheelYAxisScrolling = true;
+    
 
     /**
      * Constructs a timebar viewer.
@@ -630,9 +636,9 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      * The component drawing the viewer itself.
      * 
      * @author Peter Kliem
-     * @version $Id: TimeBarViewer.java 1107 2012-02-09 22:31:29Z kliem $
+     * @version $Id: TimeBarViewer.java 1113 2013-09-17 19:49:20Z kliem $
      */
-    private class Diagram extends JComponent implements MouseListener, MouseMotionListener, MouseWheelListener {
+    public class Diagram extends JComponent implements MouseListener, MouseMotionListener, MouseWheelListener {
         /** surrounding timebar viewer. */
         protected TimeBarViewer _timeBarViewer;
 
@@ -1097,7 +1103,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         }
 
         /**
-         * Draws the gaps beetwenn intervals (horizontal). The selection of the bordering interval sis done inside this
+         * Draws the gaps between intervals (horizontal). The selection of the bordering interval is done inside this
          * method. TODO maybe move the selection routine out TODO call for edges i.e. one interval is null
          * 
          * @param g Graphics for painting
@@ -1128,7 +1134,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                         // before the starting date: remember the nearest
                         // interval
                         if (firstInterval == null
-                                || start.diffSeconds(interval.getEnd()) < start.diffSeconds(firstInterval.getEnd())) {
+                                || start.diffSeconds(interval.getEnd()) <= start.diffSeconds(firstInterval.getEnd())) {
                             firstInterval = interval;
                         }
                     } else if (interval.contains(start)) {
@@ -1176,7 +1182,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         }
 
         /**
-         * Draws the gaps beetwenn intervals (horizontal). The selection of the bordering interval sis done inside this
+         * Draws the gaps between intervals (horizontal). The selection of the bordering interval is done inside this
          * method. TODO maybe move the selection routine out TODO call for edges i.e. one interval is null
          * 
          * @param g Graphics for painting
@@ -1207,7 +1213,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                         // before the starting date: remember the nearest
                         // interval
                         if (firstInterval == null
-                                || start.diffSeconds(interval.getEnd()) < start.diffSeconds(firstInterval.getEnd())) {
+                                || start.diffSeconds(interval.getEnd()) <= start.diffSeconds(firstInterval.getEnd())) {
                             firstInterval = interval;
                         }
                     } else if (interval.contains(start)) {
@@ -1441,11 +1447,14 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                     x -= diff / 2;
                 }
             }
-            // TODO clipping width
             component.setBounds(x, y, width, height);
             Graphics gg = g.create(x, y, width, height);
             // calculate height for clipping
             Rectangle diagramRect = _delegate.getDiagramRect();
+            // clipping width (Chris)
+            if (x + width > diagramRect.x + diagramRect.width) {
+                width = width - (x + width - (diagramRect.x + diagramRect.width));
+            }
             if (y + height > diagramRect.y + diagramRect.height) {
                 height = height - (y + height - (diagramRect.y + diagramRect.height));
             }
@@ -1482,11 +1491,14 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                     y -= diff / 2;
                 }
             }
-            // TODO clipping width
             component.setBounds(x, y, width, height);
             Graphics gg = g.create(x, y, width, height);
             // calculate height for clipping
             Rectangle diagramRect = _delegate.getDiagramRect();
+            // clipping height (Chris)
+            if (y + height > diagramRect.y + diagramRect.height) {
+                height = height - (y + height - (diagramRect.y + diagramRect.height));
+            }
             if (x + width > diagramRect.x + diagramRect.width) {
                 width = width - (x + width - (diagramRect.x + diagramRect.width));
             }
@@ -1790,11 +1802,11 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
         public void mouseWheelMoved(MouseWheelEvent e) {
             if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
                 int val = e.getUnitsToScroll();
-                if (_delegate.getXAxisRect() != null && e.getY() > _delegate.getXAxisRect().y
-                        && e.getY() < _delegate.getXAxisRect().y + _delegate.getXAxisRect().height) {
+                if (_timeBarViewer._allowMouseWheelXAxisScrolling && (!_timeBarViewer._allowMouseWheelYAxisScrolling || (_delegate.getXAxisRect() != null && e.getY() > _delegate.getXAxisRect().y
+                        && e.getY() < _delegate.getXAxisRect().y + _delegate.getXAxisRect().height))) {
                     // on the xaxis
                     _xScrollBar.setValue(_xScrollBar.getValue() + val * _xScrollBar.getModel().getExtent() / 5);
-                } else {
+                } else if (_timeBarViewer._allowMouseWheelYAxisScrolling) {
                     // y axis
                     _yScrollBar.getModel().setValue(_yScrollBar.getModel().getValue() + val * getRowHeight()); // TODO check configurabilty
                 }
@@ -3376,6 +3388,38 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
      */
     public void scrollIntervalToVisible(TimeBarRow row, Interval interval) {
         _delegate.scrollIntervalToVisible(row, interval);
+    }
+
+    /**
+     * Check whether mouse wheel scrolling is enabled for the x axis.
+     * @return true when enabled
+     */
+    public boolean getAllowMouseWheelXAxisScrolling() {
+        return _allowMouseWheelXAxisScrolling;
+    }
+
+    /**
+     * Set whether mouse wheel should scroll x axis.
+     * @param allowMouseWheelXAxisScrolling true to allow
+     */
+    public void setAllowMouseWheelXAxisScrolling(boolean allowMouseWheelXAxisScrolling) {
+        _allowMouseWheelXAxisScrolling = allowMouseWheelXAxisScrolling;
+    }
+
+    /**
+     * Check whether mouse wheel scrolling is enabled for the y axis.
+     * @return true when enabled
+     */
+    public boolean getAllowMouseWheelYAxisScrolling() {
+        return _allowMouseWheelYAxisScrolling;
+    }
+
+    /**
+     * Set whether mouse wheel should scroll y axis.
+     * @param allowMouseWheelYAxisScrolling true to allow
+     */
+    public void setAllowMouseWheelYAxisScrolling(boolean allowMouseWheelYAxisScrolling) {
+        _allowMouseWheelYAxisScrolling = allowMouseWheelYAxisScrolling;
     }
 
 }

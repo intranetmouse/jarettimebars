@@ -53,6 +53,8 @@ import org.eclipse.swt.widgets.Shell;
 import de.jaret.examples.timebars.pdi.swt.SwtControlPanel;
 import de.jaret.examples.timebars.simple.OtherIntervalImpl;
 import de.jaret.examples.timebars.simple.model.ModelCreator;
+import de.jaret.examples.timebars.simple.swt.renderer.AlternatingRowColorRenderer;
+import de.jaret.examples.timebars.simple.swt.renderer.CustomizedBoxTimeScaleRenderer;
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.IntervalImpl;
 import de.jaret.util.date.JaretDate;
@@ -82,7 +84,7 @@ import de.jaret.util.ui.timebars.swt.renderer.DefaultTitleRenderer;
  * Drag&Drop with the TimeBarViewer.
  * 
  * @author Peter Kliem
- * @version $Id: SwtOverlapExample.java 1093 2011-10-04 20:53:06Z kliem $
+ * @version $Id: SwtOverlapExample.java 1109 2013-09-15 21:40:28Z kliem $
  */
 public class SwtOverlapExample extends ApplicationWindow {
     /** if set to true an ITimeBarChangeListener will be registered for monitoring changes. */
@@ -176,6 +178,10 @@ public class SwtOverlapExample extends ApplicationWindow {
         _tbv.setTitleRenderer(titleRenderer);
         _tbv.setTitle("SwtOverlap");
         
+        // time bar rendering:
+        // we create a box time scale renderer and a datestrip renderer
+        // and combine those two with a combining time scale renderer
+        
         BoxTimeScaleRenderer btsr = new BoxTimeScaleRenderer();
         // enable DST correction
         //btsr.setCorrectDST(true);
@@ -183,8 +189,19 @@ public class SwtOverlapExample extends ApplicationWindow {
         DateStripRenderer dsr = new DateStripRenderer();
         CombiningTimeScaleRenderer ctsr = new CombiningTimeScaleRenderer(dsr, btsr);
         
-        _tbv.setTimeScaleRenderer(ctsr);
-//        _tbv.setTimeScaleRenderer(btsr);
+        _tbv.setTimeScaleRenderer(ctsr); // set the combined renderer on the viewer
+
+        // Alternative: just use the box time scale renderer
+        //        _tbv.setTimeScaleRenderer(btsr);
+        
+        // experimental renderer
+        CustomizedBoxTimeScaleRenderer cbtscr = new CustomizedBoxTimeScaleRenderer();
+        _tbv.setTimeScaleRenderer(cbtscr);
+        
+        
+        // alternating row colors
+        _tbv.setGlobalAssistantRenderer(new AlternatingRowColorRenderer());
+        
         
         
         SwtControlPanel ctrl = new SwtControlPanel(parent, SWT.NULL, _tbv, null);

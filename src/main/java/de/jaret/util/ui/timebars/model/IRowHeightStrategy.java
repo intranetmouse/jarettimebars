@@ -25,13 +25,13 @@ import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
  * Interface describing a strategy for calculating the height/width of a row.
  * 
  * @author kliem
- * @version $Id: IRowHeightStrategy.java 532 2007-08-14 21:36:42Z olk $
+ * @version $Id: IRowHeightStrategy.java 1109 2013-09-15 21:40:28Z kliem $
  */
 public interface IRowHeightStrategy {
     /**
-     * If the strategy should override manually set heights/widths thhis should return <code>true</code>.
+     * If the strategy should override manually set heights/widths this should return <code>true</code>.
      * 
-     * @return <code>true</code> if any manual set heights/widths should be overriden by the strategy
+     * @return <code>true</code> if any manual set heights/widths should be overridden by the strategy
      */
     boolean overrideDefault();
 

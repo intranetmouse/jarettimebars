@@ -31,12 +31,30 @@ import de.jaret.util.ui.timebars.swing.TimeBarViewer;
  * Simple default implementation of a HeaderRenderer using a JLabel.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultHeaderRenderer.java 427 2007-05-13 15:58:36Z olk $
+ * @version $Id: DefaultHeaderRenderer.java 1109 2013-09-15 21:40:28Z kliem $
  */
 public class DefaultHeaderRenderer implements HeaderRenderer {
     /** component used for rendering. */
     private JLabel _component = new JLabel();
 
+    
+    private final int _width;
+    
+    /**
+     * Construct a DefaultHeaderRenderer using the default width (35).
+     */
+    public DefaultHeaderRenderer() {
+        this(35);
+    }
+    
+    /**
+     * Construct a DefaultHeaderRenderer with a configured width.
+     * @param width width to be used
+     */
+    public DefaultHeaderRenderer(int width) {
+        _width = width;
+    }
+    
     /**
      * {@inheritDoc}
      */
@@ -56,6 +74,6 @@ public class DefaultHeaderRenderer implements HeaderRenderer {
      * {@inheritDoc}
      */
     public int getWidth() {
-        return 35;
+        return _width;
     }
 }

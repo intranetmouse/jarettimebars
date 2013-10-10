@@ -42,7 +42,7 @@ public interface IOverlapStrategy {
     OverlapInfo getOverlapInfo(TimeBarRow row, Interval interval);
 
     /**
-     * Retrieve tha maximal count of overlapping intervals in a row.
+     * Retrieve the maximal count of overlapping intervals in a row.
      * 
      * @param row row to check
      * @return count of maximum overlapping intervals in the row
@@ -50,8 +50,8 @@ public interface IOverlapStrategy {
     int getMaxOverlapCount(TimeBarRow row);
 
     /**
-     * Calculate the number of overlapping intervals and determine the positions to draw them on. May Assume sorted
-     * Intervals - check the strategy implementation!
+     * Calculate the number of overlapping intervals and determine the positions to draw them on. May assume sorted
+     * intervals - check the strategy implementation!
      * 
      * @param row row to update the cache for
      * @return a map containing overlap infos for every interval in the row
@@ -64,7 +64,7 @@ public interface IOverlapStrategy {
     void clearCachedData();
 
     /**
-     * Called when a strategy is no loner used. May be useful to help garbage collecting or disconnect listeners.
+     * Called when a strategy is no longer used. May be useful to help garbage collecting or disconnect listeners.
      */
     void dispose();
 

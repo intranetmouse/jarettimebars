@@ -3,19 +3,19 @@
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
       <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-   <title>Jaret timebars component (1.30)</title><link rel="stylesheet" href="css/jaret_book.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.66.0"></head><body><div xmlns="" id="customheader">
+   <title>Jaret timebars component (1.49)</title><link rel="stylesheet" href="css/jaret_book.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.66.0"></head><body><div xmlns="" id="customheader">
 This document is part of jaret (<a href="http://www.jaret.de" style="color: #fff; font-weight: bold;">jaret</a>)
-</div><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a id="d4e1"></a>Jaret timebars component (1.30)</h1></div><div><p class="copyright">Copyright &copy; 2009 Peter Kliem</p></div><div><p class="pubdate">2009-10-08</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="preface"><a href="#d4e8">About this document</a></span></dt><dt><span class="chapter"><a href="#d4e84">1. About jaret timebars and it's concepts</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e87">1.1. Overview</a></span></dt><dt><span class="sect1"><a href="#d4e92">1.2. Features</a></span></dt><dt><span class="sect1"><a href="#d4e111">1.3. Compatibility, platforms and status</a></span></dt><dt><span class="sect1"><a href="#d4e139">1.4. License / Dual licensing</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4e148">2. Using the timebars</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e152">2.1. The quickest start</a></span></dt><dt><span class="sect1"><a href="#d4e157">2.2. General notes</a></span></dt><dt><span class="sect1"><a href="#d4e174">2.3. The model</a></span></dt><dt><span class="sect1"><a href="#d4e194">2.4. The renderers</a></span></dt><dt><span class="sect1"><a href="#d4e299">2.5. Performance</a></span></dt><dt><span class="sect1"><a href="#d4e307">2.6. Interactivity</a></span></dt><dt><span class="sect1"><a href="#d4e329">2.7. Other aspects and specials</a></span></dt><dt><span class="sect1"><a href="#d4e387">2.8. Vertical orientation</a></span></dt><dt><span class="sect1"><a href="#d4e396">2.9. Variable row heights/widths</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4e404">3. Addon package</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e407">3.1. The ViewStateSaver</a></span></dt><dt><span class="sect1"><a href="#d4e413">3.2. The TableTimeBarSynchronizer</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4e420">4. Some solutions and details</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e423">4.1. Time resolution</a></span></dt><dt><span class="sect1"><a href="#d4e429">4.2. Daylight saving time (DST)</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4e433">5. Examples</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e436">5.1. Hierarchy</a></span></dt><dt><span class="sect1"><a href="#d4e446">5.2. Overlapping intervals and DND</a></span></dt><dt><span class="sect1"><a href="#d4e455">5.3. calendar example</a></span></dt><dt><span class="sect1"><a href="#d4e466">5.4. fancy example</a></span></dt><dt><span class="sect1"><a href="#d4e504">5.5. timeline example</a></span></dt><dt><span class="sect1"><a href="#d4e513">5.6. EventMonitor example</a></span></dt><dt><span class="sect1"><a href="#d4e529">5.7. Linechart example</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4e538">6. Appendix</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e540">6.1. Known bugs and limitations</a></span></dt><dt><span class="sect1"><a href="#d4e551">6.2. Changelog since version 1.0</a></span></dt><dt><span class="sect1"><a href="#d4e799">6.3. Licenses</a></span></dt></dl></dd></dl></div><div class="list-of-figures"><p><b>List of Figures</b></p><dl><dt>2.1. <a href="#d4e246">DefaultTimeScaleRenderer (german locale)</a></dt><dt>2.2. <a href="#d4e255">BoxTimeScaleRenderer (german locale)</a></dt><dt>5.1. <a href="#d4e439">SWT timebars (1.0) showing a hierarchy</a></dt><dt>5.2. <a href="#d4e448">Non overlapping with drag in progress</a></dt><dt>5.3. <a href="#d4e458">Calendar example (SWT version)</a></dt><dt>5.4. <a href="#d4e469">FancyExample (SWT, Version 1.13, no effects)</a></dt><dt>5.5. <a href="#d4e475">FancyExample (SWT, Version 1.13, drop shadow)</a></dt><dt>5.6. <a href="#d4e483">FancyExample (SWT, Version 1.13, reflection)</a></dt><dt>5.7. <a href="#d4e491">FancyExample (SWT, Version 1.13): global rendering before interval rendering</a></dt><dt>5.8. <a href="#d4e496">FancyExample (SWT, Version 1.13): global rendering after interval rendering</a></dt><dt>5.9. <a href="#d4e507">Timeline example</a></dt><dt>5.10. <a href="#d4e516">EventMonitor example</a></dt><dt>5.11. <a href="#d4e532">LineChart example</a></dt></dl></div><div class="list-of-tables"><p><b>List of Tables</b></p><dl><dt>1. <a href="#d4e15">Document history</a></dt></dl></div><div class="preface" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e8"></a>About this document</h2></div></div></div><p>
+</div><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a id="d4e1"></a>Jaret timebars component (1.49)</h1></div><div><p class="copyright">Copyright &copy; 2013 Peter Kliem</p></div><div><p class="pubdate">2013-09-17</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="preface"><a href="#d4e8">About this document</a></span></dt><dt><span class="chapter"><a href="#d4e89">1. About jaret timebars and it's concepts</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e92">1.1. Overview</a></span></dt><dt><span class="sect1"><a href="#d4e97">1.2. Features</a></span></dt><dt><span class="sect1"><a href="#d4e116">1.3. Compatibility, platforms and status</a></span></dt><dt><span class="sect1"><a href="#d4e144">1.4. License / Dual licensing</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4e153">2. Using the timebars</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e157">2.1. The quickest start</a></span></dt><dt><span class="sect1"><a href="#d4e162">2.2. General notes</a></span></dt><dt><span class="sect1"><a href="#d4e179">2.3. The model</a></span></dt><dt><span class="sect1"><a href="#d4e199">2.4. The renderers</a></span></dt><dt><span class="sect1"><a href="#d4e304">2.5. Performance</a></span></dt><dt><span class="sect1"><a href="#d4e312">2.6. Interactivity</a></span></dt><dt><span class="sect1"><a href="#d4e334">2.7. Other aspects and specials</a></span></dt><dt><span class="sect1"><a href="#d4e392">2.8. Vertical orientation</a></span></dt><dt><span class="sect1"><a href="#d4e401">2.9. Variable row heights/widths</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4e409">3. Addon package</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e412">3.1. The ViewStateSaver</a></span></dt><dt><span class="sect1"><a href="#d4e418">3.2. The TableTimeBarSynchronizer</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4e425">4. Some solutions and details</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e428">4.1. Time resolution</a></span></dt><dt><span class="sect1"><a href="#d4e435">4.2. Daylight saving time (DST)</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4e439">5. Examples</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e442">5.1. Hierarchy</a></span></dt><dt><span class="sect1"><a href="#d4e452">5.2. Overlapping intervals and DND</a></span></dt><dt><span class="sect1"><a href="#d4e461">5.3. calendar example</a></span></dt><dt><span class="sect1"><a href="#d4e472">5.4. fancy example</a></span></dt><dt><span class="sect1"><a href="#d4e510">5.5. timeline example</a></span></dt><dt><span class="sect1"><a href="#d4e519">5.6. EventMonitor example</a></span></dt><dt><span class="sect1"><a href="#d4e535">5.7. Linechart example</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d4e544">6. Appendix</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d4e546">6.1. Known bugs and limitations</a></span></dt><dt><span class="sect1"><a href="#d4e557">6.2. Changelog since version 1.0</a></span></dt><dt><span class="sect1"><a href="#d4e887">6.3. Licenses</a></span></dt></dl></dd></dl></div><div class="list-of-figures"><p><b>List of Figures</b></p><dl><dt>2.1. <a href="#d4e251">DefaultTimeScaleRenderer (german locale)</a></dt><dt>2.2. <a href="#d4e260">BoxTimeScaleRenderer (german locale)</a></dt><dt>5.1. <a href="#d4e445">SWT timebars (1.0) showing a hierarchy</a></dt><dt>5.2. <a href="#d4e454">Non overlapping with drag in progress</a></dt><dt>5.3. <a href="#d4e464">Calendar example (SWT version)</a></dt><dt>5.4. <a href="#d4e475">FancyExample (SWT, Version 1.13, no effects)</a></dt><dt>5.5. <a href="#d4e481">FancyExample (SWT, Version 1.13, drop shadow)</a></dt><dt>5.6. <a href="#d4e489">FancyExample (SWT, Version 1.13, reflection)</a></dt><dt>5.7. <a href="#d4e497">FancyExample (SWT, Version 1.13): global rendering before interval rendering</a></dt><dt>5.8. <a href="#d4e502">FancyExample (SWT, Version 1.13): global rendering after interval rendering</a></dt><dt>5.9. <a href="#d4e513">Timeline example</a></dt><dt>5.10. <a href="#d4e522">EventMonitor example</a></dt><dt>5.11. <a href="#d4e538">LineChart example</a></dt></dl></div><div class="list-of-tables"><p><b>List of Tables</b></p><dl><dt>1. <a href="#d4e15">Document history</a></dt></dl></div><div class="preface" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e8"></a>About this document</h2></div></div></div><p>
 	This document is part of the documentation of the jaret timebars component. Other useful information is contained in the javadoc documentation
 	of the component itself. Also consider examining the example code.
 	</p><p>
 	The current version of the software can always be found at <a href="http://www.jaret.de/timebars" target="_top"><i class="citetitle">jaret.de</i></a>. 
 	For any questions, inquiries and suggestions contact <tt class="email">&lt;<a href="mailto:peter.kliem@jaret.de">peter.kliem@jaret.de</a>&gt;</tt>.
-	</p><div class="table"><a id="d4e15"></a><table summary="Document history" border="1"><colgroup><col align="left"><col align="left"><col align="left"><col></colgroup><thead><tr><th align="left">Date</th><th align="left">Status</th><th align="left">Author</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left">2007-02-18</td><td align="left">Released</td><td align="left">P. Kliem</td><td align="left">Initial release of the document</td></tr><tr><td align="left">2007-05-01</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.02 including first draft information about the timebars.addon package.</td></tr><tr><td align="left">2007-06-05</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.10 (vertical orientation, calendar example)</td></tr><tr><td align="left">2007-08-15</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.11/1.12 (variable row heights/widths)</td></tr><tr><td align="left">2007-09-16</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.13 (FancyExample, extended drawing area for intervals, licensing)</td></tr><tr><td align="left">2007-11-03</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.15 (timeline example, known bugs, externalize overlap strategy)</td></tr><tr><td align="left">2008-03-22</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.19</td></tr><tr><td align="left">2008-04-06</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.21</td></tr><tr><td align="left">2008-05-04</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update to 1.25</td></tr><tr><td align="left">2009-01-01</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update to 1.30</td></tr><tr><td align="left">2009-10-08</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update to 1.38 (incomplete)</td></tr></tbody></table><p class="title"><b>Table&nbsp;1.&nbsp;Document history</b></p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e84"></a>Chapter&nbsp;1.&nbsp;About jaret timebars and it's concepts</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e87">1.1. Overview</a></span></dt><dt><span class="sect1"><a href="#d4e92">1.2. Features</a></span></dt><dt><span class="sect1"><a href="#d4e111">1.3. Compatibility, platforms and status</a></span></dt><dt><span class="sect1"><a href="#d4e139">1.4. License / Dual licensing</a></span></dt></dl></div><p>
+	</p><div class="table"><a id="d4e15"></a><table summary="Document history" border="1"><colgroup><col align="left"><col align="left"><col align="left"><col></colgroup><thead><tr><th align="left">Date</th><th align="left">Status</th><th align="left">Author</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left">2007-02-18</td><td align="left">Released</td><td align="left">P. Kliem</td><td align="left">Initial release of the document</td></tr><tr><td align="left">2007-05-01</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.02 including first draft information about the timebars.addon package.</td></tr><tr><td align="left">2007-06-05</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.10 (vertical orientation, calendar example)</td></tr><tr><td align="left">2007-08-15</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.11/1.12 (variable row heights/widths)</td></tr><tr><td align="left">2007-09-16</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.13 (FancyExample, extended drawing area for intervals, licensing)</td></tr><tr><td align="left">2007-11-03</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.15 (timeline example, known bugs, externalize overlap strategy)</td></tr><tr><td align="left">2008-03-22</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.19</td></tr><tr><td align="left">2008-04-06</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update for 1.21</td></tr><tr><td align="left">2008-05-04</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update to 1.25</td></tr><tr><td align="left">2009-01-01</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update to 1.30</td></tr><tr><td align="left">2009-10-08</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update to 1.38 (incomplete)</td></tr><tr><td align="left">2013-09-17</td><td align="left">Update</td><td align="left">P. Kliem</td><td align="left">Update to 1.49 (incomplete)</td></tr></tbody></table><p class="title"><b>Table&nbsp;1.&nbsp;Document history</b></p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e89"></a>Chapter&nbsp;1.&nbsp;About jaret timebars and it's concepts</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e92">1.1. Overview</a></span></dt><dt><span class="sect1"><a href="#d4e97">1.2. Features</a></span></dt><dt><span class="sect1"><a href="#d4e116">1.3. Compatibility, platforms and status</a></span></dt><dt><span class="sect1"><a href="#d4e144">1.4. License / Dual licensing</a></span></dt></dl></div><p>
 		The jaret timebars component is a widget/component for displaying a Gantt chart. It is designed to work 
 		with the SWT toolkit and Swing. Both versions share most of the code but the SWT version is the driving force and the one
 		better supported. The Swing version may not support all features the SWT version does. 
-	</p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e87"></a>1.1.&nbsp;Overview</h2></div></div></div><p>
+	</p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e92"></a>1.1.&nbsp;Overview</h2></div></div></div><p>
 There are two viewer components (Swing and SWT) implementing an interface that is used by a delegate 
 (one for both gui toolkits) to do the specialized gui handling and the interfacing to the configured renderers. 
 The viewers make extensive use of the delegate that contains the core 
@@ -34,7 +34,7 @@ refresh actions need to be taken. When implementing a model the abstract base cl
 The viewers support transparent sorting and filtering on the model.
 The model is clean in the sense that the viewstate is not part of the model 
 (i.e. expanded/collapsed information when using a hierarchical model).
-	</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e92"></a>1.2.&nbsp;Features</h2></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
+	</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e97"></a>1.2.&nbsp;Features</h2></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
 				Follows the MVC pattern: the component visualizes and modifies all elements according to a well defined model interface.
 				Visualization does not change the model for sorting or filtering.
 
@@ -56,27 +56,27 @@ The model is clean in the sense that the viewstate is not part of the model
 				ViewstateSaver for saving the viewstate when using the timebar viewer in an eclipse RCP.
 				</p></li><li><p>
 				Region selection that can be used for zooming etc.
-				</p></li></ul></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e111"></a>1.3.&nbsp;Compatibility, platforms and status</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e113">1.3.1. Compatibility</a></span></dt><dt><span class="sect2"><a href="#d4e116">1.3.2. Platforms</a></span></dt><dt><span class="sect2"><a href="#d4e122">1.3.3. Status</a></span></dt><dt><span class="sect2"><a href="#d4e128">1.3.4. Future plans</a></span></dt></dl></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e113"></a>1.3.1.&nbsp;Compatibility</h3></div></div></div><p>
+				</p></li></ul></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e116"></a>1.3.&nbsp;Compatibility, platforms and status</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e118">1.3.1. Compatibility</a></span></dt><dt><span class="sect2"><a href="#d4e121">1.3.2. Platforms</a></span></dt><dt><span class="sect2"><a href="#d4e127">1.3.3. Status</a></span></dt><dt><span class="sect2"><a href="#d4e133">1.3.4. Future plans</a></span></dt></dl></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e118"></a>1.3.1.&nbsp;Compatibility</h3></div></div></div><p>
 		The component requires Java 5 allowing a fully typed API. It is currently developed using SWT 3.4. 
 		However no special features of SWT 3.3 or SWT 3.4 are used, so that the component should work with these earlier versions. 
-		</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e116"></a>1.3.2.&nbsp;Platforms</h3></div></div></div><p>
+		</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e121"></a>1.3.2.&nbsp;Platforms</h3></div></div></div><p>
 		As for the Swing version there is no concern what platforms are supported. For the SWT version the main development has been done
-		using Windows XP<sup>[<a id="d4e119" href="#ftn.d4e119">1</a>]</sup>. Other platforms that have been successfully tested are Linux/GTK2 and MAC OS X 10.4.5/Intel (however these
+		using Windows XP<sup>[<a id="d4e124" href="#ftn.d4e124">1</a>]</sup>. Other platforms that have been successfully tested are Linux/GTK2 and MAC OS X 10.4.5/Intel (however these
 				arte not tested on a regular basis).
 		</p><p>
 		The component is completely custom drawn, so it does not adhere to the platform it runs on.
-		</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e122"></a>1.3.3.&nbsp;Status</h3></div></div></div><p>
+		</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e127"></a>1.3.3.&nbsp;Status</h3></div></div></div><p>
 		This documentation accompanies the version 1.0 (or higher) of the timebars component. The component has not been built in a day: 
 		it's history goes back to 2004. This means it has reached a certain level of maturity and is used at some places (commercially and
 		in open projects). The future development will
 		try to be as interface stable as possible. However some changes to the interface will be necessary to support new features.
 		</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td colspan="2" align="left" valign="top"><p>
 			If you encounter any bugs or oddities, please let me know: <tt class="email">&lt;<a href="mailto:peter.kliem@jaret.de">peter.kliem@jaret.de</a>&gt;</tt>.
-		</p></td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e128"></a>1.3.4.&nbsp;Future plans</h3></div></div></div><p>
+		</p></td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e133"></a>1.3.4.&nbsp;Future plans</h3></div></div></div><p>
 					The 1.0 version marks a stable version. Future extensions will be integrated as smooth as possible. 
 					If a future feature requires really large modifications
 					in the API this will result in a second package or will include compatibility classes/interfaces.
-				</p><p>Possible future features are</p><div class="itemizedlist"><ul type="disc"><li><p>Some more utilities (i.e. relations) UPDATE: partly realized with 1.19/1.25</p></li><li><p>SWT: do a deep test on Linux/GTK and OSX</p></li><li><p>Some more support for DnD</p></li></ul></div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e139"></a>1.4.&nbsp;License / Dual licensing</h2></div></div></div><p>The jaret timebars component is generally licensed under the GNU Public License (GPL). 
+				</p><p>Possible future features are</p><div class="itemizedlist"><ul type="disc"><li><p>Some more utilities (i.e. relations) UPDATE: partly realized with 1.19/1.25</p></li><li><p>SWT: do a deep test on Linux/GTK and OSX</p></li><li><p>Some more support for DnD</p></li></ul></div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e144"></a>1.4.&nbsp;License / Dual licensing</h2></div></div></div><p>The jaret timebars component is generally licensed under the GNU Public License (GPL). 
 		If you do not want to be constrained by the GPL (rendering your product to be under the GPL when using the component)
 		you can obtain a commercial license from 
 		
@@ -91,15 +91,15 @@ Marcus&nbsp;Thyssen&nbsp;Softwareentwicklung<br>
 		</p><p>
 		As of version 1.13 an exception to the GPL allows linking the timebars component to other freely available (source code) software. See
 		the appendix for the concrete exception text.
-		</p></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a id="ftn.d4e119" href="#d4e119">1</a>] </sup>All trademarks used are property of their respective owners.</p></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e148"></a>Chapter&nbsp;2.&nbsp;Using the timebars</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e152">2.1. The quickest start</a></span></dt><dt><span class="sect1"><a href="#d4e157">2.2. General notes</a></span></dt><dt><span class="sect1"><a href="#d4e174">2.3. The model</a></span></dt><dt><span class="sect1"><a href="#d4e194">2.4. The renderers</a></span></dt><dt><span class="sect1"><a href="#d4e299">2.5. Performance</a></span></dt><dt><span class="sect1"><a href="#d4e307">2.6. Interactivity</a></span></dt><dt><span class="sect1"><a href="#d4e329">2.7. Other aspects and specials</a></span></dt><dt><span class="sect1"><a href="#d4e387">2.8. Vertical orientation</a></span></dt><dt><span class="sect1"><a href="#d4e396">2.9. Variable row heights/widths</a></span></dt></dl></div><p>
+		</p></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a id="ftn.d4e124" href="#d4e124">1</a>] </sup>All trademarks used are property of their respective owners.</p></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e153"></a>Chapter&nbsp;2.&nbsp;Using the timebars</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e157">2.1. The quickest start</a></span></dt><dt><span class="sect1"><a href="#d4e162">2.2. General notes</a></span></dt><dt><span class="sect1"><a href="#d4e179">2.3. The model</a></span></dt><dt><span class="sect1"><a href="#d4e199">2.4. The renderers</a></span></dt><dt><span class="sect1"><a href="#d4e304">2.5. Performance</a></span></dt><dt><span class="sect1"><a href="#d4e312">2.6. Interactivity</a></span></dt><dt><span class="sect1"><a href="#d4e334">2.7. Other aspects and specials</a></span></dt><dt><span class="sect1"><a href="#d4e392">2.8. Vertical orientation</a></span></dt><dt><span class="sect1"><a href="#d4e401">2.9. Variable row heights/widths</a></span></dt></dl></div><p>
   	This chapter covers the main topics of using the jaret timebars component. It is an addition to the javadocs which are a useful and up to date 
   	source for most of the API functions. So this documentation will <span class="emphasis"><em>not</em></span> cover all of the API. Most of the descriptions put the SWT version first.
-  </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e152"></a>2.1.&nbsp;The quickest start</h2></div></div></div><p>
+  </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e157"></a>2.1.&nbsp;The quickest start</h2></div></div></div><p>
 		The best way for a quick start is looking at the examples. 
     </p><div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="images/tip.png"></td><th align="left">Tip</th></tr><tr><td colspan="2" align="left" valign="top"><p>
 	Download the source distribution and set up a project (either a normal java project or a plugin project) to reference it from the project
 	you are using. In many cases it will be very handy to have the source at hand.
-	</p></td></tr></table></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e157"></a>2.2.&nbsp;General notes</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e165">2.2.1. Dependencies</a></span></dt></dl></div><p>
+	</p></td></tr></table></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e162"></a>2.2.&nbsp;General notes</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e170">2.2.1. Dependencies</a></span></dt></dl></div><p>
 		A component as complex as the timebars component naturally gets a huge interface. So you will notice a mass of methods that you might never 
 		need. Some of the complexity has been moved to the model and the renderers, rendering those more complex. And even with this huge API the 
 		semantics of an interactive Gantt chart are not universally defined.  
@@ -114,7 +114,7 @@ Marcus&nbsp;Thyssen&nbsp;Softwareentwicklung<br>
 		<tt class="code">getClientProperty("delegate")</tt> with the swing vesion. This will be possible in all future versions. For some purposes (i.e. designing
 		a custom overlap strategy) the delgate has to be used. For this reason a simple getter has been added with version 1.19. Please keep in mind that
 		the interface of the delegate need not to be stable (in fact it is quite stable). 
-    </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e165"></a>2.2.1.&nbsp;Dependencies</h3></div></div></div><p>The timebars component relies on the jaret util package (downloadable from the website). This package contains some date/time functionality heavily
+    </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e170"></a>2.2.1.&nbsp;Dependencies</h3></div></div></div><p>The timebars component relies on the jaret util package (downloadable from the website). This package contains some date/time functionality heavily
  	used by the timebars component.
  	</p><div class="caution" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Caution"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="images/caution.png"></td><th align="left">Caution</th></tr><tr><td colspan="2" align="left" valign="top"><p>
  	The <tt class="code">JaretDate</tt> is a wrapper for convenient date/time operations. The wrapper has the drawback of being a mutable type thus
@@ -125,7 +125,7 @@ Marcus&nbsp;Thyssen&nbsp;Softwareentwicklung<br>
  	</p><p>
  		The viewer interfaces and implementations in jface are about to be extended with 33M5. It might be possible that this will have an impact on 
  		future versions to get closer to some of the jface concepts.
- 	</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e174"></a>2.3.&nbsp;The model</h2></div></div></div><p>
+ 	</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e179"></a>2.3.&nbsp;The model</h2></div></div></div><p>
 		The timebar viewer is centered around the main data model: the <tt class="code">TimeBarModel</tt>. The timebar model is a flat list of 
 		<tt class="code">TimeBarRowModels</tt> containing <tt class="code">Intervals</tt>(de.jaret.util.date) that make up the elements of the gantt chart. The hierarchical model 
 		<tt class="code">HierarchicalTimeBarModel</tt> contains one <tt class="code">TimeBarNode</tt> as the root node of the tree. The nodes are an extension
@@ -146,7 +146,7 @@ Marcus&nbsp;Thyssen&nbsp;Softwareentwicklung<br>
 	or elegant. In most cases the default models will be quite useful - when it comes to a special use case you might consider to use an optimized
 	model coded for the special use case.
 </p></li></ul></div>
-		</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e194"></a>2.4.&nbsp;The renderers</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e216">2.4.1. Printing (SWT only)</a></span></dt><dt><span class="sect2"><a href="#d4e226">2.4.2. TimeBarRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e236">2.4.3. TimeBarGapRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e240">2.4.4. TimeScaleRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e260">2.4.5. HeaderRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e264">2.4.6. HierarchyRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e268">2.4.7. GridRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e277">2.4.8. TitleRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e282">2.4.9. GlobalAssistantRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e287">2.4.10. IRelationRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e291">2.4.11. IMiscRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e295">2.4.12. TimeBarMarkerRenderer</a></span></dt></dl></div><p>
+		</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e199"></a>2.4.&nbsp;The renderers</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e221">2.4.1. Printing (SWT only)</a></span></dt><dt><span class="sect2"><a href="#d4e231">2.4.2. TimeBarRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e241">2.4.3. TimeBarGapRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e245">2.4.4. TimeScaleRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e265">2.4.5. HeaderRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e269">2.4.6. HierarchyRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e273">2.4.7. GridRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e282">2.4.8. TitleRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e287">2.4.9. GlobalAssistantRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e292">2.4.10. IRelationRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e296">2.4.11. IMiscRenderer</a></span></dt><dt><span class="sect2"><a href="#d4e300">2.4.12. TimeBarMarkerRenderer</a></span></dt></dl></div><p>
     Most of the visual appearance is generated by the renderers. Renderers are used to actually paint elements of the viewer.
     The SWT renderers generally have a draw method that gets the appropriate parameters do to the rendering. Swing renderers are designed along 
     the lines of the Swing TableRenderer: they are asked for a parameterized JComponent that than is used as a stencil to draw.
@@ -172,7 +172,7 @@ Marcus&nbsp;Thyssen&nbsp;Softwareentwicklung<br>
 SWT: the GC is used for all rendering operations. So make sure that the basic properties that might have changed during rendering restored when rendering
 finished (Foreground, Background etc.).
 </p></li></ul></div>
-		</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e216"></a>2.4.1.&nbsp;Printing (SWT only)</h3></div></div></div><p>
+		</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e221"></a>2.4.1.&nbsp;Printing (SWT only)</h3></div></div></div><p>
 	The SWT version supports printing the gantt chart. Printing is done using the <tt class="code">TimeBarPrinter</tt>. When printing the setup of 
 	a TimeBarViewer including the configured renderers is copied. The renderers for printing have to be provided by the renderers itself. For
 	that purpose every renderer interface contains a factory method for creating a renderer that is capable of printing.
@@ -187,7 +187,7 @@ SWT printing support is being added to the GTK variant of SWT with version 3.3. 
 Printing on the Mac with 32M5 did not work. However this is a quite outdated version. 
 </p><p>
 Printing is not yet adapted for vertical orientation.
-</p></td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e226"></a>2.4.2.&nbsp;TimeBarRenderer</h3></div></div></div><p>
+</p></td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e231"></a>2.4.2.&nbsp;TimeBarRenderer</h3></div></div></div><p>
 	The <tt class="code">TimeBarRenderer</tt> should have been called "IntervalRenderer". This is the renderer responsible for rendering the intervals itself.
 	The default implementation just draws a gray box. The SWT version is capable of dispatching to several renderers depending on the class of the 
 	interval beeing rendered. This mechanism is superfluous (but remains for 1.0 since it does not hurt) with the possibility to register renderers 
@@ -202,28 +202,28 @@ Printing is not yet adapted for vertical orientation.
 	</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td colspan="2" align="left" valign="top"><p>
 	The extended drawing has a small impact on the performance of the timebar viewer component since more intervals have to be examined when
 	drawing. Setting <tt class="code">StrictClipTimeCheck</tt> to true will disable it.
-	</p></td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e236"></a>2.4.3.&nbsp;TimeBarGapRenderer</h3></div></div></div><p>
+	</p></td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e241"></a>2.4.3.&nbsp;TimeBarGapRenderer</h3></div></div></div><p>
 			The <tt class="code">TimeBarGapRenderer</tt> is used to render elements between intervals in a row. For SWT there is a default implementation available that is usually not set to the viewer.
 			For Swing an implementation can be found in the PDi example.
-	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e240"></a>2.4.4.&nbsp;TimeScaleRenderer</h3></div></div></div><p>
+	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e245"></a>2.4.4.&nbsp;TimeScaleRenderer</h3></div></div></div><p>
 		The <tt class="code">TimeScaleRenderer</tt> is responsible for drawing the time scale on the x axis. Care has to be taken if the scaling of the viewer is set to be variable since
 		it can quickly happen that thousands of marks are painted by a time scale renderer that does expect a certain range of the scaling. The <tt class="code">DefaultTimeScaleRenderer</tt> addresses this
 		using the helper <tt class="code">TickScaler</tt> that defines several tick intervals for different ranges of scale.
-	</p><div class="figure"><a id="d4e246"></a><div class="mediaobject"><img src="figures/defaulttimescalerenderer.png" alt="DefaultTimeScaleRenderer (german locale)"></div><p class="title"><b>Figure&nbsp;2.1.&nbsp;DefaultTimeScaleRenderer (german locale)</b></p></div><p>
+	</p><div class="figure"><a id="d4e251"></a><div class="mediaobject"><img src="figures/defaulttimescalerenderer.png" alt="DefaultTimeScaleRenderer (german locale)"></div><p class="title"><b>Figure&nbsp;2.1.&nbsp;DefaultTimeScaleRenderer (german locale)</b></p></div><p>
 		A second general purpose time scale renderer is included: the <tt class="code">BoxTimeScaleRenderer</tt>. This renderer uses a number of DateIterators (jaretutil) to determine
 		what strips of boxes to paint. The BoxTimeScaleRenderer is clearer than the default renderer.
 	</p><p>
 		The timescale can be rendered above the diagram or below the diagram. The position is set using <tt class="code">setTimeScalePosition</tt>. A universal renderer has to take care of this
 		possibility.
-	</p><div class="figure"><a id="d4e255"></a><div class="mediaobject"><img src="figures/boxtimescalerenderer.png" alt="BoxTimeScaleRenderer (german locale)"></div><p class="title"><b>Figure&nbsp;2.2.&nbsp;BoxTimeScaleRenderer (german locale)</b></p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e260"></a>2.4.5.&nbsp;HeaderRenderer</h3></div></div></div><p>
+	</p><div class="figure"><a id="d4e260"></a><div class="mediaobject"><img src="figures/boxtimescalerenderer.png" alt="BoxTimeScaleRenderer (german locale)"></div><p class="title"><b>Figure&nbsp;2.2.&nbsp;BoxTimeScaleRenderer (german locale)</b></p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e265"></a>2.4.5.&nbsp;HeaderRenderer</h3></div></div></div><p>
 		The header renderer is used to render normal header information (on the y axis). The default renderer simply renders the label provided
 		by the <tt class="code">RowHeader</tt>.
-	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e264"></a>2.4.6.&nbsp;HierarchyRenderer</h3></div></div></div><p>
+	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e269"></a>2.4.6.&nbsp;HierarchyRenderer</h3></div></div></div><p>
 		The hierarchy renderer renders the hierarchy part for a row when a hierarchical model is used. The DefaultHierarchyRenderer for SWT supports
 		drawing custom (bitmap) symbols for collapsed/expanded nodes and leaves. The label and an optional icon can be supplied 
 		by an <tt class="code">ILabelProvider</tt>. The swing version is quite plain.
 		
-	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e268"></a>2.4.7.&nbsp;GridRenderer</h3></div></div></div><p>
+	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e273"></a>2.4.7.&nbsp;GridRenderer</h3></div></div></div><p>
 			The <tt class="code">GridRenderer</tt> is used to render the background of the diagram. The default implementation uses the <tt class="code">TickScaler</tt> 
 			to determine it's 
 			steps for rendering unless a ITickScaleProvider has been configured. 
@@ -241,24 +241,24 @@ Printing is not yet adapted for vertical orientation.
 						with every extension of the abstract grid renderer. The <tt class="code">DefaultGridRenderer</tt> now uses alpha blending for
 						drawing the row selection.
 		
-	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e277"></a>2.4.8.&nbsp;TitleRenderer</h3></div></div></div><p>
+	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e282"></a>2.4.8.&nbsp;TitleRenderer</h3></div></div></div><p>
 			The <tt class="code">TitleRenderer</tt> is a simple renderer for rendering the area that is defined by the timescale height and the header/hierarchy width. The default implementation just renders
 			the title of the viewer (set by <tt class="code">setTitle</tt>) in a bigger font centered. It can be configured to use an image as the background.
-	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e282"></a>2.4.9.&nbsp;GlobalAssistantRenderer</h3></div></div></div><p>
+	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e287"></a>2.4.9.&nbsp;GlobalAssistantRenderer</h3></div></div></div><p>
 			The <tt class="code">GlobalAssistantRenderer</tt> provides the possibility to to some rendering not bound to an element in the first place. The interface contains two methods that can be used
 			for additional painting. One method will be called just before the intervals are painted, the other after the intervals have been painted. 
 			An example of the usage can be found in the <tt class="code">FancyExample</tt> rendering marks on the diagram area. 
-	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e287"></a>2.4.10.&nbsp;IRelationRenderer</h3></div></div></div><p>
+	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e292"></a>2.4.10.&nbsp;IRelationRenderer</h3></div></div></div><p>
 			The <tt class="code">IRelationRenderer</tt> is used to render relations between intervals. It is called after the grid has been painted before the
 			intervals are drawn. The relation renderer has to manage most things on its own since relation rendering can be done quite different. The
 			relation renderer is responsible for supplying a method for checking whether a position in the diagram is occupied by a relation allowing
 			the selection of relations.  
-	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e291"></a>2.4.11.&nbsp;IMiscRenderer</h3></div></div></div><p>
+	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e296"></a>2.4.11.&nbsp;IMiscRenderer</h3></div></div></div><p>
 			The <tt class="code">IMiscRenderer</tt> collects some rendering tasks for various elements. The first things it draws are the selection and the region rect. In Swing
 			it is also responsible for rendering row selections (SWT: done in the GridRenderer).  
-	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e295"></a>2.4.12.&nbsp;TimeBarMarkerRenderer</h3></div></div></div><p>
+	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e300"></a>2.4.12.&nbsp;TimeBarMarkerRenderer</h3></div></div></div><p>
 			The <tt class="code">TimeBarMarkeRenderer</tt> is used for rendering markers. The default implementations just renders a vertical line.
-	</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e299"></a>2.5.&nbsp;Performance</h2></div></div></div><p>
+	</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e304"></a>2.5.&nbsp;Performance</h2></div></div></div><p>
 		The performance is mainly driven by the speed of the renderers and the number of intervals displayed. Interactive operations on intervals
 		use the look up methods in the model to determine if an interval is in a certain region of time. So if these methods are implemented
 		imperformant that can have an impact. 	
@@ -273,7 +273,7 @@ Printing is not yet adapted for vertical orientation.
 	determing the overlap information needs some time. As of version 1.19 the default overlap strategy has been improved (thanks to Mathias Kurth). 
 	If you know your overlap patterns you can supply an optimized overlap startegy by implementing 
 	<tt class="code">IOverlapStrategy</tt>. An example of a custom overlap strategy can be found in the TimeLineExample.
-	</p></td></tr></table></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e307"></a>2.6.&nbsp;Interactivity</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e309">2.6.1. Built in manipulation of intervals</a></span></dt><dt><span class="sect2"><a href="#d4e317">2.6.2. Drag&amp;Drop</a></span></dt><dt><span class="sect2"><a href="#d4e322">2.6.3. Markers &amp; co</a></span></dt></dl></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e309"></a>2.6.1.&nbsp;Built in manipulation of intervals</h3></div></div></div><p>
+	</p></td></tr></table></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e312"></a>2.6.&nbsp;Interactivity</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e314">2.6.1. Built in manipulation of intervals</a></span></dt><dt><span class="sect2"><a href="#d4e322">2.6.2. Drag&amp;Drop</a></span></dt><dt><span class="sect2"><a href="#d4e327">2.6.3. Markers &amp; co</a></span></dt></dl></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e314"></a>2.6.1.&nbsp;Built in manipulation of intervals</h3></div></div></div><p>
 		The timebar viewer supports resizing and dragging of intervals as built in functions. Which intervals can be modified is controlled by 
 		possibly more than one <tt class="code">IntervalModificator</tt>. This interface defines controlling methods to allow/disallow resizing and dragging
 		of intervals. Additionally it provides the possibility to define a grid snap for the internal modifications.
@@ -287,7 +287,7 @@ Printing is not yet adapted for vertical orientation.
 		Manipulation of intervals using the built in interactivity features directly manipulate the model objects. This is very appropriate if you have other elements reacting on changes in the model.
 		However if you have other observers registered to your model that do operations that take some time it can become quite unresponsive depending on the other observers. If this is the case you
 		might consider layering the model or use drag&amp;drop for manipulations, doing the real model change only in case of a drop.
-	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e317"></a>2.6.2.&nbsp;Drag&amp;Drop</h3></div></div></div><p>
+	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e322"></a>2.6.2.&nbsp;Drag&amp;Drop</h3></div></div></div><p>
 				SWT: The built in manipulation is a direct concurrency to the drag&amp;drop functionality of the underlying OS. In the SWT version there is no built in functionality for 
 				handling dnd. The decision not to include functionality was made because there are uncountable variants of using dnd with a component like the timebar viewer. However
 				to support dnd the possibility to render "ghosted" intervals and rows has been added. The remaining functionality has to be implemented outside the viewer component. An exmaple showing
@@ -295,25 +295,25 @@ Printing is not yet adapted for vertical orientation.
 	</p><p>
 				Swing: Drag&amp;Drop can be adapted. See the EventMonitorExample for a simple implementation. 
 			
-	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e322"></a>2.6.3.&nbsp;Markers &amp; co</h3></div></div></div><p>
+	</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e327"></a>2.6.3.&nbsp;Markers &amp; co</h3></div></div></div><p>
 				<tt class="code">TimebarMarkers</tt> are vertically rendered points in time for marking. They can be dragged in the area of the time scale. 
 		The selection is controlled by the selection delta. Markers are rendered by the <tt class="code">TimeBarMarkerRenderer</tt>.
 	</p><p>
 		The y axis of the chart is composed of the hierarchy area (when using a hierarchical model) and the header area (or y axis area) for
 		normal row headers. The widths of the areas can be set using the appropriate setters. If allowed (<tt class="code">setLineDarggingAllowed</tt>)
 		the limiting lines can be dragged by the user allowing adaption to the use case without further programming.
-	</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e329"></a>2.7.&nbsp;Other aspects and specials</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e332">2.7.1. Keyboard control</a></span></dt><dt><span class="sect2"><a href="#d4e335">2.7.2. Filtering &amp; sorting</a></span></dt><dt><span class="sect2"><a href="#d4e342">2.7.3. Listeners</a></span></dt><dt><span class="sect2"><a href="#d4e349">2.7.4. TimeBarViewerSynchronizer</a></span></dt><dt><span class="sect2"><a href="#d4e353">2.7.5. Internationalisation</a></span></dt><dt><span class="sect2"><a href="#d4e356">2.7.6. Millisecond accuracy</a></span></dt><dt><span class="sect2"><a href="#d4e360">2.7.7. Variable time scale</a></span></dt><dt><span class="sect2"><a href="#d4e370">2.7.8. Context menus</a></span></dt><dt><span class="sect2"><a href="#d4e373">2.7.9. SWT: actions</a></span></dt><dt><span class="sect2"><a href="#d4e378">2.7.10. ISelectionProvider</a></span></dt><dt><span class="sect2"><a href="#d4e383">2.7.11. Region selection</a></span></dt></dl></div><p>
+	</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e334"></a>2.7.&nbsp;Other aspects and specials</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e337">2.7.1. Keyboard control</a></span></dt><dt><span class="sect2"><a href="#d4e340">2.7.2. Filtering &amp; sorting</a></span></dt><dt><span class="sect2"><a href="#d4e347">2.7.3. Listeners</a></span></dt><dt><span class="sect2"><a href="#d4e354">2.7.4. TimeBarViewerSynchronizer</a></span></dt><dt><span class="sect2"><a href="#d4e358">2.7.5. Internationalisation</a></span></dt><dt><span class="sect2"><a href="#d4e361">2.7.6. Millisecond accuracy</a></span></dt><dt><span class="sect2"><a href="#d4e365">2.7.7. Variable time scale</a></span></dt><dt><span class="sect2"><a href="#d4e375">2.7.8. Context menus</a></span></dt><dt><span class="sect2"><a href="#d4e378">2.7.9. SWT: actions</a></span></dt><dt><span class="sect2"><a href="#d4e383">2.7.10. ISelectionProvider</a></span></dt><dt><span class="sect2"><a href="#d4e388">2.7.11. Region selection</a></span></dt></dl></div><p>
 		This section collects some other aspects well worth beeing mentioned.
-	</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e332"></a>2.7.1.&nbsp;Keyboard control</h3></div></div></div><p>
+	</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e337"></a>2.7.1.&nbsp;Keyboard control</h3></div></div></div><p>
 The SWT version defines some keybindings. The bindings are documented in the javadoc of the TimeBarViewer. If there is the need to change the key bindings currently the only way is
 to edit the source. Keyboard control for the Swing version is pending.
-</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e335"></a>2.7.2.&nbsp;Filtering &amp; sorting</h3></div></div></div><p>
+</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e340"></a>2.7.2.&nbsp;Filtering &amp; sorting</h3></div></div></div><p>
 The timebar viewer supports sorting of the rows by setting a <tt class="code">TimeBarRowSorter</tt>. The sorting is done only for the view. The model remains untouched. Filtering of the rows
 in the timebar viewer can be achieved by setting a <tt class="code">TimeBarRowFilter</tt>. The filtering does not modify the model. When applying a row filter an/or sorter to a hierarchical model
 be aware that filtering/sorting will not take the hierarchy into account unless you code the implementations to do so.
 </p><p>
 Intervals can be filtered as well. To do so a <tt class="code">TimeBarIntervalFilter</tt> can be set.
-</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e342"></a>2.7.3.&nbsp;Listeners</h3></div></div></div><p>
+</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e347"></a>2.7.3.&nbsp;Listeners</h3></div></div></div><p>
 	Besides the listeners that can be registered with the model there are some more listeners that can be attached to the tiebar viewer:
 	<div class="itemizedlist"><ul type="disc"><li>
 		FocussedIntervalListener: invoked whenever the focussed interval changed
@@ -322,18 +322,18 @@ Intervals can be filtered as well. To do so a <tt class="code">TimeBarIntervalFi
 	</li><li>
 		ITimeBarChangeListener: invoked whenever changes on intervals are ongoing.
 	</li></ul></div>
-</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e349"></a>2.7.4.&nbsp;TimeBarViewerSynchronizer</h3></div></div></div><p>
+</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e354"></a>2.7.4.&nbsp;TimeBarViewerSynchronizer</h3></div></div></div><p>
 The <tt class="code">TimeBarViewerSynchronizer</tt> can be used to synchronize two or more viewers concerning scale, rowheight and/or start date. This can be quite useful when showing 
 different models on the same time scale.
-</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e353"></a>2.7.5.&nbsp;Internationalisation</h3></div></div></div><p>
+</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e358"></a>2.7.5.&nbsp;Internationalisation</h3></div></div></div><p>
 The timebar viewer itself does not contain any parts that have to be localized. The default renderers do adapt to the default locale. In the examples there are some localizations
 done for demonstrating purposes (mainly GridRenderer and TimeScaleRenderer getting a localized HolidayEnumerator for rendering holidays in different colors and show an appropriate
 tooltip. The actions in the util package have no support for localization; if needed they have to be modified. In some of the early examples you will stumble upon german comments and class names. This 
 will hopefully not hurt.
-</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e356"></a>2.7.6.&nbsp;Millisecond accuracy</h3></div></div></div><p>
+</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e361"></a>2.7.6.&nbsp;Millisecond accuracy</h3></div></div></div><p>
 The targeted use of the timebar viewer have always been intervals in a range from seconds up to weeks. So the horizontal scrollbar operates on seconds giving the possibility to scroll through roughly 68 years if the underlying platform supports full integer values for the scroll bar. If you set the viewer to millisecond accuracy (<tt class="code">setMilliAccuracy(true)</tt>) the scroll bar will operate on
 milliseconds, resulting in a possible range of roughly 24 days.
-</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e360"></a>2.7.7.&nbsp;Variable time scale</h3></div></div></div><p>
+</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e365"></a>2.7.7.&nbsp;Variable time scale</h3></div></div></div><p>
 The timebar viewer has been designed with the idea of a fixed timescale. However if there is the need to display events on a timescale where the length of the intervals is very small compared to the
  distance between them it can be quite handy to change the scale on the x axis for regions. This will also allow a magnify function in the viewer. The solution for this is the possibility to change the
  scaling by adding special intervals holding a pixel per second value to the viewer. The mechanism reuses the concept of the timebar row to hold the special intervals making it possible to
@@ -349,20 +349,20 @@ of unnecessary painting making the viewer slow. In the MilliExample the grid and
 </p></td></tr></table></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td colspan="2" align="left" valign="top"><p>
 When the PPS intervals displayed in the timebar viewer that they manipulate and are changed there by dragging or resizing some operations are doomed to panic since all the basic values change
 while being used for calculations.
-</p></td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e370"></a>2.7.8.&nbsp;Context menus</h3></div></div></div><p>
+</p></td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e375"></a>2.7.8.&nbsp;Context menus</h3></div></div></div><p>
 SWT/Swing: The timebar viewer supports setting context menus on the different areas. For rows and intervals a delegate can decide to show different menus for 
 different implementations of the 
 model elements.
-</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e373"></a>2.7.9.&nbsp;SWT: actions</h3></div></div></div><p>
+</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e378"></a>2.7.9.&nbsp;SWT: actions</h3></div></div></div><p>
 The SWT version contains some actions that can be used with the timebar viewer. These are quite simple and can be found in the util.actions package of the distribution.
-</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td colspan="2" align="left" valign="top"><p>These actions might be moved to a separate addon plugin in the future. They have no support for localization; texts are in english.</p></td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e378"></a>2.7.10.&nbsp;ISelectionProvider</h3></div></div></div><p>
+</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td colspan="2" align="left" valign="top"><p>These actions might be moved to a separate addon plugin in the future. They have no support for localization; texts are in english.</p></td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e383"></a>2.7.10.&nbsp;ISelectionProvider</h3></div></div></div><p>
 The SWT version of the timebar viewer implements the <tt class="code">ISelectionProvider</tt> from the JFace viewer package to allow easy integration in eclipse RCP environments.
 </p><p>
 Future versions might adopt the currently changing viewer API in JFace.
-</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e383"></a>2.7.11.&nbsp;Region selection</h3></div></div></div><p>
+</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e388"></a>2.7.11.&nbsp;Region selection</h3></div></div></div><p>
 The viewer supports a selected region (opposed to the rectangle used to select many intervals). It has to be enabled (<tt class="code">setRegionRectEnable</tt>).
 A region is selected by shift-click-drag and remains in plave unless it is cleared (clearRegionRect). The painting is done by the IMiscRenderer.
-</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e387"></a>2.8.&nbsp;Vertical orientation</h2></div></div></div><p>
+</p></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e392"></a>2.8.&nbsp;Vertical orientation</h2></div></div></div><p>
 The normal orientation for a gantt chart is horizontal. The  timebars component does support vertical orientation for special cases where a 
 vertical orientation might be useful. The orientation can be swichted using <tt class="code">setOrientation</tt>.  
 </p><p>
@@ -373,7 +373,7 @@ has to be interpreted as "setYAxisHeight" when using vertical orientation. See t
 Renderers have to support vertical orientation. Most of the default renderers do support vertical orientation.
 </p></td></tr></table></div><p>
 For an example that uses vertical orientation see the calendar example.
-</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e396"></a>2.9.&nbsp;Variable row heights/widths</h2></div></div></div><p>
+</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e401"></a>2.9.&nbsp;Variable row heights/widths</h2></div></div></div><p>
 Since version 1.12 the timebar viewer supports variable sized rows (or columns if oriented vertical). This behaviour has to be activated (getTimeBarViewstate().setUseVariableRowHeights(flag)).
 If it is the row height/width can be set on the viewstate. The row heights can also be calculated by a strategy (implement <tt class="code">IRowHeightStaretgy</tt>, set it on the viewstate). 
 This makes it possible to resize rows of a certain type or those with a lot of overlapping intervals.
@@ -384,15 +384,15 @@ x axis area and the hierarchy area.
 Using variable row heights/widths has an impact on performance if very large numbers of rows are used in the model.
 </p></td></tr></table></div><p>
 Variable row heights/widths do not work together with row scaling (scale rows so that a fixed number or rows is always displayed).
-</p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e404"></a>Chapter&nbsp;3.&nbsp;Addon package</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e407">3.1. The ViewStateSaver</a></span></dt><dt><span class="sect1"><a href="#d4e413">3.2. The TableTimeBarSynchronizer</a></span></dt></dl></div><p>
+</p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e409"></a>Chapter&nbsp;3.&nbsp;Addon package</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e412">3.1. The ViewStateSaver</a></span></dt><dt><span class="sect1"><a href="#d4e418">3.2. The TableTimeBarSynchronizer</a></span></dt></dl></div><p>
 This chapter comments on the timebars.addon package. The package contains some utilities that should be kept seperate
 because they introduce more dependencies on the timebars component.  Please consult the javadoc of the classes for detailed information.
-   </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e407"></a>3.1.&nbsp;The ViewStateSaver</h2></div></div></div></div><p>The viewstate saver is a useful tool for saving viewstate information in an <tt class="code">IMemento</tt> when using the timebars component in an
+   </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e412"></a>3.1.&nbsp;The ViewStateSaver</h2></div></div></div></div><p>The viewstate saver is a useful tool for saving viewstate information in an <tt class="code">IMemento</tt> when using the timebars component in an
 Eclipse RCP application. It saves most of the viewstate infomation like collapsed/expanded information on hierarchical models the scroll position
 and so on.
 </p><p>
 The viewstate saver requires a <tt class="code">IHierarchyIdService</tt> for identifying the nodes.
-</p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e413"></a>3.2.&nbsp;The TableTimeBarSynchronizer</h2></div></div></div><p>
+</p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e418"></a>3.2.&nbsp;The TableTimeBarSynchronizer</h2></div></div></div><p>
 The timebarviewer itself does not support displaying tabular data beside the gantt display. It is possible to do a custom rendered, passive table 
 using a customized header renderer. This will not be sufficient for more complex tabular data.
 </p><p>
@@ -404,28 +404,32 @@ Selection will be synchronized on row level. For flat (non hierarchical models) 
 table towards the timebar viewer.
 </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td colspan="2" align="left" valign="top"><p>
 The synchronizer does not support vertical orientation of the timebar viewer.
-</p></td></tr></table></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e420"></a>Chapter&nbsp;4.&nbsp;Some solutions and details</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e423">4.1. Time resolution</a></span></dt><dt><span class="sect1"><a href="#d4e429">4.2. Daylight saving time (DST)</a></span></dt></dl></div><p>
+</p></td></tr></table></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e425"></a>Chapter&nbsp;4.&nbsp;Some solutions and details</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e428">4.1. Time resolution</a></span></dt><dt><span class="sect1"><a href="#d4e435">4.2. Daylight saving time (DST)</a></span></dt></dl></div><p>
   This chapter lists some solutions for common and not so common requirements that may or may not have been covered in the previous chapters.
-   </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e423"></a>4.1.&nbsp;Time resolution</h2></div></div></div><p>
-			The usual time resolution the timebar viewer operates in is seconds. This will work for most use cases and leads to a scrollable time of approximately
-			68 years (the scrollbar value is used directly by the viewer and is 32 bit signed). However for some
+   </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e428"></a>4.1.&nbsp;Time resolution</h2></div></div></div><p>
+			The usual time resolution the timebar viewer operates in is seconds. This will work for most use cases and leads to a second accurate scrollable time of approximately
+			68 years (the scrollbar value is used directly by the viewer and is 32 bit signed). If the model range exceeds the directly scrollable range the range is extended 
+			by a factor, leading to lower scrolling resolution but allows for huge ranges. However for some
 			scientific visualization a higher resolution is required. The viewer supports millisecond accuracy. This can easily be enabled 
-			(<tt class="code">setMilliAccuracy(boolean milliAccuracy)</tt>). The scrolling range will be approximately 24 days.
+			(<tt class="code">setMilliAccuracy(boolean milliAccuracy)</tt>). The millisecond accurate scrolling range will be approximately 24 days. If the range is exceeded the scrolling is extended by reducing the resolution.
 		</p><p>
 			A higher time resolution can be  by doing a custom implementation of the <tt class="code">Interval</tt> interface, adding getters and setters for your 
 			time format (supposing you have a special time object since the java.util.Date does not support more than milliseconds). You than do the scaling to milliseconds 
 			in the implementation of the interval. The only thing to be tweaked with time bar viewer is the rendering of the intervals and the rendering of the timescale.  
-		</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e429"></a>4.2.&nbsp;Daylight saving time (DST)</h2></div></div></div><p>
+		</p><p>
+		    Due to the limitations of the underlying java.util.Date dates before 1.1.1970 will not work out of the box. To enable the timebars for dates before 1970 
+		    the workaround would be a projection of the dates on dates after 1970. Maybe a simple shift would do. Than the timebars would work perfectly ... just the renderers need to do the backwards projection.
+		</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e435"></a>4.2.&nbsp;Daylight saving time (DST)</h2></div></div></div><p>
 			The viewer operates on the basis of a java.util.Date wrapped in a JaretDate. In the basis (milliseconds since 1/1/1970) this is not affected by DST.
 			DST is done by the TimeZone and will be seen when a date is rendered readable by means of date formatting.
 		</p><p>
 			In the timebars DST mainly affects the time scale rendering. The default renderer and the BoxTimeScaleRenderer can be configured to do a DST
 			correction. This will not be perfect as the ticks are shifted around the DST switch.
-		</p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e433"></a>Chapter&nbsp;5.&nbsp;Examples</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e436">5.1. Hierarchy</a></span></dt><dt><span class="sect1"><a href="#d4e446">5.2. Overlapping intervals and DND</a></span></dt><dt><span class="sect1"><a href="#d4e455">5.3. calendar example</a></span></dt><dt><span class="sect1"><a href="#d4e466">5.4. fancy example</a></span></dt><dt><span class="sect1"><a href="#d4e504">5.5. timeline example</a></span></dt><dt><span class="sect1"><a href="#d4e513">5.6. EventMonitor example</a></span></dt><dt><span class="sect1"><a href="#d4e529">5.7. Linechart example</a></span></dt></dl></div><p>
+		</p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e439"></a>Chapter&nbsp;5.&nbsp;Examples</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e442">5.1. Hierarchy</a></span></dt><dt><span class="sect1"><a href="#d4e452">5.2. Overlapping intervals and DND</a></span></dt><dt><span class="sect1"><a href="#d4e461">5.3. calendar example</a></span></dt><dt><span class="sect1"><a href="#d4e472">5.4. fancy example</a></span></dt><dt><span class="sect1"><a href="#d4e510">5.5. timeline example</a></span></dt><dt><span class="sect1"><a href="#d4e519">5.6. EventMonitor example</a></span></dt><dt><span class="sect1"><a href="#d4e535">5.7. Linechart example</a></span></dt></dl></div><p>
   This chapter comments on some of the examples that are supplied in the the source download of the jaret timebars. Other comments on the examples can be found on the website.
-   </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e436"></a>5.1.&nbsp;Hierarchy</h2></div></div></div><p>
+   </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e442"></a>5.1.&nbsp;Hierarchy</h2></div></div></div><p>
 		There are examples demonstrating the use of a hierarchical models for swing and SWT.
-    </p><div class="figure"><a id="d4e439"></a><div class="mediaobject"><img src="figures/swt_hierarchy.png" alt="SWT timebars (1.0) showing a hierarchy"></div><p class="title"><b>Figure&nbsp;5.1.&nbsp;SWT timebars (1.0) showing a hierarchy</b></p></div><p>
+    </p><div class="figure"><a id="d4e445"></a><div class="mediaobject"><img src="figures/swt_hierarchy.png" alt="SWT timebars (1.0) showing a hierarchy"></div><p class="title"><b>Figure&nbsp;5.1.&nbsp;SWT timebars (1.0) showing a hierarchy</b></p></div><p>
 Simple hierarchical view (SWT version). Scaling, manipulating the intervals, tree structure. The sum interval
 is rendered by a specialized sum renderer. The arrows between the intervals are a demonstration of the use of relations. 
 Context menus on scale and hierarchy. Hierarchy using label provider including icons. A marker has been added. The y axis width is set to zero 
@@ -433,7 +437,7 @@ leaving only the hierarchy area visible.
 </p><p>
 Can be switched (check the source code) to demonstrate variable xscale scaling. If enabled a row containing intervals determining regions of
 different scaling is shown as the last row. The pps intervals can be manipulated.   
-</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e446"></a>5.2.&nbsp;Overlapping intervals and DND</h2></div></div></div><div class="figure"><a id="d4e448"></a><div class="mediaobject"><img src="figures/overlap.png" alt="Non overlapping with drag in progress"></div><p class="title"><b>Figure&nbsp;5.2.&nbsp;Non overlapping with drag in progress</b></p></div><p>
+</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e452"></a>5.2.&nbsp;Overlapping intervals and DND</h2></div></div></div><div class="figure"><a id="d4e454"></a><div class="mediaobject"><img src="figures/overlap.png" alt="Non overlapping with drag in progress"></div><p class="title"><b>Figure&nbsp;5.2.&nbsp;Non overlapping with drag in progress</b></p></div><p>
 This example demonstrates the handling of overlapping intervals if drawOverlapping is false. Every interval will only get
 a fraction of the row space for rendering. Renderer is the simple default renderer. Possibility to change the intervals (dragging, resizing).
 Possibility to change the scale. Printing possibility. Other renderers: default.
@@ -441,45 +445,45 @@ Possibility to change the scale. Printing possibility. Other renderers: default.
 The example also contains an example of defining a drag source and a drop target on the timebar viewer. The majority of the functionality
 is implemented outside the timebar viewer. This takes into account, that there are many possibilities to define the semantics
 of drag and drop.
-</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e455"></a>5.3.&nbsp;calendar example</h2></div></div></div><p>
+</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e461"></a>5.3.&nbsp;calendar example</h2></div></div></div><p>
 The calendar exmple (de.jaret.examples.timebars.calendar) uses the vertical orientation to display an outlook-like day calendar where each day is presented in a vertical timebar row. The intervals used in the model project all appointments to the same day  thus they are drawn right beside each other if they overlap in time.
-</p><div class="figure"><a id="d4e458"></a><div class="mediaobject"><img src="figures/swtcalendar.png" alt="Calendar example (SWT version)"></div><p class="title"><b>Figure&nbsp;5.3.&nbsp;Calendar example (SWT version)</b></p></div><p>
+</p><div class="figure"><a id="d4e464"></a><div class="mediaobject"><img src="figures/swtcalendar.png" alt="Calendar example (SWT version)"></div><p class="title"><b>Figure&nbsp;5.3.&nbsp;Calendar example (SWT version)</b></p></div><p>
 The variable time scale feature can be used to compress non working time in the calendar display. An interval modificator makes sure that intervals can not be extended over day boundaries.
 </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td colspan="2" align="left" valign="top"><p>
 The calendar example is the base for the jaret calendar plugin for eclipse that connects to the google calendar. 
 The jaret calendar will be published (soon) on xpmp.de. 
-</p></td></tr></table></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e466"></a>5.4.&nbsp;fancy example</h2></div></div></div><p>
+</p></td></tr></table></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e472"></a>5.4.&nbsp;fancy example</h2></div></div></div><p>
 The FancyExample (SWT only) demonstrates some techniques for advanced drawing. This includes drawing outside the bounds of the rectangle given by the 
 begin and end timestamps of an interval.
-</p><div class="figure"><a id="d4e469"></a><div class="mediaobject"><img src="figures/fancy1.png" alt="FancyExample (SWT, Version 1.13, no effects)"></div><p class="title"><b>Figure&nbsp;5.4.&nbsp;FancyExample (SWT, Version 1.13, no effects)</b></p></div><p>
+</p><div class="figure"><a id="d4e475"></a><div class="mediaobject"><img src="figures/fancy1.png" alt="FancyExample (SWT, Version 1.13, no effects)"></div><p class="title"><b>Figure&nbsp;5.4.&nbsp;FancyExample (SWT, Version 1.13, no effects)</b></p></div><p>
 The examples demonstrates the use of the TimeBarRenderer2 interface that adds a method to calculate the preferred size for rendering to the
 old renderer interface. This open the opportunity for the renderer to request for more unclipped space when rendering. The FancyRenderer just
 adds label right to the rendered interval area. The FancyEventRenderer draws a single point in time as a diamond plus an additional label.
-</p><div class="figure"><a id="d4e475"></a><div class="mediaobject"><img src="figures/fancy2.png" alt="FancyExample (SWT, Version 1.13, drop shadow)"></div><p class="title"><b>Figure&nbsp;5.5.&nbsp;FancyExample (SWT, Version 1.13, drop shadow)</b></p></div><p>
+</p><div class="figure"><a id="d4e481"></a><div class="mediaobject"><img src="figures/fancy2.png" alt="FancyExample (SWT, Version 1.13, drop shadow)"></div><p class="title"><b>Figure&nbsp;5.5.&nbsp;FancyExample (SWT, Version 1.13, drop shadow)</b></p></div><p>
 The FancyIntervalRenderer can be parameterized to draw a drop shadow for the intervals. The method to draw the drop shadow has been
 taken from the article by Nicholas Rajendram, IBM Canada, see 
 <a href="http://www.eclipse.org/articles/article.php?file=Article-SimpleImageEffectsForSWT/index.html" target="_top">
 <i class="citetitle">http://www.eclipse.org/articles/article.php?file=Article-SimpleImageEffectsForSWT/index.html</i></a>.
-</p><div class="figure"><a id="d4e483"></a><div class="mediaobject"><img src="figures/fancy3.png" alt="FancyExample (SWT, Version 1.13, reflection)"></div><p class="title"><b>Figure&nbsp;5.6.&nbsp;FancyExample (SWT, Version 1.13, reflection)</b></p></div><p>
+</p><div class="figure"><a id="d4e489"></a><div class="mediaobject"><img src="figures/fancy3.png" alt="FancyExample (SWT, Version 1.13, reflection)"></div><p class="title"><b>Figure&nbsp;5.6.&nbsp;FancyExample (SWT, Version 1.13, reflection)</b></p></div><p>
 The FancyIntervalRenderer can be parameterized to draw a reflection of the rendered interval. The idea was taken from Daniel Spiewak: see
 <a href="http://www.eclipsezone.com/eclipse/forums/t91013.html?start=0" target="_top">
 <i class="citetitle">http://www.eclipsezone.com/eclipse/forums/t91013.html?start=0</i></a>.
-</p><div class="figure"><a id="d4e491"></a><div class="mediaobject"><img src="figures/fancy4.png" alt="FancyExample (SWT, Version 1.13): global rendering before interval rendering"></div><p class="title"><b>Figure&nbsp;5.7.&nbsp;FancyExample (SWT, Version 1.13): global rendering before interval rendering</b></p></div><div class="figure"><a id="d4e496"></a><div class="mediaobject"><img src="figures/fancy5.png" alt="FancyExample (SWT, Version 1.13): global rendering after interval rendering"></div><p class="title"><b>Figure&nbsp;5.8.&nbsp;FancyExample (SWT, Version 1.13): global rendering after interval rendering</b></p></div><p>
+</p><div class="figure"><a id="d4e497"></a><div class="mediaobject"><img src="figures/fancy4.png" alt="FancyExample (SWT, Version 1.13): global rendering before interval rendering"></div><p class="title"><b>Figure&nbsp;5.7.&nbsp;FancyExample (SWT, Version 1.13): global rendering before interval rendering</b></p></div><div class="figure"><a id="d4e502"></a><div class="mediaobject"><img src="figures/fancy5.png" alt="FancyExample (SWT, Version 1.13): global rendering after interval rendering"></div><p class="title"><b>Figure&nbsp;5.8.&nbsp;FancyExample (SWT, Version 1.13): global rendering after interval rendering</b></p></div><p>
 The example also demonstrates the use of a GloablAssistentRenderer to render a history of moved fancy intervals by drawing an alpha shaded
 background before the intervals are painted and by drawing a special selection mark after the intervals have been painted.
 </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td colspan="2" align="left" valign="top"><p>
 The additional effects are not performance optimized and might cause quite a bit of cpu time consumption.
-</p></td></tr></table></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e504"></a>5.5.&nbsp;timeline example</h2></div></div></div><p>
+</p></td></tr></table></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e510"></a>5.5.&nbsp;timeline example</h2></div></div></div><p>
 The timeline example is inspired by the SIMILE timeline (http://simile.mit.edu/timeline/). It features two time bar viewers rendering
 the same model in different scales. The viewers are coupled so that scrolling is reflected in the other viewer. Scrolling can be done
 by dragging in the viewer and the time scale. Rendering has been adapted for the different scales.
-</p><div class="figure"><a id="d4e507"></a><div class="mediaobject"><img src="figures/timeline.png" alt="Timeline example"></div><p class="title"><b>Figure&nbsp;5.9.&nbsp;Timeline example</b></p></div><p>
+</p><div class="figure"><a id="d4e513"></a><div class="mediaobject"><img src="figures/timeline.png" alt="Timeline example"></div><p class="title"><b>Figure&nbsp;5.9.&nbsp;Timeline example</b></p></div><p>
 The timline example makes use of an externalized overlap strategy that simply distributes the events that are all stored in a single time bar row
 over a number of virtual rows without further checks. It also uses a row height strategy to keep the one row always as high as the
 diagram area available.
-</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e513"></a>5.6.&nbsp;EventMonitor example</h2></div></div></div><p>
+</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e519"></a>5.6.&nbsp;EventMonitor example</h2></div></div></div><p>
 The event monitor is showing immutable events in several streams.
-</p><div class="figure"><a id="d4e516"></a><div class="mediaobject"><img src="figures/eventmonitor.png" alt="EventMonitor example"></div><p class="title"><b>Figure&nbsp;5.10.&nbsp;EventMonitor example</b></p></div><p>
+</p><div class="figure"><a id="d4e522"></a><div class="mediaobject"><img src="figures/eventmonitor.png" alt="EventMonitor example"></div><p class="title"><b>Figure&nbsp;5.10.&nbsp;EventMonitor example</b></p></div><p>
 The event monitor example is a swing example showing severl techniques:
 	<div class="itemizedlist"><ul type="disc"><li>
 			Region selection and atached zoom action	
@@ -494,23 +498,127 @@ The event monitor example is a swing example showing severl techniques:
 		</li><li>
 			simple DND application for Swing (Drag intervals/rows out of the renderer)
 		</li></ul></div>
-</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e529"></a>5.7.&nbsp;Linechart example</h2></div></div></div><p>
+</p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e535"></a>5.7.&nbsp;Linechart example</h2></div></div></div><p>
 Since all rndering is based on the timescale it is quite easy to use the timebars to visualize other time related data like a linechart. The
 rendering is done inside one interval, so it can mixed with a gantt chart and can be synchronized to a gantt chart
 using a synchronizer.
-</p><div class="figure"><a id="d4e532"></a><div class="mediaobject"><img src="figures/linechart.png" alt="LineChart example"></div><p class="title"><b>Figure&nbsp;5.11.&nbsp;LineChart example</b></p></div><p>
-</p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e538"></a>Chapter&nbsp;6.&nbsp;Appendix</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e540">6.1. Known bugs and limitations</a></span></dt><dt><span class="sect1"><a href="#d4e551">6.2. Changelog since version 1.0</a></span></dt><dt><span class="sect1"><a href="#d4e799">6.3. Licenses</a></span></dt></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e540"></a>6.1.&nbsp;Known bugs and limitations</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e546">6.1.1. Linux/GTK</a></span></dt></dl></div><p>
+</p><div class="figure"><a id="d4e538"></a><div class="mediaobject"><img src="figures/linechart.png" alt="LineChart example"></div><p class="title"><b>Figure&nbsp;5.11.&nbsp;LineChart example</b></p></div><p>
+</p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d4e544"></a>Chapter&nbsp;6.&nbsp;Appendix</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d4e546">6.1. Known bugs and limitations</a></span></dt><dt><span class="sect1"><a href="#d4e557">6.2. Changelog since version 1.0</a></span></dt><dt><span class="sect1"><a href="#d4e887">6.3. Licenses</a></span></dt></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e546"></a>6.1.&nbsp;Known bugs and limitations</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e552">6.1.1. Linux/GTK</a></span></dt></dl></div><p>
 		This section covers some known problems on different platforms.
 		</p><div class="itemizedlist"><ul type="disc"><li><p>
 	When using models that span a large time optimized scrolling fails. Simple workaround: setOptimizedScrolling(false). The cause is an
 	integer overflow.
-</p></li></ul></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e546"></a>6.1.1.&nbsp;Linux/GTK</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
+</p></li></ul></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e552"></a>6.1.1.&nbsp;Linux/GTK</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
 				For some weird reason ghost intervals can not be painted if a highlighted row is painted using transparency. Solution: The highlighting
 				of a row will be done with alpha=100 when ghosted intervals or rows are present and the platform is gtk.
 
-</p></li></ul></div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e551"></a>6.2.&nbsp;Changelog since version 1.0</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e554">6.2.1. 2009-09-23 version 1.38</a></span></dt><dt><span class="sect2"><a href="#d4e563">6.2.2. 2009-09-03 version 1.37</a></span></dt><dt><span class="sect2"><a href="#d4e568">6.2.3. 2009-08-17 version 1.36</a></span></dt><dt><span class="sect2"><a href="#d4e576">6.2.4. 2009-06-23 version 1.35</a></span></dt><dt><span class="sect2"><a href="#d4e581">6.2.5. 2009-05-20 version 1.34</a></span></dt><dt><span class="sect2"><a href="#d4e585">6.2.6. 2009-05-07 version 1.33</a></span></dt><dt><span class="sect2"><a href="#d4e592">6.2.7. 2009-02-22 version 1.32</a></span></dt><dt><span class="sect2"><a href="#d4e605">6.2.8. 2009-01-11 version 1.31</a></span></dt><dt><span class="sect2"><a href="#d4e610">6.2.9. 2009-01-01 version 1.30</a></span></dt><dt><span class="sect2"><a href="#d4e638">6.2.10. 2008-11-08 version 1.29</a></span></dt><dt><span class="sect2"><a href="#d4e645">6.2.11. 2008-09-20 version 1.28</a></span></dt><dt><span class="sect2"><a href="#d4e651">6.2.12. 2008-08-19 version 1.27 (not published)</a></span></dt><dt><span class="sect2"><a href="#d4e655">6.2.13. 2008-06-22 version 1.26</a></span></dt><dt><span class="sect2"><a href="#d4e661">6.2.14. 2008-05-29 version 1.251</a></span></dt><dt><span class="sect2"><a href="#d4e665">6.2.15. 2008-05-04 version 1.25</a></span></dt><dt><span class="sect2"><a href="#d4e670">6.2.16. 2008-04-25 version 1.24</a></span></dt><dt><span class="sect2"><a href="#d4e676">6.2.17. 2008-04-17 version 1.23</a></span></dt><dt><span class="sect2"><a href="#d4e680">6.2.18. 2008-04-12 version 1.22</a></span></dt><dt><span class="sect2"><a href="#d4e684">6.2.19. 2008-04-06 version 1.21</a></span></dt><dt><span class="sect2"><a href="#d4e689">6.2.20. 2008-03-30 version 1.20</a></span></dt><dt><span class="sect2"><a href="#d4e695">6.2.21. 2008-03-22 version 1.19</a></span></dt><dt><span class="sect2"><a href="#d4e702">6.2.22. 12/27/2007 version 1.18</a></span></dt><dt><span class="sect2"><a href="#d4e707">6.2.23. 12/22/2007 version 1.17</a></span></dt><dt><span class="sect2"><a href="#d4e713">6.2.24. 11/20/2007 version 1.16</a></span></dt><dt><span class="sect2"><a href="#d4e718">6.2.25. 11/03/2007 version 1.15</a></span></dt><dt><span class="sect2"><a href="#d4e730">6.2.26. 09/22/2007 version 1.14</a></span></dt><dt><span class="sect2"><a href="#d4e735">6.2.27. 09/16/2007 version 1.13</a></span></dt><dt><span class="sect2"><a href="#d4e743">6.2.28. 08/19/2007 version 1.12</a></span></dt><dt><span class="sect2"><a href="#d4e749">6.2.29. 07/18/2007 version 1.11</a></span></dt><dt><span class="sect2"><a href="#d4e755">6.2.30. 06/05/2007 version 1.10</a></span></dt><dt><span class="sect2"><a href="#d4e771">6.2.31. 05/01/2007 version 1.02</a></span></dt><dt><span class="sect2"><a href="#d4e790">6.2.32. 03/12/2007 version 1.01</a></span></dt></dl></div><p>
+</p></li></ul></div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e557"></a>6.2.&nbsp;Changelog since version 1.0</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e560">6.2.1. 2013-09-17 version 1.49</a></span></dt><dt><span class="sect2"><a href="#d4e571">6.2.2. 2012-02-09 version 1.48</a></span></dt><dt><span class="sect2"><a href="#d4e575">6.2.3. 2012-02-08 version 1.47</a></span></dt><dt><span class="sect2"><a href="#d4e580">6.2.4. 2011-11-06 version 1.46</a></span></dt><dt><span class="sect2"><a href="#d4e585">6.2.5. 2011-10-04 version 1.45</a></span></dt><dt><span class="sect2"><a href="#d4e605">6.2.6. 2010-08-18 version 1.44</a></span></dt><dt><span class="sect2"><a href="#d4e611">6.2.7. 2010-06-14 version 1.43</a></span></dt><dt><span class="sect2"><a href="#d4e618">6.2.8. 2009-12-31 version 1.42</a></span></dt><dt><span class="sect2"><a href="#d4e623">6.2.9. 2009-11-13 version 1.41</a></span></dt><dt><span class="sect2"><a href="#d4e629">6.2.10. 2009-11-02 version 1.40</a></span></dt><dt><span class="sect2"><a href="#d4e636">6.2.11. 2009-10-08 version 1.39</a></span></dt><dt><span class="sect2"><a href="#d4e642">6.2.12. 2009-09-23 version 1.38</a></span></dt><dt><span class="sect2"><a href="#d4e651">6.2.13. 2009-09-03 version 1.37</a></span></dt><dt><span class="sect2"><a href="#d4e656">6.2.14. 2009-08-17 version 1.36</a></span></dt><dt><span class="sect2"><a href="#d4e664">6.2.15. 2009-06-23 version 1.35</a></span></dt><dt><span class="sect2"><a href="#d4e669">6.2.16. 2009-05-20 version 1.34</a></span></dt><dt><span class="sect2"><a href="#d4e673">6.2.17. 2009-05-07 version 1.33</a></span></dt><dt><span class="sect2"><a href="#d4e680">6.2.18. 2009-02-22 version 1.32</a></span></dt><dt><span class="sect2"><a href="#d4e693">6.2.19. 2009-01-11 version 1.31</a></span></dt><dt><span class="sect2"><a href="#d4e698">6.2.20. 2009-01-01 version 1.30</a></span></dt><dt><span class="sect2"><a href="#d4e726">6.2.21. 2008-11-08 version 1.29</a></span></dt><dt><span class="sect2"><a href="#d4e733">6.2.22. 2008-09-20 version 1.28</a></span></dt><dt><span class="sect2"><a href="#d4e739">6.2.23. 2008-08-19 version 1.27 (not published)</a></span></dt><dt><span class="sect2"><a href="#d4e743">6.2.24. 2008-06-22 version 1.26</a></span></dt><dt><span class="sect2"><a href="#d4e749">6.2.25. 2008-05-29 version 1.251</a></span></dt><dt><span class="sect2"><a href="#d4e753">6.2.26. 2008-05-04 version 1.25</a></span></dt><dt><span class="sect2"><a href="#d4e758">6.2.27. 2008-04-25 version 1.24</a></span></dt><dt><span class="sect2"><a href="#d4e764">6.2.28. 2008-04-17 version 1.23</a></span></dt><dt><span class="sect2"><a href="#d4e768">6.2.29. 2008-04-12 version 1.22</a></span></dt><dt><span class="sect2"><a href="#d4e772">6.2.30. 2008-04-06 version 1.21</a></span></dt><dt><span class="sect2"><a href="#d4e777">6.2.31. 2008-03-30 version 1.20</a></span></dt><dt><span class="sect2"><a href="#d4e783">6.2.32. 2008-03-22 version 1.19</a></span></dt><dt><span class="sect2"><a href="#d4e790">6.2.33. 12/27/2007 version 1.18</a></span></dt><dt><span class="sect2"><a href="#d4e795">6.2.34. 12/22/2007 version 1.17</a></span></dt><dt><span class="sect2"><a href="#d4e801">6.2.35. 11/20/2007 version 1.16</a></span></dt><dt><span class="sect2"><a href="#d4e806">6.2.36. 11/03/2007 version 1.15</a></span></dt><dt><span class="sect2"><a href="#d4e818">6.2.37. 09/22/2007 version 1.14</a></span></dt><dt><span class="sect2"><a href="#d4e823">6.2.38. 09/16/2007 version 1.13</a></span></dt><dt><span class="sect2"><a href="#d4e831">6.2.39. 08/19/2007 version 1.12</a></span></dt><dt><span class="sect2"><a href="#d4e837">6.2.40. 07/18/2007 version 1.11</a></span></dt><dt><span class="sect2"><a href="#d4e843">6.2.41. 06/05/2007 version 1.10</a></span></dt><dt><span class="sect2"><a href="#d4e859">6.2.42. 05/01/2007 version 1.02</a></span></dt><dt><span class="sect2"><a href="#d4e878">6.2.43. 03/12/2007 version 1.01</a></span></dt></dl></div><p>
 		This section contains the changelog of the timebars component since version 1.0 for reference.
-		</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e554"></a>6.2.1.&nbsp;2009-09-23 version 1.38</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+		</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e560"></a>6.2.1.&nbsp;2013-09-17 version 1.49</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+						Switched the build to maven 3 (looks good so far)	
+					</li><li>
+						Removed some forgotten (ouch!) System.out.println statements (Sorry!)
+					</li><li>
+						Swing: corrected clipping width/height for gap rendering (Thx Chris!)
+					</li><li>
+						Swing+SWT: Corrected gap rendering (Thx Chris!)
+					</li><li>
+						Swing: DefaultHeaderRenderer now features configurable width (Chris)	
+					</li><li>
+						Swing: The inner JComponent used for rendering is now accessible (_tbv._diagram) - this allows adding listeners directly to the component getting the events (Hi Jordan!)
+					</li><li>
+						Swing: configurable mousewheel scrolling: see setAllowMouseWheelXAxisScrolling, setAllowMouseWheelYAxisScrolling
+					</li><li>
+						When using millisecond accuracy there is now a scaling for the time scrollbar in place thus the limit that has been imposed
+						on scrolling with millisecond accuracy is gone (Limit has been imposed by the int value of the scrollbar handle).
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e571"></a>6.2.2.&nbsp;2012-02-09 version 1.48</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+						Swing: Fixed another clipping issue that caused out of bounds drawing of the row header (Thx William)
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e575"></a>6.2.3.&nbsp;2012-02-08 version 1.47</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+						Swing: Fixed a clipping issue that caused out of bounds drawing of intervals (Thx William)
+					</li><li>
+						Swing: fixed title renderer paint problem (Thx Chris)
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e580"></a>6.2.4.&nbsp;2011-11-06 version 1.46</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+						Fixed NullPointerException when setting row height before setting a model (Thx Patrick)
+					</li><li>
+						SWT: fixed call to super.dispose() in onDipose (thx Chris)
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e585"></a>6.2.5.&nbsp;2011-10-04 version 1.45</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><span class="ERROR">&lt;b&gt;IMPORTANT:&lt;/b&gt;</span> Since Eclipse 3.7 introduced getOrientation in the component I had to refactor the old set/getOrientation methods to set/get<span class="ERROR">&lt;b&gt;TB&lt;/b&gt;</span>Orientation
+						This change has to be reflected in the timebars addon -&gt; check the update if you need the addons.
+					</li><li>
+						Swing: improved scroll units (Thx Chris)
+					</li><li>
+						Swing: included a fix (Thx Chris) making the distribution of intervals better when using uniform height.
+					</li><li>
+						Fixed an issue that caused an incorrect behavior when applying a filter to a scrolled viewer using variable row heights (Exception) (Thx Chris)
+					</li><li>
+						Fixed exception when using dragging of row heights/lines and no rows present (Thx Chris)
+					</li><li>
+						Swing: Fixed a drawing bug that caused drawing of the last row on top of the first row (variable row heights only) (Thx Chris)
+					</li><li>
+						Swing: Fixed a rendering bug for the title renderer component when using other layout mangers than border layout or box layout (Thx Chris)
+					</li><li>
+						Fixed a quite obvious bug in delegate.getRowBounds that caused the height of the returned rectangle to be to large when using horizontal orientation (Thx Chris)
+					</li><li>
+						Fixed Delegate.yForRow to handle variableHeights+no rows displayed correctly (Thx Chris)
+					</li><li>
+						Swing: fixed Pop-Up handling on Linux (Thx Patrick!)
+					</li><li>
+						Swing: Fixed a clipping bug that caused huge intervals to be rendered outside the viewer (OSX, Linux)
+					</li><li>
+						Swing: Fixed a clipping bug that caused caused a minor glitch when scrolling "under" the header (Thx Chris)
+					</li><li>
+						SWT: New combining TimeScaleRenderer that allows the use of two time scale renderers. New simple DateStripRenderer that can be used to maintain 
+						a steady view of the starting date. TimeScaleRenderer interface has a new simple to implement method: supportsOptimizedScrolling - check the JavaDoc.
+					</li><li>
+						Swing: (Thx David): Fixed SWT import
+					</li><li>
+						Exposed scrollXXXtoVisible methods in the viewers (check the delegate if something is missing)
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e605"></a>6.2.6.&nbsp;2010-08-18 version 1.44</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+						Fixed a glitch in edge dragging: coordniates used for drag detection differed from the coordinates th euser pressed the button. This lead to strange behaviour: cursor indicates 
+						edge drag, press, nothing happens.
+					</li><li>
+						Swing: (Thx Chris): Fix a problem where rows would sometimes not be drawn when scrolling
+					</li><li>
+						Right click/PopUp behaviour: if interval right clicked on is not already selected use this as the only
+						selected one (-&gt; Context menu works properly) (Thx Chris)
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e611"></a>6.2.7.&nbsp;2010-06-14 version 1.43</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+						Fixed a printing bug: grid has only be printed for the range currently displayed. There might still exist a problem with printing when the timescale renderer is
+						not the ITickProvider used (not very probable).
+					</li><li>
+						Fixed a bug that occurred when resizing the component without rows in the model (thx Chris)
+					</li><li>
+						Fixed popup (right click behaviour)  (thx Chris)
+					</li><li>
+						Swing: added the possibility to use a title renderer directly as a component (not just painting; see scheduling example)
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e618"></a>6.2.8.&nbsp;2009-12-31 version 1.42</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+						Added a new Swing example: the SchedulingExample.
+					</li><li>
+						Internal, unpublished
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e623"></a>6.2.9.&nbsp;2009-11-13 version 1.41</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+						Did some small changes to setLastRow and the component resize behaviour since there have been problems using the Swing version.
+						If you rely on this (i.e. vertical autoscroll) please check carefully.
+					</li><li>
+						Removed two forgotten System.outs (Ughh!)
+					</li><li>
+						Fixed a possible NPE in Swing(Headertooltip)
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e629"></a>6.2.10.&nbsp;2009-11-02 version 1.40</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+						Fixed resizing behavior when the component exposes space below the last row the space will be used rendering more rows from above 
+					</li><li>
+						Did another small fix correcting setLastRow 
+					</li><li>
+						Fixed a bug that sets the minimum gridsnap for dragging and moving intervals to 1 second preventing clean operation at millisecond accuracy.
+						This fix may surprise you if you have not setup an IIntervalModificator and you are using the DefaultIntervalModificator. You may need to set the gridsnap
+						to 1 second explicitly.  
+					</li><li>
+						Fixed some problems that may arise if non default TimeScaleRenderers are used without non default GridRenderers (Swing and SWT): Since the DefaultGridRenderers 
+						will use the the ticks of the TimeScaleRenderes if the the TimeScaleRenderer implements the ITickProvider interface to synchronize the ticks, it had to be informed
+						properly when another TimeScaleRenderer has been set that does not supply ticks or when the time scale should not be shown.  
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e636"></a>6.2.11.&nbsp;2009-10-08 version 1.39</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+						Added the possibility to do a DST correction in the time scale renderers (Default and Box: btsr.setCorrectDST). This is a fix for 
+						shifted ticks in the time scale around the DST switches in spring and autumn. 
+					</li><li>
+						Added the method <tt class="code">getPopUpInformation()</tt> that supplies the row and date corresponding to the coordinate a 
+						popup menu will be displayed.
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e642"></a>6.2.12.&nbsp;2009-09-23 version 1.38</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Fixed: NPE in Swing version if a no context menu has been defined for an interval type 
 					</li><li>
 						Fixed: Bug in scrollRowToVisible when using variable row heights (prevented the vertical autoscroll sample code to work
@@ -530,11 +638,11 @@ using a synchronizer.
 					</li><li>
 						The new interface IIntervalModificator provides a small extension over the existing IntervalModificator allowing control of the grid snap 
 						for single intervals.
-					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e563"></a>6.2.2.&nbsp;2009-09-03 version 1.37</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e651"></a>6.2.13.&nbsp;2009-09-03 version 1.37</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Fixed: setSecondsDisplayed will now work with vertical orientation
 					</li><li>
 						Fixed: vertical autoscroll sample code in SwtOverlapExample: +-1 problem -&gt; could not scroll to the last row
-					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e568"></a>6.2.3.&nbsp;2009-08-17 version 1.36</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e656"></a>6.2.14.&nbsp;2009-08-17 version 1.36</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Swing: removed renderer delegation from the DefaultRenderer (not necessary - register your renderers with the viewer directly)
 					</li><li>
 						Added better control for the displayed rows: setLastRow. This is in conjunction with a bugfix in scrollRowToVisible and a possible 
@@ -546,19 +654,19 @@ using a synchronizer.
 						component is painted. Additional parameters (centering, centerDate) will be ignored in this case, since the calculations are not possible.
 					</li><li>
 						Fixed a weird NPE occurring with Swing/GTK during construction of the timebar viewer 
-					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e576"></a>6.2.4.&nbsp;2009-06-23 version 1.35</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e664"></a>6.2.15.&nbsp;2009-06-23 version 1.35</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						SWT: Fixed a small bug in the RelationRenderer (NullPointer under rare conditions)
 					</li><li>
 						Added synchronization for the y axis width in the synchronizer
-					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e581"></a>6.2.5.&nbsp;2009-05-20 version 1.34</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e669"></a>6.2.16.&nbsp;2009-05-20 version 1.34</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						SWT: Fixed a small bug that could happen when displaying a context menu
-					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e585"></a>6.2.6.&nbsp;2009-05-07 version 1.33</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e673"></a>6.2.17.&nbsp;2009-05-07 version 1.33</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Added a feature for setting the initial displayRange when the viewer is first displayed and the width of the widget is available. 
 						See <tt class="code">setInitialDisplayRange</tt></li><li>
 						Fixed a bug in the DefaultTimeBarRowModel that prevented the correct update of the max date if an interval would change min AND max date.
 					</li><li>
 						Fixed a bug in the Swing DefaultTimeScaleRenderer (refactoring artefact, thanx Ravi).
-					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e592"></a>6.2.7.&nbsp;2009-02-22 version 1.32</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e680"></a>6.2.18.&nbsp;2009-02-22 version 1.32</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						BoxTimeScaleRenderer now scales down from years to minutes/seconds/milliseconds
 					</li><li>
 						Swing and SWT: The DefaultTimeScaleRenderer has been replaced by a new one that scales from years to milliseconds. 
@@ -584,7 +692,7 @@ using a synchronizer.
 					</li><li>
 						The variable x scale feature now supports "breaking" the timescale by marking pps intervals as breaks and defining a pixel width 
 						for the display. See the milli example for details (documentation follows).
-					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e605"></a>6.2.8.&nbsp;2009-01-11 version 1.31</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e693"></a>6.2.19.&nbsp;2009-01-11 version 1.31</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Fixed a bug in the overlap calculations that lead to intervals not properly rendered (rendered above the row)
 						in some data constellations. (Thanks Daran!)
 					</li><li>
@@ -592,7 +700,7 @@ using a synchronizer.
 						in random drawings if a high zoom factor is used in combination with long intervals or relations (the drawings
 						are not really random, since they are just caused by overflowing 16 bit integers). 
 						Added a workaround in the relation renderer and the sum renderer of the swt hierarchy example.
-					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e610"></a>6.2.9.&nbsp;2009-01-01 version 1.30</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+					</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e698"></a>6.2.20.&nbsp;2009-01-01 version 1.30</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						SWING: Did a lot of corrections and additions for the swing component so that it nearly
 						catches up to the SWT variant:
 		<div class="itemizedlist"><ul type="circle"><li>
@@ -637,31 +745,31 @@ using a synchronizer.
 </li><li>
 						Added the possibility to enforce uniform heights/widths for intervals drawn non overlapping in the same row 
 						(see <tt class="code">setUseUniformHeight</tt>).
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e638"></a>6.2.10.&nbsp;2008-11-08 version 1.29</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e726"></a>6.2.21.&nbsp;2008-11-08 version 1.29</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						New methods to easy scrolling to elements: <tt class="code">void setFirstRow(TimeBarRow row)</tt> scrolls to a row without 
 						requiring its index. <tt class="code">void scrollIntervalToVisible(Interval interval, double horizontalRatio, double verticalRatio)</tt> scrolls
 						an interval to a position in the viewable area.
 </li><li>
 						Fixed a bug in AbstractGridRenderer (static reference to a Color that got disposed); Thanks Thomas
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e645"></a>6.2.11.&nbsp;2008-09-20 version 1.28</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e733"></a>6.2.22.&nbsp;2008-09-20 version 1.28</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Behaviour on focussing/selecting an interval: was scroll begin to visible: this is now refined to scroll only when no part of the 
 						interval is visible. Scrolling on focus change can be disabled completely (setScrollOnfocus). 
 </li><li>
 						improved printing when using linux: swt printer devices running on linux seem to always report 72x72dpi which
 						resulted in bad output when using the standard renderers. The RendererBase now contains the method <tt class="code">getDefaultLineWidth</tt>
 						to get a corrected line width that will work with low resolutions.
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e651"></a>6.2.12.&nbsp;2008-08-19 version 1.27 (not published)</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e739"></a>6.2.23.&nbsp;2008-08-19 version 1.27 (not published)</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Behaviour on focussing/selecting an interval: was scroll begin to visible; now configurable if scrolling should occur
 						(setScrollOnfocus). Maybe this will be replaced by a strategy if necessary.
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e655"></a>6.2.13.&nbsp;2008-06-22 version 1.26</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e743"></a>6.2.24.&nbsp;2008-06-22 version 1.26</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Fixed: Before the first paint (sometimes) NullPointerExceptions could happen because of uninitialized layout
 </li><li>
 						Fixed: NullPointer in getTooltipText (sometimes)
 </li><li>
 						Fixed: Relation rendering: arrows when using end_end.
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e661"></a>6.2.14.&nbsp;2008-05-29 version 1.251</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e749"></a>6.2.25.&nbsp;2008-05-29 version 1.251</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Just added a new example: The linechart example: check the screenshots.
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e665"></a>6.2.15.&nbsp;2008-05-04 version 1.25</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e753"></a>6.2.26.&nbsp;2008-05-04 version 1.25</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						introduced relations between intervals and relation rendering and selecting. (IRelationalInterval, 
 						IIntervalRelation, IRelationRenderer, implementations thereof). There is a default implementation of the IRelationRenderer
 						that is not setup by default (RelationRenderer). Changes have been made to the selection model 
@@ -675,7 +783,7 @@ using a synchronizer.
 </li><li>
 						fixed a small bug in the box time scale renderer (week label included first day of the next week). Bug has been 
 						fixed in the jaret utils package (Thanx Thomas)
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e670"></a>6.2.16.&nbsp;2008-04-25 version 1.24</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e758"></a>6.2.27.&nbsp;2008-04-25 version 1.24</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						added some changes to the row selection behaviour (shift-click range select, toggle mode for row selections
 						that can be set on the selection model for simulating check box selections). Check box selections and the toggle
 						mode can be seen in the swt overlap example (activate in the control panel). 
@@ -687,18 +795,18 @@ using a synchronizer.
 						with the every extension of the abstract grid renderer.
 </li><li>
 						the grid rederer now supports an alpha setting for the row selection
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e676"></a>6.2.17.&nbsp;2008-04-17 version 1.23</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e764"></a>6.2.28.&nbsp;2008-04-17 version 1.23</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						made the timebarviewer friendlier to GUI-Designers (will hopefully not throw exceptions without a model) 
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e680"></a>6.2.18.&nbsp;2008-04-12 version 1.22</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e768"></a>6.2.29.&nbsp;2008-04-12 version 1.22</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Removed a dependency on Java 6 in the DefaultOverlapStrategy (Thanks Maarten)
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e684"></a>6.2.19.&nbsp;2008-04-06 version 1.21</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e772"></a>6.2.30.&nbsp;2008-04-06 version 1.21</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Fixed a bug that have been introduced with the autoscroll improvements: When using the grid snap dragging an interval
 						has not been working.
 </li><li>
 						Th egrid snap provided by the IntervalModificators is now applied specifically: the first modificator that claims to
 						be applicable will provide the grid snap. That makes it possible to use different grid snaps for different types
 						of intervals.  
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e689"></a>6.2.20.&nbsp;2008-03-30 version 1.20</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e777"></a>6.2.31.&nbsp;2008-03-30 version 1.20</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Improved the resize detection/beviour: increasing the size of an interval has sometimes behaved unexpected,
 						since the cursor had to be inside the interval.  
 </li><li>
@@ -709,7 +817,7 @@ using a synchronizer.
 						Autoscrolling is focussed on the 
 						actual interval that is beeing dragged. If one of the intervals is not allowed to move to the new position, the
 						whole drag is stopped. This behaviour can be enabled by setting setDragAllSelectedIntervals(true).    
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e695"></a>6.2.21.&nbsp;2008-03-22 version 1.19</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e783"></a>6.2.32.&nbsp;2008-03-22 version 1.19</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Improved calendar example to show whole day appointments in header area. 
 </li><li>
 						Thanks go to Mathias Kurth for supplying an improved overlap calculation drastically 
@@ -721,11 +829,11 @@ using a synchronizer.
 </li><li>
 						Added the RelationRenderer to render intervals having a relation (IRelationalInterval). 
 						The relation rendering is work in progress.
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e702"></a>6.2.22.&nbsp;12/27/2007 version 1.18</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e790"></a>6.2.33.&nbsp;12/27/2007 version 1.18</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Internal version distributed with the jare calendar plugin 
 </li><li>
 						Bugfix: Interval modification failed in some special cases when using more than one IntervalModificator. 
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e707"></a>6.2.23.&nbsp;12/22/2007 version 1.17</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e795"></a>6.2.34.&nbsp;12/22/2007 version 1.17</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Bugfix: (non variable time scale) Scroll bounds have not been correct (small difference) corresponding to the model  
 </li><li>
 						Bugfix: just another small scrolling bug (using page steps with optimized scrolling)  
@@ -733,11 +841,11 @@ using a synchronizer.
 						Small change in the IntervalModificator interface (Sorry for that!) allowing better differentiation when using
 						heterogenous models. (new Method isApplicable(...) to check whether the modificator is responsible -&gt; just return true to preserve
 						current behaviour.)  
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e713"></a>6.2.24.&nbsp;11/20/2007 version 1.16</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e801"></a>6.2.35.&nbsp;11/20/2007 version 1.16</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Bugfix: Scrolling with the time scroll bar using page steps failed when using optimized scrolling.  
 </li><li>
 						Bugfix: Single selections have been disabled by the selection behaviour if other intervals have been selected ... corrected  
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e718"></a>6.2.25.&nbsp;11/03/2007 version 1.15</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e806"></a>6.2.36.&nbsp;11/03/2007 version 1.15</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Small improvements for scroll bars (right sized from the first appearance, max data check corrected)  
 </li><li>
 						Fixed several bugs when adding/removing nodes in a hierarchical model. (For test purposes the SWT Hierarchical example
@@ -761,11 +869,11 @@ using a synchronizer.
 						Improved TimeScaleDragSupport to allow listening on diagram drags for scrolling
 </li><li>
 						Some small API extensions (non breaking)
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e730"></a>6.2.26.&nbsp;09/22/2007 version 1.14</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e818"></a>6.2.37.&nbsp;09/22/2007 version 1.14</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Fixed "row selection not working"-Bug  
 </li><li>
 						Fixed some Tooltip-Bugs (vertical). 
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e735"></a>6.2.27.&nbsp;09/16/2007 version 1.13</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e823"></a>6.2.38.&nbsp;09/16/2007 version 1.13</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 					Fixed a small bug that lead to a paint error for partly painted intervals when using variable scale
 </li><li>
 					The BoxTimeScaleRenderer now supports vertical orientation (might be time consuming since 
@@ -779,7 +887,7 @@ using a synchronizer.
 					core interval space (FancyExample).
 </li><li>
 						Added a linking exception to the GPL license that allows linking to other freely available software (source code freely available)
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e743"></a>6.2.28.&nbsp;08/19/2007 version 1.12</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e831"></a>6.2.39.&nbsp;08/19/2007 version 1.12</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Added variable row heights/widths including the possibility to change the height/width of a row
 						by dragging or the use of a calculation strategy (see ITimeBarViewstate).
 </li><li>
@@ -787,13 +895,13 @@ using a synchronizer.
 						vertical)
 </li><li>
 						SWT: printing fixed for windows, horizontal orientation, including support for variable row heights
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e749"></a>6.2.29.&nbsp;07/18/2007 version 1.11</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e837"></a>6.2.40.&nbsp;07/18/2007 version 1.11</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li>
 						Fixed a bug that prevented the SWT version from drawing overlapped intervals without height correction. 
 </li><li>
 						Added a listener that is informed while intervals are modified by the users (ITimeBarChangeListener).
 </li><li>
 						Began a list of known usages of the timebars component (see the jaret website)
-</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e755"></a>6.2.30.&nbsp;06/05/2007 version 1.10</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
+</li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e843"></a>6.2.41.&nbsp;06/05/2007 version 1.10</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
 						<span class="emphasis"><em>This version incorporates some bigger changes. Please regard it as a snapshot! Bug reports welcome.</em></span>
 					</p></li><li><p>
 						introduced vertical orientation. Modifications have been done carefully, the semantics of some 
@@ -812,7 +920,7 @@ using a synchronizer.
 					</p></li><li><p>
 						By mistake and stupidness the TimeBarViewerDelegate referenced SWT classes rendering it unusable for Swing. Fixed that
 						(Thanks Tim!)
-					</p></li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e771"></a>6.2.31.&nbsp;05/01/2007 version 1.02</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
+					</p></li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e859"></a>6.2.42.&nbsp;05/01/2007 version 1.02</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
 						SWT&amp;Swing: Introduced scrolling optimizations (copying previously drawn areas).
 						The behaviour is switchable (setOptimizedScrolling) and defaults to false, since I noticed
 						problems using SWT on Linux/GTK and OSX/Intel. However the
@@ -840,7 +948,7 @@ using a synchronizer.
 						Fixed updating of the vertical scroll bar (to short in some situations)
 					</p></li><li><p>
 						introduced the timebars.addon package
-					</p></li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e790"></a>6.2.32.&nbsp;03/12/2007 version 1.01</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
+					</p></li></ul></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e878"></a>6.2.43.&nbsp;03/12/2007 version 1.01</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>
 						small correction to the default hierarchy renderer and the title renderer so that it
 						accepts image descriptors instead of ressource paths
 					</p></li><li><p>
@@ -848,11 +956,11 @@ using a synchronizer.
 					</p></li><li><p>
 						fixed a bug that prevented all intervals from beeing drawn when showing a long period
 						of time (small pps)
-					</p></li></ul></div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e799"></a>6.3.&nbsp;Licenses</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e803">6.3.1. GPL</a></span></dt><dt><span class="sect2"><a href="#d4e806">6.3.2. Linking exception to the GPL</a></span></dt><dt><span class="sect2"><a href="#d4e809">6.3.3. Jaret commercial license</a></span></dt></dl></div><p>
+					</p></li></ul></div></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e887"></a>6.3.&nbsp;Licenses</h2></div></div></div><div class="toc"><dl><dt><span class="sect2"><a href="#d4e891">6.3.1. GPL</a></span></dt><dt><span class="sect2"><a href="#d4e894">6.3.2. Linking exception to the GPL</a></span></dt><dt><span class="sect2"><a href="#d4e897">6.3.3. Jaret commercial license</a></span></dt></dl></div><p>
 		The jaret timebars component is dual licensed. Contact <tt class="email">&lt;<a href="mailto:peter.kliem@jaret.de">peter.kliem@jaret.de</a>&gt;</tt> for any inquiries, questions or suggestions concerning
 		the license. For the use of the component under the GPL within other free projects an exception has been designed (see below) that allows the
 		usage of the timebars component together with other licenses as long as the other software is freely available in source from. 
-		</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e803"></a>6.3.1.&nbsp;GPL</h3></div></div></div><div class="literallayout"><p><br>
+		</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e891"></a>6.3.1.&nbsp;GPL</h3></div></div></div><div class="literallayout"><p><br>
 &nbsp;&nbsp;&nbsp;&nbsp;GNU&nbsp;GENERAL&nbsp;PUBLIC&nbsp;LICENSE<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version&nbsp;2,&nbsp;June&nbsp;1991<br>
 <br>
@@ -1192,7 +1300,7 @@ This&nbsp;General&nbsp;Public&nbsp;License&nbsp;does&nbsp;not&nbsp;permit&nbsp;i
 proprietary&nbsp;programs.&nbsp;&nbsp;If&nbsp;your&nbsp;program&nbsp;is&nbsp;a&nbsp;subroutine&nbsp;library,&nbsp;you&nbsp;may<br>
 consider&nbsp;it&nbsp;more&nbsp;useful&nbsp;to&nbsp;permit&nbsp;linking&nbsp;proprietary&nbsp;applications&nbsp;with&nbsp;the<br>
 library.&nbsp;&nbsp;If&nbsp;this&nbsp;is&nbsp;what&nbsp;you&nbsp;want&nbsp;to&nbsp;do,&nbsp;use&nbsp;the&nbsp;GNU&nbsp;Library&nbsp;General<br>
-Public&nbsp;License&nbsp;instead&nbsp;of&nbsp;this&nbsp;License.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e806"></a>6.3.2.&nbsp;Linking exception to the GPL</h3></div></div></div><div class="literallayout"><p><br>
+Public&nbsp;License&nbsp;instead&nbsp;of&nbsp;this&nbsp;License.</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e894"></a>6.3.2.&nbsp;Linking exception to the GPL</h3></div></div></div><div class="literallayout"><p><br>
 Linking&nbsp;this&nbsp;library&nbsp;statically&nbsp;or&nbsp;dynamically&nbsp;with&nbsp;other&nbsp;modules&nbsp;is&nbsp;making&nbsp;a&nbsp;<br>
 combined&nbsp;work&nbsp;based&nbsp;on&nbsp;this&nbsp;library.&nbsp;Thus,&nbsp;the&nbsp;terms&nbsp;and&nbsp;conditions&nbsp;of&nbsp;the&nbsp;<br>
 GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;cover&nbsp;the&nbsp;whole&nbsp;combination.<br>
@@ -1207,7 +1315,7 @@ to&nbsp;link&nbsp;this&nbsp;library&nbsp;with&nbsp;independent&nbsp;modules,&nbs
 Eclipse&nbsp;Public&nbsp;License&nbsp;1.0&nbsp;(EPL),&nbsp;Common&nbsp;Public&nbsp;License&nbsp;1.0&nbsp;(CPL),&nbsp;<br>
 GNU&nbsp;Library&nbsp;or&nbsp;"Lesser"&nbsp;General&nbsp;Public&nbsp;License&nbsp;(LGPL)&nbsp;2.0/2.1,<br>
 Apache&nbsp;License&nbsp;2.0,&nbsp;Common&nbsp;Development&nbsp;and&nbsp;Distribution&nbsp;License&nbsp;(CDDL)<br>
-		</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e809"></a>6.3.3.&nbsp;Jaret commercial license</h3></div></div></div><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td colspan="2" align="left" valign="top"><p>
+		</p></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d4e897"></a>6.3.3.&nbsp;Jaret commercial license</h3></div></div></div><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td colspan="2" align="left" valign="top"><p>
 The following commercial license is <span class="emphasis"><em>only</em></span> applicable if purchased! 
 </p></td></tr></table></div><div class="literallayout"><p><br>
 Commercial&nbsp;License&nbsp;agreement&nbsp;for&nbsp;the&nbsp;"Jaret&nbsp;Timebars"&nbsp;GUI&nbsp;Component&nbsp;(ONLY&nbsp;APPLICABLE<br>

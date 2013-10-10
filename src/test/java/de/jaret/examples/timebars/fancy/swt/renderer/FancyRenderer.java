@@ -45,7 +45,7 @@ import de.jaret.util.ui.timebars.swt.renderer.TimeBarRenderer2;
  * advanced graphics and are not performance optimized. In fact they can be quite slow.
  * 
  * @author Peter Kliem
- * @version $Id: FancyRenderer.java 863 2009-06-22 20:06:19Z kliem $
+ * @version $Id: FancyRenderer.java 1109 2013-09-15 21:40:28Z kliem $
  */
 public class FancyRenderer extends RendererBase implements TimeBarRenderer, TimeBarRenderer2 {
     /** width or height times this factor = percentage used as the non painted border. */
@@ -274,7 +274,11 @@ public class FancyRenderer extends RendererBase implements TimeBarRenderer, Time
         int h = 3;
         gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_DARK_MAGENTA));
         int w = ((iRect.width - 2) * fi.getPercentage()) / 100;
+//        if (w<0) {
+//            w = 10000;
+//        }
         gc.fillRectangle(iRect.x + 1, iRect.y + iRect.height - 2 - h, w, h);
+        System.out.println("Percentagebar "+iRect.x + 1+", "+ (iRect.y + iRect.height - 2 - h)+", "+ w+", " +h);
 
         if (selected && !printing) {
             gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_BLUE));
@@ -320,7 +324,7 @@ public class FancyRenderer extends RendererBase implements TimeBarRenderer, Time
     }
 
     /**
-     * Calculate the actual drawing rectangle for the interval usig the BORDERFACTOR to determine the border.
+     * Calculate the actual drawing rectangle for the interval using the BORDERFACTOR to determine the border.
      * 
      * @param horizontal true for horizontal false for vertical
      * @param drawingArea drawingArea

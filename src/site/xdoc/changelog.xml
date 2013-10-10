@@ -11,6 +11,36 @@
 			<subsection name="Keep updated: the timebars on Twitter">
 				If you want to know about new versions you can follow the timebars on twitter: <a href="http://twitter.com/jaret_timebars">http://twitter.com/jaret_timebars</a>.
 			</subsection>
+			<subsection name="2013-09-17 version 1.49">
+				<ul>
+					<li>
+						Switched the build to maven 3 (looks good so far)	
+					</li>
+					<li>
+						Removed some forgotten (ouch!) System.out.println statements (Sorry!)
+					</li>
+					<li>
+						Swing: corrected clipping width/height for gap rendering (Thx Chris!)
+					</li>
+					<li>
+						Swing+SWT: Corrected gap rendering (Thx Chris!)
+					</li>
+					<li>
+						Swing: DefaultHeaderRenderer now features configurable width (Chris)	
+					</li>
+					<li>
+						Swing: The inner JComponent used for rendering is now accessible (_tbv._diagram) - this allows adding listeners directly to the component getting the events (Hi Jordan!)
+					</li>
+					<li>
+						Swing: configurable mousewheel scrolling: see setAllowMouseWheelXAxisScrolling, setAllowMouseWheelYAxisScrolling
+					</li>
+					<li>
+						When using millisecond accuracy there is now a scaling for the time scrollbar in place thus the limit that has been imposed
+						on scrolling with millisecond accuracy is gone (Limit has been imposed by the int value of the scrollbar handle).
+					</li>
+															
+					</ul>
+			</subsection>
 			<subsection name="2012-02-09 version 1.48">
 				<ul>
 					<li>
@@ -18,7 +48,7 @@
 					</li>
 				</ul>
 			</subsection>
-			<subsection name="2012-02-08 version 1.47">
+						<subsection name="2012-02-08 version 1.47">
 				<ul>
 					<li>
 						Swing: Fixed a clipping issue that caused out of bounds drawing of intervals (Thx William)

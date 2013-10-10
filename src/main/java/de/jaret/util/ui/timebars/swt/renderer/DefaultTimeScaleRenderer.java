@@ -54,7 +54,7 @@ import de.jaret.util.ui.timebars.swt.TimeBarViewer;
  * is used to display special and holidays in the tooltip. Suports horizontal and vertical orientation.
  * 
  * @author Peter Kliem
- * @version $Id: DefaultTimeScaleRenderer.java 1086 2011-07-30 20:28:05Z kliem $
+ * @version $Id: DefaultTimeScaleRenderer.java 1109 2013-09-15 21:40:28Z kliem $
  */
 public class DefaultTimeScaleRenderer extends RendererBase implements TimeScaleRenderer, ITickProvider {
 
@@ -462,15 +462,15 @@ public class DefaultTimeScaleRenderer extends RendererBase implements TimeScaleR
                 JaretDate next = it.getNextDate();
                 int width = delegate.xForDate(next) - delegate.xForDate(current);
                 String label = it.getLabel(current, DateIterator.Format.LONG);
-                System.out.println("Label " + label);
+            //    System.out.println("Label " + label);
                 Point p = gc.textExtent(label);
                 int bonus = _midStrip == it && _formats.get(i).equals(DateIterator.Format.LONG) ? SETBONUS : 0;
                 if (width > p.x + GAP + ADDITIONALGAP - bonus) {
                     _midStrip = it;
-                    System.out.println(it);
+                //    System.out.println(it);
                     if (it instanceof MillisecondIterator) {
                         MillisecondIterator mit = (MillisecondIterator) it;
-                        System.out.println(mit.getApproxStepMilliSeconds());
+              //          System.out.println(mit.getApproxStepMilliSeconds());
                     }
                     _upperStrip = _upperMap.get(_midStrip);
                     if (i > 0) {

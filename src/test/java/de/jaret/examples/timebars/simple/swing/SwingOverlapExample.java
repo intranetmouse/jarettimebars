@@ -19,8 +19,14 @@
  */
 package de.jaret.examples.timebars.simple.swing;
 
+import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.datatransfer.StringSelection;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
@@ -32,6 +38,8 @@ import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TooManyListenersException;
@@ -43,12 +51,15 @@ import javax.swing.JSplitPane;
 import de.jaret.examples.timebars.simple.model.ModelCreator;
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.JaretDate;
+import de.jaret.util.ui.timebars.TimeBarMarkerImpl;
+import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
 import de.jaret.util.ui.timebars.TimeBarViewerInterface;
 import de.jaret.util.ui.timebars.mod.DefaultIntervalModificator;
 import de.jaret.util.ui.timebars.model.DefaultTimeBarRowModel;
 import de.jaret.util.ui.timebars.model.TimeBarModel;
 import de.jaret.util.ui.timebars.model.TimeBarRow;
 import de.jaret.util.ui.timebars.swing.TimeBarViewer;
+import de.jaret.util.ui.timebars.swing.renderer.IGlobalAssistantRenderer;
 
 /**
  * Swing: the swing version of the overlap example (without drag and drop).
@@ -81,6 +92,35 @@ public class SwingOverlapExample {
         _tbv.setSelectionDelta(6);
         _tbv.setTimeScalePosition(TimeBarViewerInterface.TIMESCALE_POSITION_TOP);
 
+        // timebar marker
+        CustomTimeBarMarker marker1 = new CustomTimeBarMarker(true, new JaretDate().advanceHours(1), model.getRow(2));
+        CustomTimeBarMarker marker2 = new CustomTimeBarMarker(true, new JaretDate().advanceHours(2), model.getRow(4));
+        _tbv.addMarker(marker1);
+        _tbv.addMarker(marker2);
+        _tbv.setMarkerRenderer(new StoppingMarkerRenderer());
+        
+        _tbv.setGlobalAssistantRenderer(new IGlobalAssistantRenderer() {
+            
+            @Override
+            public void doRenderingLast(TimeBarViewerDelegate delegate, Graphics graphics) {
+                TimeBarRow row = delegate.getRow(2); // just use row ad index 2 as a test
+                Rectangle bounds = delegate.getRowBounds(row);
+                int endX = delegate.xForDate(new JaretDate().advanceHours(3)); // end date 
+                Graphics2D g2 = (Graphics2D)graphics;
+                       
+                g2.setPaint(new GradientPaint(endX-300, bounds.y, Color.WHITE, endX, bounds.y, Color.GREEN));
+                float alpha = .3f;
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+                g2.fillRect(endX-300, bounds.y, 300, bounds.height); // just draw 300 pixels from dest x
+            }
+            
+            @Override
+            public void doRenderingBeforeIntervals(TimeBarViewerDelegate delegate, Graphics graphics) {
+            }
+        });
+        
+        
+        
         // Box tsr with DST correction
         // BoxTimeScaleRenderer btsr = new BoxTimeScaleRenderer();
         // btsr.setCorrectDST(true);
@@ -120,6 +160,18 @@ public class SwingOverlapExample {
         setupDND();
 
         f.setVisible(true);
+        
+        
+        // test mouse wheellistener
+//        _tbv._diagram.addMouseWheelListener(new MouseWheelListener() {
+//            
+//            @Override
+//            public void mouseWheelMoved(MouseWheelEvent arg0) {
+//                System.out.println("mouse wheel");
+//            }
+//        });
+        
+        
     }
 
     private ArrayList<Interval> _draggedJobs;

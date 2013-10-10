@@ -77,7 +77,7 @@ import de.jaret.util.ui.timebars.strategy.OverlapInfo;
  * TimeBarViewerInterface.
  * 
  * @author Peter Kliem
- * @version $Id: TimeBarViewerDelegate.java 1097 2011-11-06 21:44:47Z kliem $
+ * @version $Id: TimeBarViewerDelegate.java 1113 2013-09-17 19:49:20Z kliem $
  */
 public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelectionListener, TimeBarMarkerListener,
         PropertyChangeListener {
@@ -1301,7 +1301,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                     milliSecondsDisplayed = totalMilliSeconds - pos;
                 }
 
-                // correct the number of seconds otally displayed for use with the scrollbar
+                // correct the number of seconds totally displayed for use with the scrollbar
                 // since the scrollbar spans the y axis
                 int addWidth = _yAxisWidth + _hierarchyWidth;
                 long addMillis;
@@ -1313,7 +1313,28 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                             dateForCoord(_diagramRect.y + _diagramRect.height - addWidth));
                 }
 
-                updateTimeScrollBar((int) totalMilliSeconds, (int) pos, (int) (milliSecondsDisplayed + addMillis));
+                
+                // check whether int (the scrollbar) is sufficient or introduce scaling
+                int tot = 0;
+                int p = 0;
+                int displayed = 0;
+
+                if (totalMilliSeconds < Integer.MAX_VALUE) {
+                    tot = (int) totalMilliSeconds;
+                    p = (int) pos;
+                    displayed = (int) (milliSecondsDisplayed + addMillis);
+                    _timeFactor = 1.0;
+                } else {
+                    // integer is not sufficient
+                    _timeFactor = (double) Integer.MAX_VALUE / (double) totalMilliSeconds;
+                    tot = (int) ((double) totalMilliSeconds * _timeFactor);
+                    p = (int) ((double) pos * _timeFactor);
+                    displayed = (int) ((double) (milliSecondsDisplayed + addMillis) * _timeFactor);
+                }
+
+                updateTimeScrollBar(tot, p, displayed);
+
+                // updateTimeScrollBar((int) totalMilliSeconds, (int) pos, (int) (milliSecondsDisplayed + addMillis));
             } else {
                 // if using standard (=second) accuracy scrolling is done in
                 // seconds
@@ -1381,7 +1402,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      * Handle operation of the horizontal scroll bar.
      * 
      * @param value new value
-     * @param redirect if true allow redirecteion to the vertical scroll according to orientation
+     * @param redirect if true allow redirection to the vertical scroll according to orientation
      */
     public void handleHorizontalScroll(int value, boolean redirect) {
         if (!redirect || _orientation == Orientation.HORIZONTAL) {
@@ -1390,7 +1411,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             }
             JaretDate date = getMinDate().copy();
             if (isMilliAccuracy()) {
-                date.advanceMillis((long) value);
+                date.advanceMillis((long) (value / _timeFactor));
             } else {
                 date.advanceSeconds(value / _timeFactor);
             }

@@ -28,7 +28,7 @@ import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
  * Interface describing a marker renderer.
  * 
  * @author kliem
- * @version $Id: IMarkerRenderer.java 839 2009-02-15 19:51:37Z kliem $
+ * @version $Id: IMarkerRenderer.java 1109 2013-09-15 21:40:28Z kliem $
  */
 public interface IMarkerRenderer {
     /**
@@ -38,7 +38,7 @@ public interface IMarkerRenderer {
      * @param graphics the GRaphics to draw with
      * @param marker the marker to draw
      * @param x the x coordinate of the marker
-     * @param isDragged true if the markeris currently beeing dragged
+     * @param isDragged true if the marker is currently being dragged
      */
     void renderMarker(TimeBarViewerDelegate delegate, Graphics graphics, TimeBarMarker marker, int x, boolean isDragged);
 

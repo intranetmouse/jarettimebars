@@ -60,6 +60,7 @@ public class SwingEventExample {
         
         _tbv.registerTimeBarRenderer(SampleEvent.class, new EventRenderer());
         
+        
         f.getContentPane().add(_tbv, BorderLayout.CENTER);
 
 //        f.getContentPane().add(new OverlapControlPanel(_tbv), BorderLayout.SOUTH);

@@ -50,7 +50,7 @@ import de.jaret.util.ui.timebars.swt.renderer.TitleRenderer;
  * both printing (headless) and painting on the screen.
  * 
  * @author Peter Kliem
- * @version $Id: RenderDelegate.java 803 2008-12-28 19:30:23Z kliem $
+ * @version $Id: RenderDelegate.java 1109 2013-09-15 21:40:28Z kliem $
  */
 public class RenderDelegate {
 
@@ -147,8 +147,8 @@ public class RenderDelegate {
         }
         // for the gaps we need a minimum of two intervals
         // those has to be in the displayed intervals, so we apply the
-        // filter first (if set) and do the selction
-        // ourself. The alogorithm is highly dependet on the rodering of the
+        // filter first (if set) and do the selection
+        // ourself. The algorithm is highly dependent on the ordering of the
         // list! This should be guaranteed by the model
         List<Interval> intervals = new ArrayList<Interval>();
         Interval firstInterval = null;
@@ -159,7 +159,7 @@ public class RenderDelegate {
                     // before the starting date: remember the nearest
                     // interval
                     if (firstInterval == null
-                            || start.diffMilliSeconds(interval.getEnd()) < start.diffMilliSeconds(firstInterval
+                            || start.diffMilliSeconds(interval.getEnd()) <= start.diffMilliSeconds(firstInterval
                                     .getEnd())) {
                         firstInterval = interval;
                     }

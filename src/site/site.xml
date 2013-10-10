@@ -30,7 +30,7 @@
    <item name="impressum" href="../impressum.html"/>      
  </menu>
 
-${reports}    
+<menu ref="reports"/>
     
   </body>
 </project>

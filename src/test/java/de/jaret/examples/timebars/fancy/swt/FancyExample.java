@@ -66,7 +66,7 @@ import de.jaret.util.ui.timebars.swt.util.TimeScaleDragSupport;
  * This example will demonstrate some fancy drawing.
  * 
  * @author Peter Kliem
- * @version $Id: FancyExample.java 801 2008-12-27 22:44:54Z kliem $
+ * @version $Id: FancyExample.java 1113 2013-09-17 19:49:20Z kliem $
  */
 public class FancyExample extends ApplicationWindow {
     private static TimeBarViewer _tbv;
@@ -91,6 +91,10 @@ public class FancyExample extends ApplicationWindow {
         _tbv.setModel(model);
         _tbv.addIntervalModificator(new DefaultIntervalModificator());
 
+        // testing
+       // _tbv.setMilliAccuracy(true);
+        
+        
         _tbv.setPixelPerSecond(0.05);
         _tbv.setDrawRowGrid(true);
 

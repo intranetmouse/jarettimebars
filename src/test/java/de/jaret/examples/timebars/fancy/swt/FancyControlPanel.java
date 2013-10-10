@@ -55,7 +55,7 @@ import de.jaret.util.ui.timebars.swt.renderer.DefaultTimeScaleRenderer;
  * Control panel for the fancy example.
  * 
  * @author Peter Kliem
- * @version $Id: FancyControlPanel.java 1083 2011-07-01 20:29:16Z kliem $
+ * @version $Id: FancyControlPanel.java 1109 2013-09-15 21:40:28Z kliem $
  */
 public class FancyControlPanel extends Composite {
 
@@ -84,13 +84,13 @@ public class FancyControlPanel extends Composite {
             pixPerSecondsScale.setMaximum(700);
             pixPerSecondsScale.setMinimum(1);
             if (_tbv.getPixelPerSecond() * (24.0 * 60.0 * 60.0) > 700) {
-                pixPerSecondsScale.setMaximum((int) (_tbv.getPixelPerSecond() * (24.0 * 60.0 * 60.0)));
+                pixPerSecondsScale.setMaximum((int) (1000000*_tbv.getPixelPerSecond() * (24.0 * 60.0 * 60.0)));
             }
             pixPerSecondsScale.addSelectionListener(new SelectionListener() {
                 public void widgetSelected(SelectionEvent ev) {
                     int val = pixPerSecondsScale.getSelection();
                     double pps = ((double) val) / (24.0 * 60.0 * 60.0);
-                    System.out.println("scale " + val + "pps " + pps);
+                    System.out.println("Xscale " + val + "pps " + pps);
                     _tbv.setPixelPerSecond(pps);
                 }
 
@@ -109,7 +109,7 @@ public class FancyControlPanel extends Composite {
                 public void widgetSelected(SelectionEvent ev) {
                     int val = pixPerSecondsScale.getSelection();
                     double pps = (double) val ;
-                    System.out.println("scale " + val + "pps " + pps);
+                    System.out.println("Yscale " + val + "pps " + pps);
                     _tbv.setPixelPerSecond(pps);
                 }
 

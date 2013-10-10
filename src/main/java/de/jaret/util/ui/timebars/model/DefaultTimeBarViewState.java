@@ -30,7 +30,7 @@ import de.jaret.util.ui.timebars.TimeBarViewerDelegate;
  * The default implementation of a ITimeBarViewState.
  * 
  * @author kliem
- * @version $Id: DefaultTimeBarViewState.java 800 2008-12-27 22:27:33Z kliem $
+ * @version $Id: DefaultTimeBarViewState.java 1109 2013-09-15 21:40:28Z kliem $
  */
 public class DefaultTimeBarViewState implements ITimeBarViewState {
     /** vies state listeners. */
@@ -48,7 +48,7 @@ public class DefaultTimeBarViewState implements ITimeBarViewState {
     /** the default height for rows. */
     protected int _defaultHeight;
 
-    /** strategy for calculatng row heights. */
+    /** strategy for calculating row heights. */
     protected IRowHeightStrategy _rowHeightStrategy;
 
     /** delegate this viewstate is assigned to. */
