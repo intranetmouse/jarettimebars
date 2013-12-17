@@ -118,12 +118,34 @@ public class TimeBarViewerSynchronizer implements PropertyChangeListener {
             setStartDate(emitting, emitting.getStartDate());
         } else if (evt.getPropertyName().equals(TimeBarViewerInterface.PROPERTYNAME_MINDATE)) {
             setMinDate(emitting, emitting.getMinDate());
-        } else if (evt.getPropertyName().equals(TimeBarViewerInterface.PROPERTYNAME_MAXDATE)) {
+        } else if (evt.getPropertyName().equals(TimeBarViewerInterface.PROPERTYNAME_MAXDATE) && _syncYAxisWidth) {
             setMaxDate(emitting, emitting.getMaxDate());
+        } else if (evt.getPropertyName().equals(TimeBarViewerInterface.PROPERTYNAME_HIERARCHY_WIDTH)) {
+            setHierarchyWidth(emitting, emitting.getHierarchyWidth());
         } else if (evt.getPropertyName().equals(TimeBarViewerInterface.PROPERTYNAME_YAXISWIDTH) && _syncYAxisWidth) {
             setYAxisWidth(emitting, emitting.getYAxisWidth());
         }
     }
+
+    /**
+     * Set the hierarchy width value for all viewers but the emitting viewer.
+     *
+     * @param emitting emitting viewer
+     * @param hierarchyWidth value
+     */
+    private void setHierarchyWidth(TimeBarViewerInterface emitting,
+        int hierarchyWidth)
+    {
+        for (TimeBarViewerInterface viewer : _viewers) {
+            if (!emitting.equals(viewer)) { // do not set on the emitting viewer
+                viewer.removePropertyChangeListener(this);
+                viewer.setHierarchyWidth(hierarchyWidth);
+                viewer.addPropertyChangeListener(this);
+            }
+        }
+    }
+
+
 
     /**
      * Set the pix per second value for all viewers but the emitting viewer.

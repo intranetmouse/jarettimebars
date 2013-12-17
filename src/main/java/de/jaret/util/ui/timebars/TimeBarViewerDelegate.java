@@ -1463,6 +1463,8 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             return row;
         } else {
             int y = 0;
+            if (_rowList.size() == 0)
+                return -1;
             TimeBarRow row = getRow(0);
             int height = _timeBarViewState.getRowHeight(row);
             for (int i = 0; i < _rowList.size(); i++) {
@@ -1544,8 +1546,11 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     public void handleVerticalScroll(int value, boolean redirect) {
         if (!redirect || _orientation == Orientation.HORIZONTAL) {
             int row = getRowIdxForAbsoluteOffset(value);
-            int offset = getRowPixOffsetForAbsoluteOffset(row, value);
-            setFirstRow(row, offset);
+            if (row >= 0)
+            {
+                int offset = getRowPixOffsetForAbsoluteOffset(row, value);
+                setFirstRow(row, offset);
+            }
         } else if (_orientation == Orientation.VERTICAL) {
             handleHorizontalScroll(value, false);
         } else {
@@ -2798,12 +2803,14 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     }
 
     /**
-     * Set the width fo rrendering the hierarchy area.
+     * Set the width for rendering the hierarchy area.
      * 
      * @param width width to use
      */
     public void setHierarchyWidth(int width) {
+        int oldValue = _hierarchyWidth;
         _hierarchyWidth = width;
+        _tbvi.firePropertyChange(TimeBarViewerInterface.PROPERTYNAME_HIERARCHY_WIDTH, oldValue, width);
         if (_tbvi != null) {
             _tbvi.repaint();
         }
@@ -3047,9 +3054,13 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         }
         for (Interval interval : intervals) {
             Rectangle intervalRect = getIntervalBounds(row, interval);
-            boolean overlapping = getTimeBarViewState().getDrawOverlapping(row) ? false : _overlapStrategy
-                    .getOverlapInfo(row, interval).overlappingCount > 0
+            boolean overlapping = false;
+            if (!getTimeBarViewState().getDrawOverlapping(row))
+            {
+                OverlapInfo overlapInfo = _overlapStrategy.getOverlapInfo(row, interval);
+                overlapping = overlapInfo.overlappingCount > 0
                     || _useUniformHeight;
+            }
             if (_tbvi.timeBarContains(interval, intervalRect, x - intervalRect.x, y - intervalRect.y, overlapping)) {
                 result = interval;
                 // the first interval will get through

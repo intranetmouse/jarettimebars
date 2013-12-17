@@ -114,6 +114,8 @@ public interface TimeBarViewerInterface {
     String PROPERTYNAME_PIXELPERSECOND = "PixelPerSecond";
     /** property name constant of the bound property. */
     String PROPERTYNAME_ROWHEIGHTDRAGGINGALLOWED = "RowHeightDraggingAllowed";
+    /** property name constant of the bound property. */
+    String PROPERTYNAME_HIERARCHY_WIDTH = "HierarchyWidth";
 
     /**
      * Retrieve the delegate ATTENTION: the delegate is for mostly internal usage only. The interface and behavior may
