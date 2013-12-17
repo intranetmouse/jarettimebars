@@ -149,7 +149,7 @@ public class DefaultOverlapStrategy implements IOverlapStrategy {
             // overlap information.
 
             // java 5
-            SortedMap<Long, Integer> first = mapEndTime.subMap(0L, interval.getBegin().getDate().getTime());
+            SortedMap<Long, Integer> first = mapEndTime.subMap(Long.MIN_VALUE, interval.getBegin().getDate().getTime());
             int startIdx = (first.size() == 0 ? 0 : first.get(first.lastKey()));
             // Java 6 (mapEndTime should be a navigable map than)
             // Map.Entry<Long, Integer> first = mapEndTime.floorEntry(interval.getBegin().getDate().getTime() - 1);
@@ -240,7 +240,7 @@ public class DefaultOverlapStrategy implements IOverlapStrategy {
         // there might be scenarios that would require another order.
         Collections.sort(oList, new Comparator<OverlapInfo>() {
             public int compare(OverlapInfo arg0, OverlapInfo arg1) {
-                return -arg1.overlappingCount - arg0.overlappingCount;
+                return arg1.overlappingCount - arg0.overlappingCount;
             }
         });
 
