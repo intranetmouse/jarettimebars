@@ -4010,10 +4010,10 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         boolean horizontal = _orientation == Orientation.HORIZONTAL;
         boolean nothingHitInDiagramArea = true;
         if (_lineDraggingAllowed && (hierarchyLineHit(x, y) || headerLineHit(x, y))) {
-            _tbvi.setCursor(Cursor.HAND_CURSOR);
+            _tbvi.setCursor(_tbvi.getTBOrientation() == Orientation.VERTICAL ? Cursor.S_RESIZE_CURSOR : Cursor.E_RESIZE_CURSOR);
             nothingHitInDiagramArea = false;
         } else if (_rowHeightDraggingAllowed && rowLineHit(x, y)) {
-            _tbvi.setCursor(Cursor.HAND_CURSOR);
+            _tbvi.setCursor(_tbvi.getTBOrientation() == Orientation.VERTICAL ? Cursor.E_RESIZE_CURSOR : Cursor.S_RESIZE_CURSOR);
             nothingHitInDiagramArea = false;
         } else if (_diagramRect != null && _diagramRect.contains(x, y)) {
             // in the diagram area check for interval bounds and change cursor
