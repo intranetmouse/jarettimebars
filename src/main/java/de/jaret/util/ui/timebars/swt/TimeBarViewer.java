@@ -2907,7 +2907,7 @@ public class TimeBarViewer extends Canvas implements TimeBarViewerInterface, ISe
     /**
      * {@inheritDoc}
      */
-    public int getSecondsDisplayed() {
+    public long getSecondsDisplayed() {
         return _delegate.getSecondsDisplayed();
     }
 

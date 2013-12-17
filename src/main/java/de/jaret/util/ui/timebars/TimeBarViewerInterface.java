@@ -1083,7 +1083,7 @@ public interface TimeBarViewerInterface {
      * 
      * @return the number of seconds currently displayed by the diagram geometry
      */
-    int getSecondsDisplayed();
+    long getSecondsDisplayed();
 
     /**
      * Retrieve the used strategy for determing overlap information.

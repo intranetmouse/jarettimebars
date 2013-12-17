@@ -2956,7 +2956,7 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
     /**
      * {@inheritDoc}
      */
-    public int getSecondsDisplayed() {
+    public long getSecondsDisplayed() {
         return _delegate.getSecondsDisplayed();
     }
 

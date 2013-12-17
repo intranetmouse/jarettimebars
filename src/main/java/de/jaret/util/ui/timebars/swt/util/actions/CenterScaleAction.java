@@ -53,7 +53,7 @@ public class CenterScaleAction extends Action {
      */
     public void run() {
         JaretDate date = _delegate.dateForXY(_delegate.getCtxCoordinate().x, _delegate.getCtxCoordinate().y);
-        int seconds = _delegate.getSecondsDisplayed();
+        long seconds = _delegate.getSecondsDisplayed();
         date.backSeconds(seconds / 2.0);
         _viewer.setStartDate(date);
     }

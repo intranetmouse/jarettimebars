@@ -644,22 +644,22 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      * 
      * @return the number of seconds currently displayed by the diagram geometry
      */
-    public int getSecondsDisplayed() {
+    public long getSecondsDisplayed() {
         if (_orientation == Orientation.HORIZONTAL) {
             if (!_variableXScale) {
-                return (int) ((double) (_diagramRect.width) / _pixelPerSeconds);
+                return (long) ((double) (_diagramRect.width) / _pixelPerSeconds);
             } else {
                 int endx = _diagramRect.width;
                 JaretDate endDate = dateForCoord(endx);
-                return endDate.diffSeconds(_startDate);
+                return endDate.diffSecondsL(_startDate);
             }
         } else {
             if (!_variableXScale) {
-                return (int) ((double) (_diagramRect.height) / _pixelPerSeconds);
+                return (long) ((double) (_diagramRect.height) / _pixelPerSeconds);
             } else {
                 int endy = _diagramRect.height;
                 JaretDate endDate = dateForCoord(endy);
-                return endDate.diffSeconds(_startDate);
+                return endDate.diffSecondsL(_startDate);
             }
         }
     }
@@ -1018,9 +1018,9 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                 if (!center) {
                     setPixelPerSecond(pps);
                 } else {
-                    int oldSeconds = getSecondsDisplayed();
+                    long oldSeconds = getSecondsDisplayed();
                     setPixelPerSecond(pps, false);
-                    int newSeconds = getSecondsDisplayed();
+                    long newSeconds = getSecondsDisplayed();
                     setStartDate(getStartDate().copy().advanceSeconds((oldSeconds - newSeconds) / 2.0)); // will repaint
                 }
             } else {
@@ -1033,9 +1033,9 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
                 if (!center) {
                     setPixelPerSecond(pps);
                 } else {
-                    int oldSeconds = getSecondsDisplayed();
+                    long oldSeconds = getSecondsDisplayed();
                     setPixelPerSecond(pps, false);
-                    int newSeconds = getSecondsDisplayed();
+                    long newSeconds = getSecondsDisplayed();
                     setStartDate(getStartDate().copy().advanceSeconds((oldSeconds - newSeconds) / 2.0)); // will repaint
                 }
             } else {
@@ -4745,7 +4745,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
             throw new IllegalArgumentException("ratios have to be in the range from 0.0 to 1.0");
         }
         // calculate date for ratio
-        int secondsDisplayed = getSecondsDisplayed();
+        long secondsDisplayed = getSecondsDisplayed();
         double secondsFromStart = (double) secondsDisplayed * horizontalRatio;
         JaretDate startDate = interval.getBegin().copy().backSeconds(secondsFromStart);
 

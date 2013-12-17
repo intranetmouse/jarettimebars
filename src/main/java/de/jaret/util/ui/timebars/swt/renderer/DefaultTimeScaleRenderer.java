@@ -32,9 +32,12 @@ import org.eclipse.swt.printing.Printer;
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.JaretDate;
 import de.jaret.util.date.holidayenumerator.HolidayEnumerator;
+import de.jaret.util.date.iterator.CenturyIterator;
 import de.jaret.util.date.iterator.DateIterator;
 import de.jaret.util.date.iterator.DayIterator;
+import de.jaret.util.date.iterator.DecadeIterator;
 import de.jaret.util.date.iterator.HourIterator;
+import de.jaret.util.date.iterator.MilleniumIterator;
 import de.jaret.util.date.iterator.MillisecondIterator;
 import de.jaret.util.date.iterator.MinuteIterator;
 import de.jaret.util.date.iterator.MonthIterator;
@@ -195,6 +198,18 @@ public class DefaultTimeScaleRenderer extends RendererBase implements TimeScaleR
         iterator = new YearIterator();
         _iterators.add(iterator);
         _formats.add(DateIterator.Format.LONG);
+
+        iterator = new DecadeIterator();
+        _iterators.add(iterator);
+        _formats.add(DateIterator.Format.SHORT);
+
+        iterator = new CenturyIterator();
+        _iterators.add(iterator);
+        _formats.add(DateIterator.Format.SHORT);
+
+        iterator = new MilleniumIterator();
+        _iterators.add(iterator);
+        _formats.add(DateIterator.Format.SHORT);
     }
 
     /**

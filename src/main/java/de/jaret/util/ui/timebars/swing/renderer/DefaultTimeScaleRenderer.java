@@ -33,9 +33,12 @@ import javax.swing.JComponent;
 import de.jaret.util.date.Interval;
 import de.jaret.util.date.JaretDate;
 import de.jaret.util.date.holidayenumerator.HolidayEnumerator;
+import de.jaret.util.date.iterator.CenturyIterator;
 import de.jaret.util.date.iterator.DateIterator;
 import de.jaret.util.date.iterator.DayIterator;
+import de.jaret.util.date.iterator.DecadeIterator;
 import de.jaret.util.date.iterator.HourIterator;
+import de.jaret.util.date.iterator.MilleniumIterator;
 import de.jaret.util.date.iterator.MillisecondIterator;
 import de.jaret.util.date.iterator.MinuteIterator;
 import de.jaret.util.date.iterator.MonthIterator;
@@ -163,6 +166,21 @@ public class DefaultTimeScaleRenderer implements TimeScaleRenderer, ITickProvide
         iterator = new YearIterator();
         _iterators.add(iterator);
         _formats.add(DateIterator.Format.LONG);
+        _upperMap.put(iterator, new DecadeIterator());
+
+        iterator = new DecadeIterator();
+        _iterators.add(iterator);
+        _formats.add(DateIterator.Format.LONG);
+        _upperMap.put(iterator, new CenturyIterator());
+
+        iterator = new CenturyIterator();
+        _iterators.add(iterator);
+        _formats.add(DateIterator.Format.LONG);
+        _upperMap.put(iterator, new MilleniumIterator());
+
+        iterator = new MilleniumIterator();
+        _iterators.add(iterator);
+        _formats.add(DateIterator.Format.LONG);
     }
 
     /**
@@ -270,21 +288,22 @@ public class DefaultTimeScaleRenderer implements TimeScaleRenderer, ITickProvide
             _majorTicks = new ArrayList<JaretDate>();
             _minorTicks = new ArrayList<JaretDate>();
 
+            long secondsDisplayed = _delegate.getSecondsDisplayed();
             if (!_delegate.hasVariableXScale()) {
                 // plain scale
                 // +1 second for millisecond scales since the getSecondsDisplayed method rounds to nearest lower second
                 // count
                 drawStrips(graphics, _delegate, _top, _delegate.getStartDate().copy(), _delegate.getStartDate().copy()
-                        .advanceSeconds(_delegate.getSecondsDisplayed() + 1));
+                        .advanceSeconds(secondsDisplayed + 1));
             } else {
                 // check strips for every part with different scale
                 JaretDate startDate = _delegate.getStartDate().copy();
-                JaretDate endDate = _delegate.getStartDate().copy().advanceSeconds(_delegate.getSecondsDisplayed());
+                JaretDate endDate = _delegate.getStartDate().copy().advanceSeconds(secondsDisplayed);
                 List<Interval> ppsIntervals = _delegate.getPpsRow().getIntervals(startDate, endDate);
                 // shortcut if no ppsintervals are in the area just draw straight
                 if (ppsIntervals.size() == 0) {
                     drawStrips(graphics, _delegate, _top, _delegate.getStartDate().copy(), _delegate.getStartDate()
-                            .copy().advanceSeconds(_delegate.getSecondsDisplayed() + 1)); // +1 -> see above
+                            .copy().advanceSeconds(secondsDisplayed + 1)); // +1 -> see above
                 } else {
                     JaretDate d = startDate.copy();
                     while (d.compareTo(endDate) < 0) {

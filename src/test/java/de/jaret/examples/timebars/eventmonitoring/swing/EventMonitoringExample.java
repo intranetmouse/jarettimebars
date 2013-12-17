@@ -408,14 +408,14 @@ public class EventMonitoringExample {
     }
 
     public void setEndDate(TimeBarViewer tbv, JaretDate endDate) {
-        int secondsDisplayed = tbv.getSecondsDisplayed();
+        long secondsDisplayed = tbv.getSecondsDisplayed();
         JaretDate startDate = endDate.copy().advanceSeconds(-secondsDisplayed);
         tbv.setStartDate(startDate);
     }
 
     
     boolean isInRange(JaretDate date, double min, double max) {
-        int secondsDisplayed = _tbv.getSecondsDisplayed();
+        long secondsDisplayed = _tbv.getSecondsDisplayed();
         JaretDate minDate = _tbv.getStartDate().copy().advanceSeconds(min*secondsDisplayed);
         JaretDate maxDate = _tbv.getStartDate().copy().advanceSeconds(max*secondsDisplayed);
         return minDate.compareTo(date)>0 && maxDate.compareTo(date)<0;
