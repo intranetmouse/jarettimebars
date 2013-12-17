@@ -820,6 +820,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
 
                 .getTimeScalePosition() == TimeBarViewerInterface.TIMESCALE_POSITION_TOP);
                 _timeScaleRendererComponent.setBounds(_delegate.getXAxisRect());
+                // Force layout, since setBounds will only request layout
+                _timeScaleRendererComponent.doLayout();
                 Graphics gg = g.create(_delegate.getXAxisRect().x, _delegate.getXAxisRect().y,
                         _delegate.getXAxisRect().width, _delegate.getXAxisRect().height);
                 _timeScaleRendererComponent.paint(gg);
@@ -836,6 +838,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             if (_gridRenderer != null) {
                 _gridRendererComponent = _gridRenderer.getRendererComponent(_timeBarViewer);
                 _gridRendererComponent.setBounds(_delegate.getDiagramRect());
+                // Force layout, since setBounds will only request layout
+                _gridRendererComponent.doLayout();
                 Graphics gg = g.create(_delegate.getDiagramRect().x, _delegate.getDiagramRect().y,
                         _delegate.getDiagramRect().width, _delegate.getDiagramRect().height);
                 _gridRendererComponent.paint(gg);
@@ -1325,6 +1329,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             height = drawingArea.height;
 
             component.setBounds(x, y, width, height);
+            // Force layout, since setBounds will only request layout
+            component.doLayout();
             Graphics gg = g.create(x, y, width, height);
             Rectangle ggClip = gg.getClipBounds();
             
@@ -1397,6 +1403,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
             height = drawingArea.height;
 
             component.setBounds(x, y, width, height);
+            // Force layout, since setBounds will only request layout
+            component.doLayout();
             Graphics gg = g.create(x, y, width, height);
             Rectangle ggClip = gg.getClipBounds();
             // calculate height for clipping
@@ -1448,6 +1456,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                 }
             }
             component.setBounds(x, y, width, height);
+            // Force layout, since setBounds will only request layout
+            component.doLayout();
             Graphics gg = g.create(x, y, width, height);
             // calculate height for clipping
             Rectangle diagramRect = _delegate.getDiagramRect();
@@ -1539,6 +1549,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                     int hCor = (height - prefHeight) / 2;
                     gg = g.create(x, y + hCor, width, prefHeight);
                     component.setBounds(x, y + hCor, width, prefHeight);
+                    // Force layout, since setBounds will only request layout
+                    component.doLayout();
                     int upperClipBound = 0;
                     if (y + hCor < diagramRect.y) {
                         upperClipBound = diagramRect.y - y - hCor;
@@ -1553,6 +1565,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                 } else {
                     gg = g.create(x, y, width, height);
                     component.setBounds(x, y, width, height);
+                    // Force layout, since setBounds will only request layout
+                    component.doLayout();
                     int upperClipBound = 0;
                     if (y < diagramRect.y) {
                         upperClipBound = diagramRect.y - y;
@@ -1594,6 +1608,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                     int wCor = (width - prefWidth) / 2;
                     gg = g.create(x + wCor, y, prefWidth, height);
                     component.setBounds(x + wCor, y, prefWidth, height);
+                    // Force layout, since setBounds will only request layout
+                    component.doLayout();
                     int upperClipBound = 0;
                     if (x + wCor < diagramRect.x) {
                         upperClipBound = diagramRect.x - x - wCor;
@@ -1608,6 +1624,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
                 } else {
                     gg = g.create(x, y, width, height);
                     component.setBounds(x, y, width, height);
+                    // Force layout, since setBounds will only request layout
+                    component.doLayout();
                     int upperClipBound = 0;
                     if (x < diagramRect.x) {
                         upperClipBound = diagramRect.x - x;
@@ -1662,6 +1680,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
 
                 gg = g.create(x, y, width, height);
                 component.setBounds(x, y, width, height);
+                // Force layout, since setBounds will only request layout
+                component.doLayout();
                 if (y + height > diagramRect.y + diagramRect.height) {
                     height = height - (y + height - (diagramRect.y + diagramRect.height));
                 }
@@ -1716,6 +1736,8 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
 
                 gg = g.create(x, y, width, height);
                 component.setBounds(x, y, width, height);
+                // Force layout, since setBounds will only request layout
+                component.doLayout();
 
                 if (x + width > diagramRect.x + diagramRect.width) {
                     width = width - (x + width - (diagramRect.x + diagramRect.width));
