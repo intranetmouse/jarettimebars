@@ -9,8 +9,7 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface,
  org.eclipse.swt,
- de.jaret.util,
- org.junit4
+ de.jaret.util
 Export-Package: de.jaret.util.ui.timebars,
  de.jaret.util.ui.timebars.mod,
  de.jaret.util.ui.timebars.model,
@@ -18,4 +17,4 @@ Export-Package: de.jaret.util.ui.timebars,
  de.jaret.util.ui.timebars.swt,
  de.jaret.util.ui.timebars.swt.renderer,
  de.jaret.util.ui.timebars.swt.util.actions
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
