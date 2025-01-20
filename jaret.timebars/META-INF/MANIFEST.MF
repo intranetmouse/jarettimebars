@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Timebars Plug-in
+Bundle-SymbolicName: de.jaret.util.ui.timebars
+Bundle-Version: 1.26
+Bundle-ClassPath: .
+Bundle-Vendor: jaret.de
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.jface,
+ org.eclipse.swt,
+ de.jaret.util
+Export-Package: de.jaret.util.ui.timebars,
+ de.jaret.util.ui.timebars.mod,
+ de.jaret.util.ui.timebars.model,
+ de.jaret.util.ui.timebars.strategy,
+ de.jaret.util.ui.timebars.swt,
+ de.jaret.util.ui.timebars.swt.renderer,
+ de.jaret.util.ui.timebars.swt.util.actions
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
