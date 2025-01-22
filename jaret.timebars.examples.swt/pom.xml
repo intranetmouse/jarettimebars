@@ -8,27 +8,32 @@
 		<version>1.50</version>
 	</parent>
 
-	<artifactId>jaret.timebars.swt</artifactId>
+	<artifactId>jaret.timebars.examples.swt</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Jaret timebars SWT</name>
+	<name>Jaret timebars examples SWT</name>
 	<url>http://www.jaret.de</url>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.intranet.mouse</groupId>
+			<artifactId>jaret.timebars.swt</artifactId>
+			<version>1.50</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.intranet.mouse</groupId>
+			<artifactId>jaret.timebars.examples</artifactId>
+			<version>1.50</version>
+			<scope>compile</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.intranet.mouse</groupId>
 			<artifactId>jaret.util</artifactId>
 			<version>0.33</version>
 			<scope>compile</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.intranet.mouse</groupId>
-			<artifactId>jaret.timebars</artifactId>
-			<version>1.50</version>
-			<scope>compile</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>org.intranet.mouse</groupId>
 			<artifactId>jaret.swt.util</artifactId>

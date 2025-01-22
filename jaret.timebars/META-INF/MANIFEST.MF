@@ -13,8 +13,5 @@ Require-Bundle: org.eclipse.core.runtime,
 Export-Package: de.jaret.util.ui.timebars,
  de.jaret.util.ui.timebars.mod,
  de.jaret.util.ui.timebars.model,
- de.jaret.util.ui.timebars.strategy,
- de.jaret.util.ui.timebars.swt,
- de.jaret.util.ui.timebars.swt.renderer,
- de.jaret.util.ui.timebars.swt.util.actions
+ de.jaret.util.ui.timebars.strategy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
