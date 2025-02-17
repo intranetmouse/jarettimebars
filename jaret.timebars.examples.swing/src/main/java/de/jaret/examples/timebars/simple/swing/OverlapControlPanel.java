@@ -19,15 +19,20 @@
  */
 package de.jaret.examples.timebars.simple.swing;
 
-import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -49,7 +54,7 @@ public class OverlapControlPanel extends JPanel {
 
     public OverlapControlPanel(TimeBarViewer viewer) {
         _viewer = viewer;
-        setLayout(new GridLayout(5,7));
+        setLayout(new GridBagLayout());
         createControls();
     }
 
@@ -57,8 +62,13 @@ public class OverlapControlPanel extends JPanel {
      * 
      */
     private void createControls() {
+        GridBagConstraints gbcLbl = new GridBagConstraints();
+        gbcLbl.gridx = 0; gbcLbl.gridy = 0; gbcLbl.anchor = GridBagConstraints.WEST;
+        GridBagConstraints gbcValue = new GridBagConstraints();
+        gbcValue.gridx = 1; gbcValue.gridy = 0; gbcValue.anchor = GridBagConstraints.WEST;
+
         JLabel label = new JLabel("pps");
-        add(label);
+        add(label, gbcLbl);
         final JSlider timeScaleSlider = new JSlider(500, 5500);
         timeScaleSlider.setValue((int) (_viewer.getPixelPerSecond() * 60.0 * 60.0 * 24));
         timeScaleSlider.addChangeListener(new ChangeListener() {
@@ -67,10 +77,11 @@ public class OverlapControlPanel extends JPanel {
                 _viewer.setPixelPerSecond(pixPerSecond);
             }
         });
-        add(timeScaleSlider);
+        add(timeScaleSlider, gbcValue);
 
+        gbcLbl.gridy++; gbcValue.gridy++;
         label = new JLabel("rowHeight");
-        add(label);
+        add(label, gbcLbl);
 
         final JSlider rowHeigthSlider = new JSlider(10, 300);
         rowHeigthSlider.setValue(_viewer.getRowHeight());
@@ -79,8 +90,20 @@ public class OverlapControlPanel extends JPanel {
                 _viewer.setRowHeight(rowHeigthSlider.getValue());
             }
         });
-        add(rowHeigthSlider);
+        add(rowHeigthSlider, gbcValue);
 
+        gbcLbl.gridy++; gbcValue.gridy++;
+        final JCheckBox boxVRHCheck = new JCheckBox("Variable row height + dragging");
+        boxVRHCheck.setSelected(_viewer.getTimeBarViewState().getUseVariableRowHeights());
+        boxVRHCheck.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                _viewer.getTimeBarViewState().setUseVariableRowHeights(boxVRHCheck.isSelected());
+                _viewer.setRowHeightDraggingAllowed(boxVRHCheck.isSelected());
+            }
+        });
+        add(boxVRHCheck, gbcValue);
+
+        gbcLbl.gridy++; gbcValue.gridy++;
         final JCheckBox gapCheck = new JCheckBox("GapRenderer");
         gapCheck.setSelected(_viewer.getGapRenderer() != null);
         gapCheck.addActionListener(new ActionListener() {
@@ -92,20 +115,22 @@ public class OverlapControlPanel extends JPanel {
                 }
             }
         });
-        add(gapCheck);
+        add(gapCheck, gbcValue);
 
-        final JCheckBox optScrollingCheck = new JCheckBox("Optimize scrolling");
-        optScrollingCheck.setSelected(_viewer.getOptimizeScrolling());
-        optScrollingCheck.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                _viewer.setOptimizeScrolling(optScrollingCheck.isSelected());
-            }
-        });
-        add(optScrollingCheck);
+        GridBagConstraints divC = new GridBagConstraints();
+        divC.gridx = gbcValue.gridx + 1;
+        divC.gridy = 0;
+        divC.fill = GridBagConstraints.BOTH;
+        divC.gridheight = 5;
+        JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+        add(separator, divC);
 
+        // Start new column after the divider
+        gbcLbl.gridx += 3; gbcValue.gridx += 3;
+        gbcLbl.gridy = 0; gbcValue.gridy = 0;
         label = new JLabel("time scale position");
-        add(label);
-        final JComboBox timeScalePosCombo = new JComboBox();
+        add(label, gbcLbl);
+        final JComboBox<String> timeScalePosCombo = new JComboBox<>();
         timeScalePosCombo.addItem("top");
         timeScalePosCombo.addItem("bottom");
         timeScalePosCombo.addItem("none");
@@ -122,11 +147,22 @@ public class OverlapControlPanel extends JPanel {
             }
 
         });
-        add(timeScalePosCombo);
+        add(timeScalePosCombo, gbcValue);
 
+        gbcLbl.gridy++; gbcValue.gridy++;
+        final JCheckBox boxTSRCheck = new JCheckBox("BoxTimeScaleRenderer");
+        boxTSRCheck.setSelected(_viewer.getTimeScaleRenderer() instanceof BoxTimeScaleRenderer);
+        boxTSRCheck.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                _viewer.setTimeScaleRenderer(boxTSRCheck.isSelected()? new BoxTimeScaleRenderer():new DefaultTimeScaleRenderer());
+            }
+        });
+        add(boxTSRCheck, gbcValue);
+
+        gbcLbl.gridy++; gbcValue.gridy++;
         label = new JLabel("orientation");
-        add(label);
-        final JComboBox orientationCombo = new JComboBox();
+        add(label, gbcLbl);
+        final JComboBox<String> orientationCombo = new JComboBox<>();
         orientationCombo.addItem("horizontal");
         orientationCombo.addItem("vertical");
         orientationCombo.addActionListener(new ActionListener() {
@@ -139,27 +175,17 @@ public class OverlapControlPanel extends JPanel {
                 }
             }
         });
-        add(orientationCombo);
+        add(orientationCombo, gbcValue);
 
-        final JCheckBox boxTSRCheck = new JCheckBox("BoxTimeScaleRenderer");
-        boxTSRCheck.setSelected(_viewer.getTimeScaleRenderer() instanceof BoxTimeScaleRenderer);
-        boxTSRCheck.addActionListener(new ActionListener() {
+        gbcLbl.gridy++; gbcValue.gridy++;
+        final JCheckBox optScrollingCheck = new JCheckBox("Optimize scrolling");
+        optScrollingCheck.setSelected(_viewer.getOptimizeScrolling());
+        optScrollingCheck.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                _viewer.setTimeScaleRenderer(boxTSRCheck.isSelected()? new BoxTimeScaleRenderer():new DefaultTimeScaleRenderer());
+                _viewer.setOptimizeScrolling(optScrollingCheck.isSelected());
             }
         });
-        add(boxTSRCheck);
-
-        final JCheckBox boxVRHCheck = new JCheckBox("Variable row height + dragging");
-        boxVRHCheck.setSelected(_viewer.getTimeBarViewState().getUseVariableRowHeights());
-        boxVRHCheck.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                _viewer.getTimeBarViewState().setUseVariableRowHeights(boxVRHCheck.isSelected());
-                _viewer.setRowHeightDraggingAllowed(boxVRHCheck.isSelected());
-            }
-        });
-        add(boxVRHCheck);
-
+        add(optScrollingCheck, gbcValue);
 
     }
 
