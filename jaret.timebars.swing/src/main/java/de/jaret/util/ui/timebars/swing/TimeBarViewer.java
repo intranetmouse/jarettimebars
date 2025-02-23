@@ -1826,6 +1826,11 @@ public class TimeBarViewer extends JPanel implements TimeBarViewerInterface, Cha
          */
         public void mouseWheelMoved(MouseWheelEvent e) {
             if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
+                if (e.isControlDown()) {
+                    double newZoomMultiplier = e.getPreciseWheelRotation() > 0 ? 1.1 : (1/1.1);
+                    _delegate.zoom(newZoomMultiplier, e.getX());
+                    return;
+                }
                 int val = e.getUnitsToScroll();
                 if (_timeBarViewer._allowMouseWheelXAxisScrolling && (!_timeBarViewer._allowMouseWheelYAxisScrolling || (_delegate.getXAxisRect() != null && e.getY() > _delegate.getXAxisRect().y
                         && e.getY() < _delegate.getXAxisRect().y + _delegate.getXAxisRect().height))) {
