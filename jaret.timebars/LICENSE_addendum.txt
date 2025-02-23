@@ -10,7 +10,7 @@ licensing terms of the jaret timebars component.
 As a special exception, the copyright holders of this library give you permission 
 to link this library with independent modules, if
 - all linked code is available in source code form free of charge
-- and if all linked code is licensend under one of the following licenses:
+- and if all linked code is licensed under one of the following licenses:
 Eclipse Public License 1.0 (EPL), Common Public License 1.0 (CPL), 
 GNU Library or "Lesser" General Public License (LGPL) 2.0/2.1,
 Apache License 2.0, Common Development and Distribution License (CDDL)

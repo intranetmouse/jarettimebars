@@ -6,19 +6,42 @@
 	<body>
 		<section name="status and plans">
 			<p>This page contains information about the current state of the distribution and future plans.</p>
-			<p>Jaret timebars are developed using java 1.5. The SWT version has a higher priority than
-			the swing version. In fact the last changes have not been done for the swing version as you can observe when reading the changelog.
-			
+			<p>Jaret timebars are developed using Java 1.8 beginning at version 1.50, and used Java 1.5 prior to that.
+			The SWT version has a higher priority than the Swing version, although since version 1.30, the Swing version is close to the SWT version.
 			</p>
+			<subsection name="Status 1.50">
+				<ul>
+					<li>
+						This version is a "friendly fork" by Chris Dailey.
+						I made bug fix contributions to previous releases.
+						Starting in late 2013, Peter Kliem no longer had time to devote to timebars, so the final batch of bug fixes I submitted were never applied. 
+						Therefore, the purpose of this fork is to add those bug fixes and make them available to the world.
+						The goal is to make as few breaking changes as possible, though in the first release of the fork, there were some breaking changes:
+					</li>
+					<li>
+						The groupId is being changed to org.intranet.mouse so it is not confused with the original de.jaret groupId.
+					</li>
+					<li>
+						BREAKING CHANGE: Support of larger time periods forced us to change seconds from int to long.
+					</li>
+					<li>
+						BREAKING CHANGE: The minimum supported version has changed from Java 1.5 to Java 1.8.
+					</li>
+					<li>
+						The SWT version is not currently buildable under Maven and Java 1.8, so it is not included.
+						The reason is that the support of SWT in Maven Central for Java 1.8 is poor.
+						I would like to add support in the future, though this may only be possible if the library is upgraded past Java 1.8.
+					</li>
+				</ul>
+			</subsection>
 			<subsection name="Status 1.0">
 				<ul>
-			<li>
-				Development and testing is done using win xp. Mac OSX and Linux (GTK) tested: working, see additional documentation for details.
-			</li>
-			<li>
-				 The viewer for Swing will <b>not</b> catch up with the swt version until after 1.0. 
-			</li>
-			
+					<li>
+						Development and testing is done using win xp. Mac OSX and Linux (GTK) tested: working, see additional documentation for details.
+					</li>
+					<li>
+						The viewer for Swing will <b>not</b> catch up with the swt version until after 1.0. 
+					</li>
 				</ul>
 			
 			</subsection>
@@ -27,15 +50,8 @@
 			<subsection name="future versions">
 				<ul>
 			<li>
-				possibly support for variable row heights  (since 1.12)
-			</li>
-			<li>
-				check Swing version gets near to the 1.0 SWT (is in fact quite near)
-			</li>
-			<li>
 				check the paperclips library for enhanced print support (checked, nice library, no time)
 			</li>
-
 				</ul>
 			</subsection>
 
