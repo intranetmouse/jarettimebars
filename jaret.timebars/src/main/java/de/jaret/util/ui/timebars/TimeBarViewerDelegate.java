@@ -29,9 +29,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Vector;
 
 import de.jaret.util.date.Interval;
@@ -1011,7 +1009,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      * @param seconds number of seconds that will be displayed on the x axis
      * @param center if set to <code>true</code> the center date will be fixed while scaling
      */
-    public void setSecondsDisplayed(int seconds, boolean center) {
+    public void setSecondsDisplayed(long seconds, boolean center) {
         if (_orientation.equals(Orientation.HORIZONTAL)) {
             if (_diagramRect != null && _diagramRect.width > 1) {
                 double pps = (double) _diagramRect.width / (double) seconds;
@@ -1053,7 +1051,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      * @param seconds number of seconds that will be displayed on the x axis
      * @param centerDate date that will be fixed while scaling
      */
-    public void setSecondsDisplayed(int seconds, JaretDate centerDate) {
+    public void setSecondsDisplayed(long seconds, JaretDate centerDate) {
         if (!isDisplayed(centerDate)) {
             setSecondsDisplayed(seconds, true);
         } else {
@@ -1126,7 +1124,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     }
 
     protected JaretDate _initialStartDate;
-    protected int _initialSecondsDisplayed;
+    protected long _initialSecondsDisplayed;
 
     /**
      * Set a date range and scaling that will be set as the initial display right after the viewer is displayed.
@@ -1134,7 +1132,7 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
      * @param startDate start date
      * @param secondsDisplayed seconds to be displayed in the viewer
      */
-    public void setInitialDisplayRange(JaretDate startDate, int secondsDisplayed) {
+    public void setInitialDisplayRange(JaretDate startDate, long secondsDisplayed) {
         _initialStartDate = startDate;
         _initialSecondsDisplayed = secondsDisplayed;
     }
@@ -2810,9 +2808,9 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
     public void setHierarchyWidth(int width) {
         int oldValue = _hierarchyWidth;
         _hierarchyWidth = width;
-        _tbvi.firePropertyChange(TimeBarViewerInterface.PROPERTYNAME_HIERARCHY_WIDTH, oldValue, width);
         if (_tbvi != null) {
             _tbvi.repaint();
+            _tbvi.firePropertyChange(TimeBarViewerInterface.PROPERTYNAME_HIERARCHY_WIDTH, oldValue, width);
         }
     }
 
@@ -6083,5 +6081,34 @@ public class TimeBarViewerDelegate implements TimeBarModelListener, TimeBarSelec
         updateScrollBars();
     }
 
+    /**
+     * Zoom in or out based on a multiplier.
+     * @param newZoomMultiplier multiplication factor; 1.0 results in no change, 0.0 makes so sense
+     * @param x Mouse X absolute position in viewer
+     */
+    public void zoom(double newZoomMultiplier, int x) {
+        if (newZoomMultiplier <= 0.0)
+            throw new IllegalArgumentException("newZoomMultiplier must be greater than 0.0.");
+        Rectangle diagRect = getDiagramRect();
+        int diagramWidth = diagRect.width;
+
+        // Find the position of the mouse so an attempt to zoom about that
+        // position can be made
+        int mouseX = x - diagRect.x;
+        JaretDate mouseTime = getStartDate().copy().advanceSeconds(mouseX / getPixelPerSecond());
+        double newSeconds = Math.min(getSecondsDisplayed() * newZoomMultiplier, getMaxDate().diffSecondsL(getMinDate()));
+        setSecondsDisplayed((long)newSeconds, mouseTime);
+
+        // Fix up if scrolled before the start date
+        if (getStartDate().diffSecondsL(getMinDate()) < 0) {
+            setStartDate(getMinDate());
+        }
+
+        // Fix up if scrolled after the end date
+        JaretDate newEndDate = getStartDate().copy().advanceSeconds(diagramWidth / getPixelPerSecond());
+        if (newEndDate.compareTo(getMaxDate()) > 0) {
+            setStartDate(getStartDate().copy().advanceSeconds(-newEndDate.diffSecondsL(getMaxDate())));
+        }
+    }
 
 }
